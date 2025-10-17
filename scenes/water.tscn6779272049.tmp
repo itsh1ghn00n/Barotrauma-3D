@@ -1,0 +1,250 @@
+[gd_scene load_steps=22 format=3 uid="uid://darmbns6e3i5y"]
+
+[ext_resource type="Script" uid="uid://dkv0us20elj6n" path="res://scripts/Interactables/interaction_manager.gd" id="1_p1n2c"]
+[ext_resource type="Script" uid="uid://dka26dmanv8gs" path="res://scripts/player_spawn.gd" id="2_ewrsg"]
+[ext_resource type="PackedScene" uid="uid://2qsjh5aaptj8" path="res://scenes/character.tscn" id="3_fiwy5"]
+[ext_resource type="Script" uid="uid://dmte3hguiou54" path="res://scripts/buoyancy.gd" id="4_ewrsg"]
+[ext_resource type="Script" uid="uid://dem0vtwq38ow" path="res://scripts/WaterArea.gd" id="4_fiwy5"]
+[ext_resource type="PackedScene" uid="uid://ca0wevg1lb4rx" path="res://utils/WaterMaker3D/WaterMaker3D.tscn" id="4_xgdjl"]
+[ext_resource type="Script" uid="uid://blf2ocdlxk5j3" path="res://scripts/compartment.gd" id="7_5exq1"]
+[ext_resource type="Script" uid="uid://bqglnkncrdkxf" path="res://scenes/submarine.gd" id="8_4pb3l"]
+[ext_resource type="Script" uid="uid://cmlvfpjk6jlit" path="res://scenes/Console.gd" id="9_htah3"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xgdjl"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_p5pve"]
+sky_material = SubResource("ProceduralSkyMaterial_xgdjl")
+
+[sub_resource type="Environment" id="Environment_5exq1"]
+background_mode = 2
+background_color = Color(0.093007915, 0.330487, 0.99999994, 1)
+sky = SubResource("Sky_p5pve")
+tonemap_mode = 2
+glow_enabled = true
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0
+volumetric_fog_emission = Color(0, 0.541548, 0.91998774, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_5exq1"]
+resource_local_to_scene = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4pb3l"]
+resource_local_to_scene = true
+noise = SubResource("FastNoiseLite_5exq1")
+seamless = true
+as_normal_map = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_htah3"]
+resource_local_to_scene = true
+noise = SubResource("FastNoiseLite_5exq1")
+seamless = true
+as_normal_map = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a35vf"]
+resource_local_to_scene = true
+transparency = 1
+cull_mode = 2
+depth_draw_mode = 1
+albedo_color = Color(0.07254311, 0.19938889, 0.3717134, 1)
+roughness = 0.0
+normal_enabled = true
+normal_texture = SubResource("NoiseTexture2D_4pb3l")
+refraction_enabled = true
+refraction_texture = SubResource("NoiseTexture2D_htah3")
+uv1_scale = Vector3(0.04, 0.04, 0.04)
+uv1_triplanar = true
+uv1_world_triplanar = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5exq1"]
+size = Vector3(73, 97, 74)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ewrsg"]
+size = Vector3(1, 0.2, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_fiwy5"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xgdjl"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_4pb3l"]
+
+[node name="Map" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_5exq1")
+
+[node name="InteractionManager" type="Node3D" parent="."]
+script = ExtResource("1_p1n2c")
+
+[node name="PlayerSpawn" type="MultiplayerSpawner" parent="." node_paths=PackedStringArray("spawn_points")]
+spawn_path = NodePath("../Players")
+script = ExtResource("2_ewrsg")
+player_scene = ExtResource("3_fiwy5")
+spawn_points = [NodePath("../spawn 1"), NodePath("../spawn 2"), NodePath("../spawn 3"), NodePath("../spawn 4")]
+
+[node name="spawn 1" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.1, 1)
+
+[node name="spawn 2" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.1, -1)
+
+[node name="spawn 3" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.1, -1)
+
+[node name="spawn 4" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.1, 1)
+
+[node name="Players" type="Node3D" parent="."]
+
+[node name="WaterMaker3D" parent="." instance=ExtResource("4_xgdjl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -97, 0)
+visible = false
+size = Vector3(70, 196, 70)
+material = SubResource("StandardMaterial3D_a35vf")
+water_color = Color(0.07254311, 0.19938889, 0.3717134, 1)
+fog_color = Color(2.1658838e-07, 0.19001633, 0.47236782, 1)
+deep_fog_color = Color(1.2032688e-08, 0.020748908, 0.09944335, 1)
+fog_fade_dist = 5.5
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -97, 0)
+visible = false
+reverb_bus_name = &"mic"
+script = ExtResource("4_fiwy5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 50, -0.5)
+shape = SubResource("BoxShape3D_5exq1")
+debug_color = Color(0.972549, 0, 0.4509804, 1)
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -47, -0.5)
+shape = SubResource("BoxShape3D_5exq1")
+debug_color = Color(0.972549, 0, 0.4509804, 1)
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+script = ExtResource("4_ewrsg")
+buoyancy_strength = 1.0
+water_drag = null
+water_angular_drag = null
+gravity = null
+water_height = 0.7
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+transform = Transform3D(3, 0, 0, 0, 1, 0, 0, 0, 3, 0, 2.9802322e-08, 0)
+shape = SubResource("BoxShape3D_ewrsg")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+transform = Transform3D(3, 0, 0, 0, 0.25, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("BoxMesh_fiwy5")
+
+[node name="ProbeContainer" type="Node3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+
+[node name="Marker3D" type="Marker3D" parent="RigidBody3D/ProbeContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3000001, 0.2, -1.1999999)
+
+[node name="Marker3D2" type="Marker3D" parent="RigidBody3D/ProbeContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 0.20000002, 1.1999999)
+
+[node name="Marker3D3" type="Marker3D" parent="RigidBody3D/ProbeContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1999999, 0.2, 1.3)
+
+[node name="Marker3D4" type="Marker3D" parent="RigidBody3D/ProbeContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1999999, 0.2, -1.2000002)
+
+[node name="Submarine" type="Node3D" parent="."]
+script = ExtResource("8_4pb3l")
+
+[node name="RigidBody" type="RigidBody3D" parent="Submarine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11, 0)
+script = ExtResource("4_ewrsg")
+buoyancy_strength = null
+water_drag = null
+water_angular_drag = null
+gravity = null
+water_height = null
+
+[node name="Compartment1" type="Area3D" parent="Submarine/RigidBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+script = ExtResource("7_5exq1")
+fill_percentage = 3.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Submarine/RigidBody/Compartment1"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("BoxShape3D_xgdjl")
+debug_color = Color(0, 0.08235294, 0.69803923, 1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Submarine/RigidBody/Compartment1"]
+mesh = SubResource("BoxMesh_4pb3l")
+
+[node name="Compartment2" type="Area3D" parent="Submarine/RigidBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+script = ExtResource("7_5exq1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Submarine/RigidBody/Compartment2"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("BoxShape3D_xgdjl")
+debug_color = Color(0, 0.08235294, 0.69803923, 1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Submarine/RigidBody/Compartment2"]
+mesh = SubResource("BoxMesh_4pb3l")
+
+[node name="Compartment3" type="Area3D" parent="Submarine/RigidBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 2)
+script = ExtResource("7_5exq1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Submarine/RigidBody/Compartment3"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("BoxShape3D_xgdjl")
+debug_color = Color(0, 0.08235294, 0.69803923, 1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Submarine/RigidBody/Compartment3"]
+mesh = SubResource("BoxMesh_4pb3l")
+
+[node name="Compartment4" type="Area3D" parent="Submarine/RigidBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 2)
+script = ExtResource("7_5exq1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Submarine/RigidBody/Compartment4"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("BoxShape3D_xgdjl")
+debug_color = Color(0, 0.08235294, 0.69803923, 1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Submarine/RigidBody/Compartment4"]
+mesh = SubResource("BoxMesh_4pb3l")
+
+[node name="Compartment5" type="Area3D" parent="Submarine/RigidBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 4)
+script = ExtResource("7_5exq1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Submarine/RigidBody/Compartment5"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("BoxShape3D_xgdjl")
+debug_color = Color(0, 0.08235294, 0.69803923, 1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Submarine/RigidBody/Compartment5"]
+mesh = SubResource("BoxMesh_4pb3l")
+
+[node name="Compartment6" type="Area3D" parent="Submarine/RigidBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 4)
+script = ExtResource("7_5exq1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Submarine/RigidBody/Compartment6"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("BoxShape3D_xgdjl")
+debug_color = Color(0, 0.08235294, 0.69803923, 1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Submarine/RigidBody/Compartment6"]
+mesh = SubResource("BoxMesh_4pb3l")
+
+[node name="LineEdit" type="LineEdit" parent="."]
+offset_right = 68.5625
+offset_bottom = 31.0
+script = ExtResource("9_htah3")

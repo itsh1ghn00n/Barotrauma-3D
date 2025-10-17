@@ -1,0 +1,156 @@
+[gd_scene load_steps=25 format=4 uid="uid://2qsjh5aaptj8"]
+
+[ext_resource type="PackedScene" uid="uid://cxq0cn21p5drn" path="res://models/character_template.glb" id="1_pjt0s"]
+[ext_resource type="Script" uid="uid://fh11uplq0d0e" path="res://scripts/Multiplayer/player.gd" id="1_wa5vi"]
+[ext_resource type="Script" uid="uid://cti1njryhg34d" path="res://scripts/Player/head.gd" id="2_wa5vi"]
+[ext_resource type="Script" uid="uid://nkan7yaigukf" path="res://scripts/Player/voice_chat.gd" id="4_0qfo5"]
+[ext_resource type="Script" uid="uid://dkb8ltjc6067n" path="res://addons/raytraced_audio/raytraced_audio_player_3d.gd" id="5_yxww1"]
+[ext_resource type="Script" uid="uid://bjpmu5sklv5h8" path="res://addons/raytraced_audio/raytraced_audio_listener.gd" id="6_wdpcj"]
+[ext_resource type="Script" uid="uid://u8f4uoi2i3gx" path="res://scripts/Player/step_sounds.gd" id="7_2hyy3"]
+[ext_resource type="AudioStream" uid="uid://fhjrh2jnmp5k" path="res://sounds/Metal/421134__giocosound__footstep_metal_1.wav" id="8_ih8y6"]
+[ext_resource type="AudioStream" uid="uid://46v1d0w7bpcs" path="res://sounds/Metal/421144__giocosound__footstep_metal_crouch_4.wav" id="9_rbud2"]
+[ext_resource type="AudioStream" uid="uid://bv8tp02ag65b0" path="res://sounds/Metal/421146__giocosound__footstep_metal_crouch_2.wav" id="10_vovfy"]
+[ext_resource type="AudioStream" uid="uid://dh0flgrj61nqt" path="res://sounds/Metal/421147__giocosound__footstep_metal_crouch_1.wav" id="11_u0pwc"]
+[ext_resource type="AudioStream" uid="uid://eiyxoocbur0q" path="res://sounds/Metal/421151__giocosound__footstep_metal_crouch_5.wav" id="12_cicko"]
+[ext_resource type="AudioStream" uid="uid://brqwwtgy756q8" path="res://sounds/Wood/421140__giocosound__footstep_wood_toe_3.wav" id="13_bj47h"]
+[ext_resource type="AudioStream" uid="uid://b6bv6ig1cx31t" path="res://sounds/Wood/421148__giocosound__footstep_wood_heel_3.wav" id="14_4lh0q"]
+[ext_resource type="AudioStream" uid="uid://dr34or6ot6gjy" path="res://sounds/Wood/421150__giocosound__footstep_wood_heel_1.wav" id="15_7qyni"]
+[ext_resource type="AudioStream" uid="uid://bhnghqwqcc4xi" path="res://sounds/Wood/421152__giocosound__footstep_wood_toe_2.wav" id="16_sougf"]
+[ext_resource type="AudioStream" uid="uid://c3wps1lo2v6mf" path="res://sounds/Wood/421153__giocosound__footstep_wood_toe_1.wav" id="17_p478o"]
+[ext_resource type="Script" uid="uid://dmnr8wo3gi4ap" path="res://scripts/Interactables/interactor.gd" id="19_vovfy"]
+[ext_resource type="Script" uid="uid://bppulqd5q240c" path="res://scripts/Interactables/inventory.gd" id="20_cicko"]
+[ext_resource type="Script" uid="uid://dusapqlnqe8ou" path="res://scripts/Player/hotbar.gd" id="20_u0pwc"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wfnr8"]
+radius = 0.259273
+height = 0.975361
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_wa5vi"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath(".:velocity")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+
+[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_yxww1"]
+mix_rate = 48000.0
+
+[sub_resource type="AudioStreamWAV" id="AudioStreamWAV_2y1m1"]
+data = PackedByteArray("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")
+format = 3
+mix_rate = 48000
+
+[node name="Character" type="CharacterBody3D"]
+script = ExtResource("1_wa5vi")
+
+[node name="character_template" parent="." instance=ExtResource("1_pjt0s")]
+transform = Transform3D(-0.332393, 0, -2.90588e-08, 0, 0.332393, 0, 2.90588e-08, 0, -0.332393, 0, 0, 0)
+
+[node name="Skeleton3D" parent="character_template/mp3d" index="0"]
+bones/0/rotation = Quaternion(-0.15547973, 0.01619997, -0.0013942225, 0.98770523)
+bones/1/rotation = Quaternion(0.014848454, -1.7464233e-10, 1.4553521e-10, 0.99988985)
+bones/2/position = Vector3(5.6910026e-22, 1.7693238, 1.4210855e-14)
+bones/2/rotation = Quaternion(-0.45292282, -0.54377663, -0.45397455, 0.54136413)
+bones/2/scale = Vector3(1, 0.9999999, 1)
+bones/3/rotation = Quaternion(0.22287795, 0.02152043, -0.04832597, 0.97340995)
+bones/4/rotation = Quaternion(0.02010891, -9.16644e-06, 0.00045617713, 0.99979776)
+bones/5/position = Vector3(-5.6910026e-22, 1.7693238, 1.4210855e-14)
+bones/5/rotation = Quaternion(-0.45292282, 0.54377663, 0.45397455, 0.54136413)
+bones/5/scale = Vector3(1, 0.9999999, 1)
+bones/6/rotation = Quaternion(0.22287795, -0.021520428, 0.04832597, 0.97340995)
+bones/7/rotation = Quaternion(0.02010891, 9.165927e-06, -0.0004561716, 0.99979776)
+bones/8/position = Vector3(4.5741018e-08, 1.7693237, -1.0658141e-14)
+bones/8/rotation = Quaternion(0.69344354, 0.13833249, 0.6934438, -0.13833265)
+bones/8/scale = Vector3(1.0000001, 1, 1)
+bones/9/rotation = Quaternion(-0.09325708, -0.23495004, -0.55466896, 0.7927447)
+bones/10/rotation = Quaternion(-0.00027433597, 8.3301885e-08, -4.285596e-09, 1)
+bones/11/rotation = Quaternion(0.011941431, -0.00010872912, 0.018271377, 0.99976176)
+bones/13/position = Vector3(-4.5741018e-08, 1.7693237, -1.0658141e-14)
+bones/13/rotation = Quaternion(-0.69344354, 0.13833249, 0.6934438, 0.13833265)
+bones/13/scale = Vector3(1.0000001, 1, 1)
+bones/14/rotation = Quaternion(-0.09325708, 0.23495004, 0.55466896, 0.7927447)
+bones/15/rotation = Quaternion(-0.00027433457, -7.678122e-08, 9.40608e-09, 1)
+bones/16/rotation = Quaternion(0.011941426, 0.00010872894, -0.018271359, 0.99976176)
+bones/17/rotation = Quaternion(0.021481305, 0.027385218, 0.6577118, 0.7524652)
+
+[node name="AnimationPlayer" parent="character_template" index="1"]
+autoplay = "idle"
+playback_default_blend_time = 0.2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.495346, 0)
+shape = SubResource("CapsuleShape3D_wfnr8")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.831001, 0)
+script = ExtResource("2_wa5vi")
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, -0.0221288, 0)
+fov = 77.8941
+
+[node name="Interactor" type="RayCast3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, -0.009346664, 0)
+target_position = Vector3(0, 2, 0)
+collision_mask = 4
+debug_shape_custom_color = Color(1, 0, 0, 1)
+script = ExtResource("19_vovfy")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_wa5vi")
+
+[node name="VoiceChat" type="Node3D" parent="." node_paths=PackedStringArray("voice_player", "mic")]
+script = ExtResource("4_0qfo5")
+voice_player = NodePath("RaytracedAudioPlayer3D")
+mic = NodePath("microphone")
+
+[node name="microphone" type="AudioStreamPlayer" parent="VoiceChat"]
+bus = &"mic"
+
+[node name="RaytracedAudioPlayer3D" type="AudioStreamPlayer3D" parent="VoiceChat"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.675575, -0.468123)
+stream = SubResource("AudioStreamGenerator_yxww1")
+script = ExtResource("5_yxww1")
+metadata/_custom_type_script = "uid://dkb8ltjc6067n"
+
+[node name="RaytracedAudioListener" type="AudioListener3D" parent="VoiceChat"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.659067, -0.426239)
+script = ExtResource("6_wdpcj")
+metadata/_custom_type_script = "uid://bjpmu5sklv5h8"
+
+[node name="StepSounds" type="Node3D" parent="." node_paths=PackedStringArray("player", "raycast", "audio_player")]
+script = ExtResource("7_2hyy3")
+player = NodePath("..")
+raycast = NodePath("RayCast3D")
+audio_player = NodePath("AudioStreamPlayer3D")
+metal_sounds = Array[AudioStream]([ExtResource("8_ih8y6"), ExtResource("9_rbud2"), ExtResource("10_vovfy"), ExtResource("11_u0pwc"), ExtResource("12_cicko")])
+default_sounds = Array[AudioStream]([ExtResource("13_bj47h"), ExtResource("14_4lh0q"), ExtResource("15_7qyni"), ExtResource("16_sougf"), ExtResource("17_p478o")])
+step_distance = 1.0
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="StepSounds"]
+stream = SubResource("AudioStreamWAV_2y1m1")
+volume_db = 0.5
+unit_size = 5.0
+max_db = 1.0
+max_distance = 30.0
+bus = &"SFX"
+
+[node name="RayCast3D" type="RayCast3D" parent="StepSounds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12470555, 0)
+collide_with_areas = true
+debug_shape_custom_color = Color(1, 1, 1, 1)
+
+[node name="Hotbar" type="Node3D" parent="."]
+script = ExtResource("20_u0pwc")
+
+[node name="HandSocket" type="Node3D" parent="Hotbar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55903846, -0.5535599)
+
+[node name="Inventory" type="Node3D" parent="Hotbar"]
+script = ExtResource("20_cicko")
+
+[editable path="character_template"]

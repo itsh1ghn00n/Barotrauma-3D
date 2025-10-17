@@ -1,0 +1,57 @@
+[gd_scene load_steps=10 format=3 uid="uid://d4lk7am3spwim"]
+
+[ext_resource type="PackedScene" uid="uid://badvnu882a1m2" path="res://models/SubWallNoWin.gltf" id="1_kns72"]
+[ext_resource type="Script" uid="uid://blf2ocdlxk5j3" path="res://scripts/Buoyancy/compartment.gd" id="2_jwg72"]
+[ext_resource type="Script" uid="uid://ojnpwjhx1ix0" path="res://scripts/Buoyancy/AirArea.gd" id="2_tpl7p"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pisum"]
+size = Vector3(2.0114746, 0.27148438, 1.4780769)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fg2gk"]
+size = Vector3(1.9924316, 0.19143677, 0.82714844)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rg4ke"]
+size = Vector3(1.942276, 0.20892334, 0.6756592)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tpl7p"]
+size = Vector3(2.0532227, 0.18798828, 2.451355)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qghts"]
+size = Vector3(2.020752, 0.1694336, 0.73535156)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jwg72"]
+size = Vector3(2.5705948, 2.2814941, 2.5078735)
+
+[node name="default" groups=["Compartments"] instance=ExtResource("1_kns72")]
+script = ExtResource("2_jwg72")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="0"]
+metadata/surface_type = "metal"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.009399414, -1.1504296, 0.0037708282)
+shape = SubResource("BoxShape3D_pisum")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, 0.8905228, 0.45493892, 0, -0.45493892, 0.8905228, 0.0043945313, -0.96614045, 1.0203347)
+shape = SubResource("BoxShape3D_fg2gk")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="StaticBody3D" index="2"]
+transform = Transform3D(1, 0, 0, 0, 0.8964864, -0.4430712, 0, 0.4430712, 0.8964864, -0.008384705, -0.99465925, -1.0064557)
+shape = SubResource("BoxShape3D_rg4ke")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="StaticBody3D" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.025512695, 1.381313, -0.36186028)
+shape = SubResource("BoxShape3D_tpl7p")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="StaticBody3D" index="4"]
+transform = Transform3D(1, 0, 0, 0, 0.67388976, -0.7388319, 0, 0.7388319, 0.67388976, -0.016601563, 1.0679433, 1.0777134)
+shape = SubResource("BoxShape3D_qghts")
+
+[node name="Area3D" type="Area3D" parent="." index="2"]
+collision_layer = 2
+script = ExtResource("2_tpl7p")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00989151, 0.12658691, 0.03427124)
+shape = SubResource("BoxShape3D_jwg72")

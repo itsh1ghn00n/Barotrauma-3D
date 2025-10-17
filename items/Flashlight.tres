@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://cmnna0jhcbcr4"]
+
+[ext_resource type="Script" uid="uid://bjtkprburcbnd" path="res://scripts/Interactables/ItemData.gd" id="1_bc8yr"]
+
+[sub_resource type="PackedScene" id="PackedScene_bc8yr"]
+
+[resource]
+script = ExtResource("1_bc8yr")
+name = "Flashlight"
+scene_resource = SubResource("PackedScene_bc8yr")
+metadata/_custom_type_script = "uid://bjtkprburcbnd"

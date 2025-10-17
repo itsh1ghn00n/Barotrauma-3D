@@ -1,0 +1,119 @@
+[gd_scene load_steps=7 format=3 uid="uid://cq154mcxmfga3"]
+
+[ext_resource type="Script" uid="uid://bqglnkncrdkxf" path="res://scripts/Buoyancy/submarine.gd" id="1_cjhfg"]
+[ext_resource type="Script" uid="uid://dmte3hguiou54" path="res://scripts/Buoyancy/buoyancy.gd" id="2_m734x"]
+[ext_resource type="Script" uid="uid://blf2ocdlxk5j3" path="res://scripts/Buoyancy/compartment.gd" id="3_ubaeb"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4pb3l"]
+size = Vector3(5, 3, 7)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xgdjl"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_4pb3l"]
+
+[node name="Submarine" type="Node3D"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+visible = false
+script = ExtResource("1_cjhfg")
+
+[node name="RigidBody" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("2_m734x")
+buoyancy_strength = 1.0
+water_height = 0.7
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+shape = SubResource("BoxShape3D_4pb3l")
+
+[node name="Compartments" type="Node3D" parent="RigidBody"]
+
+[node name="Compartment1" type="Area3D" parent="RigidBody/Compartments" groups=["Compartments"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_ubaeb")
+fill_percentage = 0.7
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody/Compartments/Compartment1"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("BoxShape3D_xgdjl")
+debug_color = Color(0, 0.08235294, 0.69803923, 1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody/Compartments/Compartment1"]
+mesh = SubResource("BoxMesh_4pb3l")
+
+[node name="Compartment2" type="Area3D" parent="RigidBody/Compartments" groups=["Compartments"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_ubaeb")
+fill_percentage = 0.7
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody/Compartments/Compartment2"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("BoxShape3D_xgdjl")
+debug_color = Color(0, 0.08235294, 0.69803923, 1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody/Compartments/Compartment2"]
+mesh = SubResource("BoxMesh_4pb3l")
+
+[node name="Compartment3" type="Area3D" parent="RigidBody/Compartments" groups=["Compartments"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 2)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_ubaeb")
+fill_percentage = 0.7
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody/Compartments/Compartment3"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("BoxShape3D_xgdjl")
+debug_color = Color(0, 0.08235294, 0.69803923, 1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody/Compartments/Compartment3"]
+mesh = SubResource("BoxMesh_4pb3l")
+
+[node name="Compartment4" type="Area3D" parent="RigidBody/Compartments" groups=["Compartments"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 2)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_ubaeb")
+fill_percentage = 0.7
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody/Compartments/Compartment4"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("BoxShape3D_xgdjl")
+debug_color = Color(0, 0.08235294, 0.69803923, 1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody/Compartments/Compartment4"]
+mesh = SubResource("BoxMesh_4pb3l")
+
+[node name="Compartment5" type="Area3D" parent="RigidBody/Compartments" groups=["Compartments"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 4)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_ubaeb")
+fill_percentage = 0.7
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody/Compartments/Compartment5"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("BoxShape3D_xgdjl")
+debug_color = Color(0, 0.08235294, 0.69803923, 1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody/Compartments/Compartment5"]
+mesh = SubResource("BoxMesh_4pb3l")
+
+[node name="Compartment6" type="Area3D" parent="RigidBody/Compartments" groups=["Compartments"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 4)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_ubaeb")
+fill_percentage = 0.7
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody/Compartments/Compartment6"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("BoxShape3D_xgdjl")
+debug_color = Color(0, 0.08235294, 0.69803923, 1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody/Compartments/Compartment6"]
+mesh = SubResource("BoxMesh_4pb3l")

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://fw2vf3yk8sym"]
+
+[ext_resource type="PackedScene" uid="uid://byv7bhlu3uchf" path="res://models/imported/Metal_Floor.gltf" id="1_mxn63"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8p2mo"]
+size = Vector3(4.229004, 0.52246094, 9.065094)
+
+[node name="Metal_Floor" type="StaticBody3D"]
+
+[node name="default" parent="." instance=ExtResource("1_mxn63")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.031982422, -0.23876953, -0.022476196)
+shape = SubResource("BoxShape3D_8p2mo")
