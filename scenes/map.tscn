@@ -156,7 +156,7 @@ data = PackedVector3Array(50, 0, 50, -50, 0, 50, 50, 0, -50, -50, 0, 50, -50, 0,
 [sub_resource type="SphereShape3D" id="SphereShape3D_gldc4"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_c00ee"]
-viewport_path = NodePath("Terminal/SubViewport")
+viewport_path = NodePath("Terminal/TerminalViewport")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_c00ee"]
 size = Vector3(1, 2, 3)
@@ -482,11 +482,11 @@ transform = Transform3D(-0.5, 0, -4.371139e-08, 0, 0.5, 0, 4.371139e-08, 0, -0.5
 collision_layer = 4
 script = ExtResource("15_p7tei")
 
-[node name="SubViewport" type="SubViewport" parent="Terminal"]
-size = Vector2i(1080, 650)
+[node name="TerminalViewport" type="SubViewport" parent="Terminal"]
+physics_object_picking = true
+size = Vector2i(1150, 650)
 
-[node name="Terminal" parent="Terminal/SubViewport" instance=ExtResource("15_c00ee")]
-script = null
+[node name="Terminal" parent="Terminal/TerminalViewport" instance=ExtResource("15_c00ee")]
 
 [node name="Sprite3D" type="Sprite3D" parent="Terminal"]
 transform = Transform3D(-1.0927847e-08, 0, 0.25, 0, 0.25, 0, -0.25, 0, -1.0927847e-08, 0, 2, 0)

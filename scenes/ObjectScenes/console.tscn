@@ -1,8 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://bcasj7r4tdd25"]
+[gd_scene load_steps=10 format=3 uid="uid://bcasj7r4tdd25"]
 
-[ext_resource type="Script" uid="uid://6xa83k04rg4g" path="res://scripts/Interactables/Terminal.gd" id="1_yvcav"]
+[ext_resource type="Script" uid="uid://cmlvfpjk6jlit" path="res://scenes/Console.gd" id="1_x8k34"]
 [ext_resource type="FontFile" uid="uid://dvalnago47lrv" path="res://textures/Born2bSportyFS.otf" id="2_x55xv"]
-[ext_resource type="Script" uid="uid://d0n6jp88r2kbn" path="res://scenes/ObjectScenes/menu.gd" id="3_426kj"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_x8k34"]
 
@@ -269,7 +268,7 @@ shader_parameter/distort_intensity = 0.02000000095
 shader_parameter/noise_opacity = 0.4
 shader_parameter/noise_speed = 5.0
 shader_parameter/static_noise_intensity = 0.06000000285
-shader_parameter/aberration = 0.008000047879999972
+shader_parameter/aberration = 0.00800004787999997
 shader_parameter/brightness = 2.0
 shader_parameter/discolor = true
 shader_parameter/warp_amount = 0.2000000095
@@ -278,7 +277,7 @@ shader_parameter/vignette_intensity = 0.4
 shader_parameter/vignette_opacity = 0.50000002375
 
 [node name="Terminal" type="Node3D"]
-script = ExtResource("1_yvcav")
+script = ExtResource("1_x8k34")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -292,15 +291,13 @@ scale = Vector2(29.759996, 16.720001)
 theme_override_styles/panel = SubResource("StyleBoxFlat_yvcav")
 
 [node name="Container" type="VBoxContainer" parent="CanvasLayer"]
-visible = false
 offset_left = 58.0
 offset_top = 40.0
-offset_right = 1210.0
+offset_right = 1131.9587
 offset_bottom = 689.0
 scale = Vector2(0.9599997, 1)
 
 [node name="OutputLog" type="RichTextLabel" parent="CanvasLayer/Container"]
-visible = false
 layout_mode = 2
 theme_override_colors/default_color = Color(0.7959735, 0.26766807, 0.048018254, 1)
 theme_override_fonts/normal_font = ExtResource("2_x55xv")
@@ -311,7 +308,6 @@ scroll_following = true
 scroll_following_visible_characters = true
 
 [node name="InputLog" type="LineEdit" parent="CanvasLayer/Container"]
-visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.79607844, 0.26666668, 0.047058824, 1)
 theme_override_colors/caret_color = Color(0.79607844, 0.26666668, 0.047058824, 1)
@@ -325,70 +321,8 @@ caret_force_displayed = true
 secret_character = ">"
 text_direction = 1
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="CanvasLayer"]
-offset_left = 511.0
-offset_top = 40.0
-offset_right = 861.0
-offset_bottom = 270.0
-theme_override_colors/default_color = Color(0.79607844, 0.26666668, 0.047058824, 1)
-text = "______ ________  ___          
-| ___ \\  _  |  \\/  |          
-| |_/ / | | | .  . | ___  ___ 
-|    /| | | | |\\/| |/ _ \\/ __|
-| |\\ \\\\ \\_/ / |  | | (_) \\__ \\
-\\_| \\_|\\___/\\_|  |_/\\___/|___/
-                              "
-fit_content = true
-autowrap_mode = 0
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="RichTextLabel3" type="RichTextLabel" parent="CanvasLayer"]
-offset_left = 511.0
-offset_top = 119.0
-offset_right = 861.0
-offset_bottom = 349.0
-theme_override_colors/default_color = Color(0.79607844, 0.26666668, 0.047058824, 1)
-theme_override_fonts/normal_font = ExtResource("2_x55xv")
-text = "Version: 14.6"
-fit_content = true
-autowrap_mode = 0
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer"]
-offset_left = 188.0
-offset_top = 40.0
-offset_right = 538.0
-offset_bottom = 270.0
-theme_override_colors/default_color = Color(0.79607844, 0.26666668, 0.047058824, 1)
-text = "⡆⣿⣿⣦⠹⣳⣳⣕⢅⠈⢗⢕⢕⢕⢕⢕⢈⢆⠟⠋⠉⠁⠉⠉⠁⠈⠼⢐⢕
-⡗⢰⣶⣶⣦⣝⢝⢕⢕⠅⡆⢕⢕⢕⢕⢕⣴⠏⣠⡶⠛⡉⡉⡛⢶⣦⡀⠐⣕
-⡝⡄⢻⢟⣿⣿⣷⣕⣕⣅⣿⣔⣕⣵⣵⣿⣿⢠⣿⢠⣮⡈⣌⠨⠅⠹⣷⡀⢱
-⡝⡵⠟⠈⢀⣀⣀⡀⠉⢿⣿⣿⣿⣿⣿⣿⣿⣼⣿⢈⡋⠴⢿⡟⣡⡇⣿⡇⡀
-⡝⠁⣠⣾⠟⡉⡉⡉⠻⣦⣻⣿⣿⣿⣿⣿⣿⣿⣿⣧⠸⣿⣦⣥⣿⡇⡿⣰⢗
-⠁⢰⣿⡏⣴⣌⠈⣌⠡⠈⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣬⣉⣉⣁⣄⢖⢕⢕
-⡀⢻⣿⡇⢙⠁⠴⢿⡟⣡⡆⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣵⣵
-⡻⣄⣻⣿⣌⠘⢿⣷⣥⣿⠇⣿⣿⣿⣿⣿⣿⠛⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
-⣷⢄⠻⣿⣟⠿⠦⠍⠉⣡⣾⣿⣿⣿⣿⣿⣿⢸⣿⣦⠙⣿⣿⣿⣿⣿⣿⣿⣿
-⡕⡑⣑⣈⣻⢗⢟⢞⢝⣻⣿⣿⣿⣿⣿⣿⣿⠸⣿⠿⠃⣿⣿⣿⣿⣿⣿⡿⠁"
-fit_content = true
-autowrap_mode = 0
-
-[node name="Menu" type="RichTextLabel" parent="CanvasLayer"]
-offset_left = 401.0
-offset_top = 297.0
-offset_right = 751.0
-offset_bottom = 527.0
-theme_override_colors/default_color = Color(0.79607844, 0.26666668, 0.047058824, 1)
-theme_override_fonts/normal_font = ExtResource("2_x55xv")
-theme_override_font_sizes/normal_font_size = 30
-fit_content = true
-autowrap_mode = 0
-horizontal_alignment = 1
-script = ExtResource("3_426kj")
-
 [node name="offpanel" type="Panel" parent="CanvasLayer"]
+visible = false
 offset_left = -14.0
 offset_right = 1176.0
 offset_bottom = 667.0

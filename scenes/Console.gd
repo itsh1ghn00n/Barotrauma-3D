@@ -4,11 +4,8 @@ class_name Console
 @onready var log: RichTextLabel = $CanvasLayer/Container/OutputLog
 @onready var input: LineEdit = $CanvasLayer/Container/InputLog
 
-var is_open: bool = true
+var is_open: bool = false
 var commands := {}
-
-var caret_timer := 0.0
-var caret_visible := true
 
 var startup_sequence := [
 """ 
@@ -33,10 +30,7 @@ func startup_bootup_sequence() -> void:
 			await get_tree().create_timer(randf_range(0.25,0.7)).timeout
 
 func _ready():
-	input.grab_focus()
-	input.caret_blink = false
 	input.connect("text_submitted", Callable(self, "_on_command_entered"))
-	
 	init_commands()
 	
 	startup_bootup_sequence()
@@ -44,10 +38,13 @@ func _ready():
 
 func toggle_console():
 	is_open = !is_open
-	visible = is_open
-	if is_open:
-		input.grab_focus()
 
+func focus():
+	input.grab_focus()
+
+func unfocus():
+	input.release_focus()	
+	
 func _on_command_entered(text: String):
 	text = text.strip_edges()
 	if text == "":
@@ -93,3 +90,4 @@ func _cmd_echo(args):
 func _log(text: String):
 	log.append_text(text + "\n")
 	log.scroll_to_line(log.get_line_count())
+	

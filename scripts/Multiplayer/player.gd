@@ -10,8 +10,12 @@ class_name Player
 @onready var inventory: Inventory = $Hotbar/Inventory
 @onready var hotbar: Hotbar = $Hotbar
 
+var current_interactable: TerminalInteractable = null
+
 var gravity : float = 0.0
 var submerged := false
+var can_move := true
+
 func _ready() -> void:
 	if is_multiplayer_authority():
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -21,6 +25,11 @@ func _ready() -> void:
 		set_process_input(false)
 	pass
 	print("Inventory found: ", inventory)
+
+func _unhandled_input(event):
+	if current_interactable and current_interactable.is_open:
+		current_interactable.push_input(event)
+		get_viewport().set_input_as_handled()
 
 func _physics_process(delta: float) -> void:
 	handle_anims(delta)
@@ -48,40 +57,46 @@ func handle_anims(delta : float) -> void:
 func set_submerged(value: bool) -> void:
 	submerged = value
 
+func set_can_move(value: bool) -> void:
+	print(can_move)
+	can_move = value
+
 func handle_movement(delta: float):
-	var input_axis = Input.get_vector("left", "right", "forward", "back")
-	var direction = global_transform.basis * Vector3(input_axis.x, 0, input_axis.y)
-	direction = direction.normalized()
-	
-	# Vertical movement if submerged
-	if submerged:
-		direction.y = Input.get_action_strength("up") - Input.get_action_strength("down")
-		velocity = velocity.move_toward(direction * swim_speed, delta * 10)
-	else:
-		velocity = velocity.move_toward(direction * move_speed, delta * 10)
-		# gravity only if not submerged
-		if not is_on_floor():
-			velocity.y -= 9.8 * delta
-	move_and_slide()
+	if can_move:
+		var input_axis = Input.get_vector("left", "right", "forward", "back")
+		var direction = global_transform.basis * Vector3(input_axis.x, 0, input_axis.y)
+		direction = direction.normalized()
+		
+		# Vertical movement if submerged
+		if submerged:
+			direction.y = Input.get_action_strength("up") - Input.get_action_strength("down")
+			velocity = velocity.move_toward(direction * swim_speed, delta * 10)
+		else:
+			velocity = velocity.move_toward(direction * move_speed, delta * 10)
+			# gravity only if not submerged
+			if not is_on_floor():
+				velocity.y -= 9.8 * delta
+		move_and_slide()
 
 func move(delta : float) -> void:
-	if !is_on_floor() && !submerged:
-		gravity -= 9.8 * delta
-	elif gravity < 0.0:
-		gravity = 0.0
-	
-	var input_axis : Vector2 = Input.get_vector("left", "right", "forward", "back")
-	var direction = camera.global_transform.basis * Vector3(input_axis.x, 0.0, input_axis.y)
-	direction = direction.normalized()
-	if Input.is_action_pressed("sprint"):
-		direction *= 1.3
-	if submerged:
-		direction.y = Input.get_action_strength("jump") - Input.get_action_strength("sprint")
-		velocity = velocity.move_toward(direction * swim_speed, delta * 30)
-	else:
-		velocity = velocity.move_toward(direction * move_speed, delta * 30)
-		velocity.y = gravity
-	
+	if can_move:
+		if !is_on_floor() && !submerged:
+			gravity -= 9.8 * delta
+		elif gravity < 0.0:
+			gravity = 0.0
+		
+		var input_axis : Vector2 = Input.get_vector("left", "right", "forward", "back")
+		var direction = camera.global_transform.basis * Vector3(input_axis.x, 0.0, input_axis.y)
+		direction = direction.normalized()
+		if Input.is_action_pressed("sprint"):
+			direction *= 1.3
+		if submerged:
+			direction.y = Input.get_action_strength("jump") - Input.get_action_strength("sprint")
+			velocity = velocity.move_toward(direction * swim_speed, delta * 30)
+		else:
+			velocity = velocity.move_toward(direction * move_speed, delta * 30)
+			velocity.y = gravity
+
 func _input(event: InputEvent) -> void:
 	if !is_multiplayer_authority():
 		return

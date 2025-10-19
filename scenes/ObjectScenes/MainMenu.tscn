@@ -1,0 +1,74 @@
+[gd_scene load_steps=4 format=3 uid="uid://c50lapj5kugt4"]
+
+[ext_resource type="PackedScene" uid="uid://bcasj7r4tdd25" path="res://scenes/ObjectScenes/console.tscn" id="1_rvj33"]
+[ext_resource type="FontFile" uid="uid://dvalnago47lrv" path="res://textures/Born2bSportyFS.otf" id="2_ofrew"]
+[ext_resource type="Script" uid="uid://d0n6jp88r2kbn" path="res://scenes/ObjectScenes/menu.gd" id="3_f1h3b"]
+
+[node name="Terminal" instance=ExtResource("1_rvj33")]
+script = null
+
+[node name="Container" parent="CanvasLayer" index="1"]
+visible = false
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="CanvasLayer" index="3"]
+offset_left = 511.0
+offset_top = 40.0
+offset_right = 861.0
+offset_bottom = 270.0
+theme_override_colors/default_color = Color(0.79607844, 0.26666668, 0.047058824, 1)
+text = "______ ________  ___          
+| ___ \\  _  |  \\/  |          
+| |_/ / | | | .  . | ___  ___ 
+|    /| | | | |\\/| |/ _ \\/ __|
+| |\\ \\\\ \\_/ / |  | | (_) \\__ \\
+\\_| \\_|\\___/\\_|  |_/\\___/|___/
+                              "
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="CanvasLayer" index="4"]
+offset_left = 511.0
+offset_top = 119.0
+offset_right = 861.0
+offset_bottom = 349.0
+theme_override_colors/default_color = Color(0.79607844, 0.26666668, 0.047058824, 1)
+theme_override_fonts/normal_font = ExtResource("2_ofrew")
+text = "Version: 14.6"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer" index="5"]
+offset_left = 188.0
+offset_top = 40.0
+offset_right = 538.0
+offset_bottom = 270.0
+theme_override_colors/default_color = Color(0.79607844, 0.26666668, 0.047058824, 1)
+text = "⡆⣿⣿⣦⠹⣳⣳⣕⢅⠈⢗⢕⢕⢕⢕⢕⢈⢆⠟⠋⠉⠁⠉⠉⠁⠈⠼⢐⢕
+⡗⢰⣶⣶⣦⣝⢝⢕⢕⠅⡆⢕⢕⢕⢕⢕⣴⠏⣠⡶⠛⡉⡉⡛⢶⣦⡀⠐⣕
+⡝⡄⢻⢟⣿⣿⣷⣕⣕⣅⣿⣔⣕⣵⣵⣿⣿⢠⣿⢠⣮⡈⣌⠨⠅⠹⣷⡀⢱
+⡝⡵⠟⠈⢀⣀⣀⡀⠉⢿⣿⣿⣿⣿⣿⣿⣿⣼⣿⢈⡋⠴⢿⡟⣡⡇⣿⡇⡀
+⡝⠁⣠⣾⠟⡉⡉⡉⠻⣦⣻⣿⣿⣿⣿⣿⣿⣿⣿⣧⠸⣿⣦⣥⣿⡇⡿⣰⢗
+⠁⢰⣿⡏⣴⣌⠈⣌⠡⠈⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣬⣉⣉⣁⣄⢖⢕⢕
+⡀⢻⣿⡇⢙⠁⠴⢿⡟⣡⡆⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣵⣵
+⡻⣄⣻⣿⣌⠘⢿⣷⣥⣿⠇⣿⣿⣿⣿⣿⣿⠛⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣷⢄⠻⣿⣟⠿⠦⠍⠉⣡⣾⣿⣿⣿⣿⣿⣿⢸⣿⣦⠙⣿⣿⣿⣿⣿⣿⣿⣿
+⡕⡑⣑⣈⣻⢗⢟⢞⢝⣻⣿⣿⣿⣿⣿⣿⣿⠸⣿⠿⠃⣿⣿⣿⣿⣿⣿⡿⠁"
+fit_content = true
+autowrap_mode = 0
+
+[node name="Menu" type="RichTextLabel" parent="CanvasLayer" index="6"]
+offset_left = 401.0
+offset_top = 297.0
+offset_right = 751.0
+offset_bottom = 527.0
+theme_override_colors/default_color = Color(0.79607844, 0.26666668, 0.047058824, 1)
+theme_override_fonts/normal_font = ExtResource("2_ofrew")
+theme_override_font_sizes/normal_font_size = 30
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+script = ExtResource("3_f1h3b")

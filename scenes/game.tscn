@@ -20,5 +20,6 @@ local_addr = "10.0.0.227"
 spawn_path = NodePath("../Level")
 script = ExtResource("3_p57ef")
 map = ExtResource("4_lbhrr")
+map_path = "res://scenes/map.tscn"
 
 [node name="Level" type="Node3D" parent="."]
