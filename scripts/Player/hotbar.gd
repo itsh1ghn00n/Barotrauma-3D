@@ -99,6 +99,8 @@ func throw_item() -> void:
 		
 		body.apply_central_impulse(forward_dir * throw_strength)
 		
+		inventory.remove_item(held_item.base_item.item_data)
+		
 		held_item = null
 		current_index = -1
 		

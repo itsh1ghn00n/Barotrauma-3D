@@ -24,7 +24,7 @@ func remove_item(item_data: ItemData) -> bool:
 		if slots[i] == item_data:
 			slots[i] = null
 			inventory_updated.emit(item_data)
-			print("Removed: ", item_data.name, " to inventory")
+			print("Removed: ", item_data.name, " from inventory")
 			return true
 	return false
 
