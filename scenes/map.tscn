@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://b3ymnvv2q4yki"]
+[gd_scene load_steps=37 format=3 uid="uid://b3ymnvv2q4yki"]
 
 [ext_resource type="Texture2D" uid="uid://c16gkrjdf7hbg" path="res://textures/texture_06.png" id="1_wijl4"]
 [ext_resource type="Script" uid="uid://dkv0us20elj6n" path="res://scripts/Interactables/interaction_manager.gd" id="1_wslke"]
@@ -13,6 +13,8 @@
 [ext_resource type="PackedScene" uid="uid://c32xog2601wb0" path="res://models/UJunct.tscn" id="11_wslke"]
 [ext_resource type="PackedScene" uid="uid://rebsyvumbhqo" path="res://models/Couch.gltf" id="12_c00ee"]
 [ext_resource type="PackedScene" uid="uid://cjktkfrkd6knb" path="res://items/Scenes/medkit.tscn" id="13_gw3fx"]
+[ext_resource type="PackedScene" uid="uid://bcasj7r4tdd25" path="res://scenes/ObjectScenes/console.tscn" id="15_c00ee"]
+[ext_resource type="Script" uid="uid://6xa83k04rg4g" path="res://scripts/Interactables/Terminal.gd" id="15_p7tei"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_e0an3"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -153,6 +155,12 @@ data = PackedVector3Array(50, 0, 50, -50, 0, 50, 50, 0, -50, -50, 0, 50, -50, 0,
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_gldc4"]
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_c00ee"]
+viewport_path = NodePath("Terminal/SubViewport")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_c00ee"]
+size = Vector3(1, 2, 3)
+
 [node name="Map" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -252,7 +260,6 @@ size = Vector3(1.7195358, 4.4190598, 2.5561638)
 
 [node name="Test Sub" type="Node3D" parent="SceneObj"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 6)
-visible = false
 
 [node name="SubDoor" parent="SceneObj/Test Sub" instance=ExtResource("8_jh32y")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4838524, 1.2784178, 0.8298607)
@@ -464,7 +471,27 @@ shape = SubResource("SphereShape3D_gldc4")
 [node name="CSGSphere3D" type="CSGSphere3D" parent="SceneObj/Terrain/RigidBody3D"]
 
 [node name="Items" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 23)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -2)
 
 [node name="Medkit" parent="Items" instance=ExtResource("13_gw3fx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 4.5, -22)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+
+[node name="Terminal" type="StaticBody3D" parent="."]
+transform = Transform3D(-0.5, 0, -4.371139e-08, 0, 0.5, 0, 4.371139e-08, 0, -0.5, 11, 0, 0)
+collision_layer = 4
+script = ExtResource("15_p7tei")
+
+[node name="SubViewport" type="SubViewport" parent="Terminal"]
+size = Vector2i(1080, 650)
+
+[node name="Terminal" parent="Terminal/SubViewport" instance=ExtResource("15_c00ee")]
+script = null
+
+[node name="Sprite3D" type="Sprite3D" parent="Terminal"]
+transform = Transform3D(-1.0927847e-08, 0, 0.25, 0, 0.25, 0, -0.25, 0, -1.0927847e-08, 0, 2, 0)
+texture = SubResource("ViewportTexture_c00ee")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terminal"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1, 0)
+shape = SubResource("BoxShape3D_c00ee")
