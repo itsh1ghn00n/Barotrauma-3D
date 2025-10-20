@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://bcasj7r4tdd25"]
 
-[ext_resource type="Script" uid="uid://cmlvfpjk6jlit" path="res://scenes/Console.gd" id="1_x8k34"]
+[ext_resource type="Script" uid="uid://cmlvfpjk6jlit" path="res://scripts/Console.gd" id="1_x8k34"]
 [ext_resource type="FontFile" uid="uid://dvalnago47lrv" path="res://textures/Born2bSportyFS.otf" id="2_x55xv"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_x8k34"]
@@ -254,7 +254,7 @@ void fragment()
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jixls"]
 shader = SubResource("Shader_x8k34")
-shader_parameter/overlay = true
+shader_parameter/overlay = false
 shader_parameter/scanlines_opacity = 0.13600000646
 shader_parameter/scanlines_width = 0.3390000161025
 shader_parameter/grille_opacity = 0.070000003325
@@ -276,43 +276,59 @@ shader_parameter/clip_warp = false
 shader_parameter/vignette_intensity = 0.4
 shader_parameter/vignette_opacity = 0.50000002375
 
-[node name="Terminal" type="Node3D"]
+[node name="TerminalViewport" type="SubViewport"]
+handle_input_locally = false
+physics_object_picking = true
+size = Vector2i(550, 450)
+render_target_update_mode = 3
+
+[node name="Console" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_x8k34")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="Panel" type="Panel" parent="CanvasLayer"]
+[node name="Panel" type="Panel" parent="Console"]
 material = SubResource("CanvasItemMaterial_x8k34")
-offset_left = -13.999999
-offset_top = -1.9999999
-offset_right = 26.0
-offset_bottom = 38.0
-scale = Vector2(29.759996, 16.720001)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_yvcav")
 
-[node name="Container" type="VBoxContainer" parent="CanvasLayer"]
+[node name="Container" type="VBoxContainer" parent="Console"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = 58.0
 offset_top = 40.0
-offset_right = 1131.9587
-offset_bottom = 689.0
+offset_right = -20.04126
+offset_bottom = 37.0
 scale = Vector2(0.9599997, 1)
 
-[node name="OutputLog" type="RichTextLabel" parent="CanvasLayer/Container"]
+[node name="OutputLog" type="RichTextLabel" parent="Console/Container"]
 layout_mode = 2
 theme_override_colors/default_color = Color(0.7959735, 0.26766807, 0.048018254, 1)
 theme_override_fonts/normal_font = ExtResource("2_x55xv")
-theme_override_font_sizes/normal_font_size = 25
+theme_override_font_sizes/normal_font_size = 30
 theme_override_styles/background = SubResource("StyleBoxFlat_x8k34")
 fit_content = true
 scroll_following = true
 scroll_following_visible_characters = true
 
-[node name="InputLog" type="LineEdit" parent="CanvasLayer/Container"]
+[node name="InputLog" type="LineEdit" parent="Console/Container"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.79607844, 0.26666668, 0.047058824, 1)
 theme_override_colors/caret_color = Color(0.79607844, 0.26666668, 0.047058824, 1)
 theme_override_colors/selection_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_x55xv")
+theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxFlat_jixls")
 keep_editing_on_text_submit = true
 expand_to_text_length = true
@@ -321,19 +337,25 @@ caret_force_displayed = true
 secret_character = ">"
 text_direction = 1
 
-[node name="offpanel" type="Panel" parent="CanvasLayer"]
+[node name="offpanel" type="Panel" parent="Console"]
 visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = -14.0
-offset_right = 1176.0
-offset_bottom = 667.0
+offset_right = 24.0
+offset_bottom = 15.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_x55xv")
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+[node name="ColorRect" type="ColorRect" parent="Console"]
 material = SubResource("ShaderMaterial_jixls")
-offset_top = -2.0
-offset_right = 40.0
-offset_bottom = 38.0
-scale = Vector2(28.88, 16.28)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(577, 326)

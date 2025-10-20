@@ -1,0 +1,54 @@
+[gd_scene load_steps=12 format=3 uid="uid://b5oba7am038t"]
+
+[ext_resource type="PackedScene" uid="uid://di8th50shqpvx" path="res://pc(screen).fbx" id="1_ukbfy"]
+[ext_resource type="Texture2D" uid="uid://b4vd40xkd74lx" path="res://keyboard2.jpg" id="2_de6uy"]
+[ext_resource type="PackedScene" uid="uid://bcasj7r4tdd25" path="res://scenes/ObjectScenes/console.tscn" id="2_s818i"]
+[ext_resource type="Script" uid="uid://6xa83k04rg4g" path="res://scripts/Interactables/types/Terminal.gd" id="3_gbtml"]
+[ext_resource type="Texture2D" uid="uid://dfumy0g0oqb5n" path="res://pcmonitorretro.jpg" id="3_s818i"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3d7xj"]
+size = Vector3(0.6, 0.2, 0.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3d7xj"]
+albedo_texture = ExtResource("2_de6uy")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gbtml"]
+albedo_texture = ExtResource("3_s818i")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hue7p"]
+albedo_texture = ExtResource("3_s818i")
+emission = Color(1, 1, 1, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_s818i"]
+viewport_path = NodePath("StaticBody3D/TerminalViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oj12w"]
+resource_local_to_scene = true
+shading_mode = 0
+diffuse_mode = 1
+vertex_color_use_as_albedo = true
+albedo_texture = SubResource("ViewportTexture_s818i")
+uv1_scale = Vector3(2.1, 2.7, 1)
+uv1_offset = Vector3(-0.085, -0.125, 0)
+
+[node name="Terminal" instance=ExtResource("1_ukbfy")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="0" node_paths=PackedStringArray("monitor")]
+collision_layer = 5
+script = ExtResource("3_gbtml")
+monitor = NodePath("../monitor")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(0.9848077, 0, -0.17364818, 0, 1, 0, 0.17364818, 0, 0.9848077, 0.012940951, -0.25000003, 0.40170372)
+shape = SubResource("BoxShape3D_3d7xj")
+
+[node name="TerminalViewport" parent="StaticBody3D" index="1" instance=ExtResource("2_s818i")]
+size = Vector2i(1150, 650)
+
+[node name="keyboard" parent="." index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_3d7xj")
+
+[node name="monitor" parent="." index="2"]
+surface_material_override/0 = SubResource("StandardMaterial3D_gbtml")
+surface_material_override/1 = SubResource("StandardMaterial3D_hue7p")
+surface_material_override/2 = SubResource("StandardMaterial3D_oj12w")

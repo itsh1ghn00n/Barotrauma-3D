@@ -2,15 +2,19 @@
 
 [ext_resource type="PackedScene" uid="uid://bcasj7r4tdd25" path="res://scenes/ObjectScenes/console.tscn" id="1_rvj33"]
 [ext_resource type="FontFile" uid="uid://dvalnago47lrv" path="res://textures/Born2bSportyFS.otf" id="2_ofrew"]
-[ext_resource type="Script" uid="uid://d0n6jp88r2kbn" path="res://scenes/ObjectScenes/menu.gd" id="3_f1h3b"]
+[ext_resource type="Script" uid="uid://d0n6jp88r2kbn" path="res://scripts/menu.gd" id="3_f1h3b"]
 
 [node name="Terminal" instance=ExtResource("1_rvj33")]
-script = null
 
-[node name="Container" parent="CanvasLayer" index="1"]
-visible = false
+[node name="Container" parent="Control" index="1"]
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="CanvasLayer" index="3"]
+[node name="offpanel" parent="Control" index="2"]
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CanvasLayer#RichTextLabel2" type="RichTextLabel" parent="." index="2"]
 offset_left = 511.0
 offset_top = 40.0
 offset_right = 861.0
@@ -28,7 +32,7 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="RichTextLabel3" type="RichTextLabel" parent="CanvasLayer" index="4"]
+[node name="CanvasLayer#RichTextLabel3" type="RichTextLabel" parent="." index="3"]
 offset_left = 511.0
 offset_top = 119.0
 offset_right = 861.0
@@ -41,7 +45,7 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer" index="5"]
+[node name="CanvasLayer#RichTextLabel" type="RichTextLabel" parent="." index="4"]
 offset_left = 188.0
 offset_top = 40.0
 offset_right = 538.0
@@ -60,7 +64,7 @@ text = "⡆⣿⣿⣦⠹⣳⣳⣕⢅⠈⢗⢕⢕⢕⢕⢕⢈⢆⠟⠋⠉⠁⠉⠉
 fit_content = true
 autowrap_mode = 0
 
-[node name="Menu" type="RichTextLabel" parent="CanvasLayer" index="6"]
+[node name="CanvasLayer#Menu" type="RichTextLabel" parent="." index="5"]
 offset_left = 401.0
 offset_top = 297.0
 offset_right = 751.0

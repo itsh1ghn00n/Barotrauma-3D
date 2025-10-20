@@ -22,6 +22,7 @@ driver/enable_input=true
 [autoload]
 
 InteractionManager="*res://scripts/Interactables/interaction_manager.gd"
+CommandManager="*res://scripts/command_manager.gd"
 
 [editor]
 

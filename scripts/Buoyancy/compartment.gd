@@ -7,11 +7,8 @@ class_name Compartment
 func set_fill_percentage(value: float) -> void:
 	fill_percentage = clamp(value, 0.0, 1.0)
 
-func add_water(amount: float) -> void:
+func modify_water(amount: float) -> void:
 	set_fill_percentage(fill_percentage + amount / max_volume)
-
-func remove_water(amount: float) -> void:
-	set_fill_percentage(fill_percentage - amount / max_volume)
 
 func get_effective_buoyancy() -> float:
 	# Full = 0 buoyancy, empty = full buoyancy

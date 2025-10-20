@@ -1,8 +1,8 @@
-extends Interactable
+extends Control
 class_name Console
 
-@onready var log: RichTextLabel = $CanvasLayer/Container/OutputLog
-@onready var input: LineEdit = $CanvasLayer/Container/InputLog
+@onready var log: RichTextLabel = $Container/OutputLog
+@onready var input: LineEdit = $Container/InputLog
 
 var is_open: bool = false
 var commands := {}
@@ -30,8 +30,10 @@ func startup_bootup_sequence() -> void:
 			await get_tree().create_timer(randf_range(0.25,0.7)).timeout
 
 func _ready():
+	#$TerminalViewport.size = Vector2(1150, 650) I dont know why this specifically works
 	input.connect("text_submitted", Callable(self, "_on_command_entered"))
 	init_commands()
+	CommandManager.register_console(self)
 	
 	startup_bootup_sequence()
 	#_log("[b]Game Console initialized. Type 'help' for commands.[/b]")
@@ -54,28 +56,39 @@ func _on_command_entered(text: String):
 	_execute_command(text)
 	input.text = ""
 
-func _execute_command(input_text: String):
+func register_command(name: String, func_ref: Callable) -> void:
+	if commands.has(name):
+		push_warning("Command '%s' already exists in console '%s'." % [name, name])
+		return
+	commands[name] = func_ref
+
+func _execute_command(input_text: String) -> void:
 	var args = input_text.split(" ")
 	var command = args[0]
 	args = args.slice(1, args.size())
 
 	if commands.has(command):
-		commands[command].call(args)
+		var func_ref = commands[command]
+		# If the command expects console context, pass self
+		if func_ref.get_argument_count() == 2:
+			func_ref.call(self, args)
+		else:
+			func_ref.call(args)
 	else:
 		_log("Unknown command: " + command)
 
-# --- Command registration system ---
-func register_command(name: String, func_ref: Callable):
-	commands[name] = func_ref
-
+#Initalizing Base Commands
 func init_commands():
-	register_command("help", _cmd_help)
-	register_command("clear", _cmd_clear)
-	register_command("echo", _cmd_echo)
+	CommandManager.register_command("help", func(console):
+		return func(args): console._cmd_help(args))
+	CommandManager.register_command("clear", func(console):
+		return func(args): console._cmd_clear(args))
+	CommandManager.register_command("echo", func(console):
+		return func(args): console._cmd_echo(args))
 
 # --- Example commands ---
 func _cmd_help(args):
-	_log("Commands: " + ", ".join(commands.keys()))
+	_log("Commands: " + ", ".join(CommandManager.get_command_list()))
 
 func _cmd_clear(args):
 	log.clear()

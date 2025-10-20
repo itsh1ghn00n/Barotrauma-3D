@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://b3ymnvv2q4yki"]
+[gd_scene load_steps=36 format=3 uid="uid://b3ymnvv2q4yki"]
 
 [ext_resource type="Texture2D" uid="uid://c16gkrjdf7hbg" path="res://textures/texture_06.png" id="1_wijl4"]
 [ext_resource type="Script" uid="uid://dkv0us20elj6n" path="res://scripts/Interactables/interaction_manager.gd" id="1_wslke"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://dka26dmanv8gs" path="res://scripts/Multiplayer/player_spawn.gd" id="2_wijl4"]
 [ext_resource type="PackedScene" uid="uid://fw2vf3yk8sym" path="res://models/metal_floor2.tscn" id="5_2klcf"]
 [ext_resource type="Script" uid="uid://dem0vtwq38ow" path="res://scripts/Buoyancy/WaterArea.gd" id="6_2lpho"]
+[ext_resource type="Script" uid="uid://bqglnkncrdkxf" path="res://scripts/Buoyancy/submarine.gd" id="6_p7tei"]
 [ext_resource type="Script" uid="uid://cfu1eukr38afj" path="res://scripts/Interactables/door.gd" id="7_nakos"]
 [ext_resource type="PackedScene" uid="uid://lqhocvedvumn" path="res://scenes/sub_door.tscn" id="8_jh32y"]
 [ext_resource type="PackedScene" uid="uid://d4lk7am3spwim" path="res://models/SubWallNoWin.tscn" id="8_wslke"]
@@ -13,8 +14,8 @@
 [ext_resource type="PackedScene" uid="uid://c32xog2601wb0" path="res://models/UJunct.tscn" id="11_wslke"]
 [ext_resource type="PackedScene" uid="uid://rebsyvumbhqo" path="res://models/Couch.gltf" id="12_c00ee"]
 [ext_resource type="PackedScene" uid="uid://cjktkfrkd6knb" path="res://items/Scenes/medkit.tscn" id="13_gw3fx"]
-[ext_resource type="PackedScene" uid="uid://bcasj7r4tdd25" path="res://scenes/ObjectScenes/console.tscn" id="15_c00ee"]
-[ext_resource type="Script" uid="uid://6xa83k04rg4g" path="res://scripts/Interactables/Terminal.gd" id="15_p7tei"]
+[ext_resource type="Script" uid="uid://c3au8rynemisc" path="res://scripts/command_manager.gd" id="15_c00ee"]
+[ext_resource type="PackedScene" uid="uid://b5oba7am038t" path="res://pc.tscn" id="15_p7tei"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_e0an3"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -155,12 +156,6 @@ data = PackedVector3Array(50, 0, 50, -50, 0, 50, 50, 0, -50, -50, 0, 50, -50, 0,
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_gldc4"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_c00ee"]
-viewport_path = NodePath("Terminal/TerminalViewport")
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_c00ee"]
-size = Vector3(1, 2, 3)
-
 [node name="Map" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -170,8 +165,13 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_urblq")
 
-[node name="InteractionManager" type="Node3D" parent="."]
+[node name="Managers" type="Node" parent="."]
+
+[node name="InteractionManager" type="Node3D" parent="Managers"]
 script = ExtResource("1_wslke")
+
+[node name="CommandManager" type="Node" parent="Managers"]
+script = ExtResource("15_c00ee")
 
 [node name="PlayerSpawn" type="MultiplayerSpawner" parent="." node_paths=PackedStringArray("spawn_points")]
 spawn_path = NodePath("../Players")
@@ -260,6 +260,7 @@ size = Vector3(1.7195358, 4.4190598, 2.5561638)
 
 [node name="Test Sub" type="Node3D" parent="SceneObj"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 6)
+script = ExtResource("6_p7tei")
 
 [node name="SubDoor" parent="SceneObj/Test Sub" instance=ExtResource("8_jh32y")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4838524, 1.2784178, 0.8298607)
@@ -477,21 +478,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -2)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 
-[node name="Terminal" type="StaticBody3D" parent="."]
-transform = Transform3D(-0.5, 0, -4.371139e-08, 0, 0.5, 0, 4.371139e-08, 0, -0.5, 11, 0, 0)
-collision_layer = 4
-script = ExtResource("15_p7tei")
+[node name="pc(screen)" parent="." instance=ExtResource("15_p7tei")]
+transform = Transform3D(-6.556708e-08, 0, -1.5, 0, 1.5, 0, 1.5, 0, -6.556708e-08, 11, 0.8, 0)
 
-[node name="TerminalViewport" type="SubViewport" parent="Terminal"]
-physics_object_picking = true
-size = Vector2i(1150, 650)
+[node name="pc(screen)2" parent="." instance=ExtResource("15_p7tei")]
+transform = Transform3D(0.3882285, 0, -1.4488888, 0, 1.5, 0, 1.4488888, 0, 0.3882285, 10.9, 0.8, -0.8)
 
-[node name="Terminal" parent="Terminal/TerminalViewport" instance=ExtResource("15_c00ee")]
-
-[node name="Sprite3D" type="Sprite3D" parent="Terminal"]
-transform = Transform3D(-1.0927847e-08, 0, 0.25, 0, 0.25, 0, -0.25, 0, -1.0927847e-08, 0, 2, 0)
-texture = SubResource("ViewportTexture_c00ee")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Terminal"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1, 0)
-shape = SubResource("BoxShape3D_c00ee")
+[node name="pc(screen)3" parent="." instance=ExtResource("15_p7tei")]
+transform = Transform3D(-0.3882286, 0, -1.4488887, 0, 1.4999999, 0, 1.4488887, 0, -0.3882286, 10.9, 0.8, 0.8)
