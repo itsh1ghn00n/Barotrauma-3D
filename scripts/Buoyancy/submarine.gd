@@ -4,6 +4,7 @@ class_name Submarine
 
 @onready var compartments := get_tree().get_nodes_in_group("Compartments")
 @onready var ballasts := get_tree().get_nodes_in_group("ballasts")
+@onready var buoyancy := $RigidBody3D
 
 #Throttle
 #--------------------------------------
@@ -15,8 +16,8 @@ var current_throttle: float = 0.0
 
 #Rudder
 #--------------------------------------
-@export var max_turn_angle: float = 30.0
-@export var rudder_turn_speed: float = 10.0   # degrees per second
+@export var max_turn_angle: float = 40.0
+@export var rudder_turn_speed: float = 20.0   # degrees per second
 
 var current_turn: float = 0.0
 #--------------------------------------
@@ -55,6 +56,8 @@ func init_commands():
 		return func(args): _cmd_modify_ballasts(console, args))
 	CommandManager.register_command("sub.status", func(console):
 		return func(args): _cmd_sub_status(console, args))
+	CommandManager.register_command("sub.depth", func(console):
+		return func(args): _cmd_sub_depth(console, args))
 		
 # Registered Commands
 # -------------------------------------------------------------
@@ -72,6 +75,10 @@ func _cmd_sub_status(console, args):
 		working_percent += c.fill_percentage
 	var total_perc = (working_percent * 100.0 / compartments.size())
 	console._log("[Submarine] Volume: %.1f | Fill: %.1f%%" % [total_vol, total_perc])
+	
+func _cmd_sub_depth(console, args):
+	console._log("[Submarine] Depth: %.1f" %buoyancy.return_depth())
+	
 # -------------------------------------------------------------
 
 func adjust_throttle(direction: int, delta: float) -> void:

@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=3 uid="uid://bgl3o87mul6xx"]
+
+[ext_resource type="PackedScene" uid="uid://c1aekp0b0hu8m" path="res://scenes/room_marker.tscn" id="1_or533"]
+[ext_resource type="Script" uid="uid://blvbqklsbe4ne" path="res://OrbitCamera.gd" id="2_grhc8"]
+[ext_resource type="Material" uid="uid://c7nk72rpshiyg" path="res://scenes/GameScenes/watermat.tres" id="2_q7hdb"]
+[ext_resource type="Script" uid="uid://dp4uy0i1yotwu" path="res://CursorController.gd" id="3_grhc8"]
+[ext_resource type="Script" uid="uid://dwqb2ahgiqiw" path="res://scripts/test_water.gd" id="5_or533"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_or533"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshNodes" parent="." instance=ExtResource("1_or533")]
+
+[node name="CameraPivot" type="Node3D" parent="."]
+script = ExtResource("2_grhc8")
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 0.90107703, 0.4336591, 0, -0.4336591, 0.90107703, 0, 0, 2)
+
+[node name="Cursor" type="Marker3D" parent="." node_paths=PackedStringArray("orbit_camera")]
+script = ExtResource("3_grhc8")
+orbit_camera = NodePath("")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Cursor"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="MeshParent" type="Node3D" parent="." node_paths=PackedStringArray("targetMesh")]
+script = ExtResource("5_or533")
+targetMesh = NodePath("MeshInstance3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshParent"]
+visible = false
+mesh = SubResource("BoxMesh_or533")
+surface_material_override/0 = ExtResource("2_q7hdb")

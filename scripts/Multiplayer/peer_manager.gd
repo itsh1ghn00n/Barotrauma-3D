@@ -6,6 +6,7 @@ enum PeerMode {
 }
 func _ready() -> void:
 	set_peer_mode(0)
+
 func get_peer():
 	return peer
 

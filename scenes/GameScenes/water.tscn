@@ -1,8 +1,8 @@
-[gd_scene load_steps=31 format=3 uid="uid://darmbns6e3i5y"]
+[gd_scene load_steps=30 format=3 uid="uid://darmbns6e3i5y"]
 
 [ext_resource type="Script" uid="uid://dkv0us20elj6n" path="res://scripts/Interactables/interaction_manager.gd" id="1_p1n2c"]
 [ext_resource type="Script" uid="uid://dka26dmanv8gs" path="res://scripts/Multiplayer/player_spawn.gd" id="2_ewrsg"]
-[ext_resource type="Script" uid="uid://c3au8rynemisc" path="res://scripts/command_manager.gd" id="2_mmdeg"]
+[ext_resource type="Script" uid="uid://c3au8rynemisc" path="res://scripts/UI/command_manager.gd" id="2_mmdeg"]
 [ext_resource type="PackedScene" uid="uid://2qsjh5aaptj8" path="res://scenes/character.tscn" id="3_fiwy5"]
 [ext_resource type="Script" uid="uid://dmte3hguiou54" path="res://scripts/Buoyancy/buoyancy.gd" id="4_ewrsg"]
 [ext_resource type="Script" uid="uid://dem0vtwq38ow" path="res://scripts/Buoyancy/WaterArea.gd" id="4_fiwy5"]
@@ -12,12 +12,12 @@
 [ext_resource type="PackedScene" uid="uid://lqhocvedvumn" path="res://scenes/sub_door.tscn" id="9_4bf1b"]
 [ext_resource type="PackedScene" uid="uid://d4lk7am3spwim" path="res://models/SubWallNoWin.tscn" id="10_feeo5"]
 [ext_resource type="PackedScene" uid="uid://df4rjy4oowurb" path="res://models/SubHull-2x7.gltf" id="11_uvc0e"]
-[ext_resource type="PackedScene" uid="uid://b5oba7am038t" path="res://pc.tscn" id="11_ywl3n"]
+[ext_resource type="PackedScene" uid="uid://b5oba7am038t" path="res://scenes/pc.tscn" id="11_ywl3n"]
 [ext_resource type="PackedScene" uid="uid://rebsyvumbhqo" path="res://models/Couch.gltf" id="12_dtvsg"]
 [ext_resource type="PackedScene" uid="uid://bqq385tvyedol" path="res://models/imported/Airlock.gltf" id="13_feeo5"]
 [ext_resource type="PackedScene" uid="uid://c32xog2601wb0" path="res://models/UJunct.tscn" id="13_mmdeg"]
-[ext_resource type="Shader" uid="uid://b5ujjsj62f0l7" path="res://water.gdshader" id="15_uvc0e"]
-[ext_resource type="Script" uid="uid://dwqb2ahgiqiw" path="res://scenes/test_water.gd" id="16_dtvsg"]
+[ext_resource type="Script" uid="uid://dwqb2ahgiqiw" path="res://scripts/test_water.gd" id="16_dtvsg"]
+[ext_resource type="Material" uid="uid://c7nk72rpshiyg" path="res://scenes/GameScenes/watermat.tres" id="18_0i0hf"]
 [ext_resource type="PackedScene" uid="uid://ha5l15utdbhx" path="res://scripts/Interactables/types/cockpit.tscn" id="19_0i0hf"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xgdjl"]
@@ -63,7 +63,7 @@ normal_enabled = true
 normal_texture = SubResource("NoiseTexture2D_4pb3l")
 refraction_enabled = true
 refraction_texture = SubResource("NoiseTexture2D_htah3")
-uv1_scale = Vector3(0.04, 0.04, 0.04)
+uv1_scale = Vector3(-0.01, -0.01, -0.01)
 uv1_triplanar = true
 uv1_world_triplanar = true
 
@@ -74,25 +74,6 @@ size = Vector3(73, 97, 74)
 size = Vector3(12, 4, 7)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_uvc0e"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_dtvsg"]
-render_priority = 0
-shader = ExtResource("15_uvc0e")
-shader_parameter/coeff = Vector2(0, 0)
-shader_parameter/vel = 0.0
-shader_parameter/liquid_color = Color(0.11586044, 0.6025725, 0.8157414, 1)
-shader_parameter/foam_color = Color(0.97126895, 0.96383387, 0.99952346, 1)
-shader_parameter/foam_line = 0.35600001691
-shader_parameter/fill_amount = 2.6950001280125
-shader_parameter/size = Vector2(1, 1)
-shader_parameter/glass_thickness = 0.0
-shader_parameter/scale = 1.0
-shader_parameter/wave_intensity = 0.05
-shader_parameter/HasBubbles = true
-shader_parameter/AlwaysBubbles = false
-shader_parameter/BubbleStrength = 0.5
-shader_parameter/BubbleMask = 0.5
-shader_parameter/BubbleSpeed = Vector2(3, 3)
 
 [node name="Map" type="Node3D"]
 
@@ -118,10 +99,10 @@ player_scene = ExtResource("3_fiwy5")
 spawn_points = [NodePath("../spawn 1"), NodePath("../spawn 2"), NodePath("../spawn 3"), NodePath("../spawn 4")]
 
 [node name="spawn 1" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.1, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 6.1, 1)
 
 [node name="spawn 2" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.1, -1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 6.1, 4)
 
 [node name="spawn 3" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.1, -1)
@@ -132,9 +113,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.1, 1)
 [node name="Players" type="Node3D" parent="."]
 
 [node name="WaterMaker3D" parent="." groups=["WaterMakers"] instance=ExtResource("4_xgdjl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -97, 0)
-size = Vector3(70, 196, 70)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, -97, -1)
+size = Vector3(139, 196, 138)
 material = SubResource("StandardMaterial3D_a35vf")
+water_texture_uv_scale = -0.01
 water_color = Color(0.07254311, 0.19938889, 0.3717134, 1)
 fog_color = Color(2.1658838e-07, 0.19001633, 0.47236782, 1)
 deep_fog_color = Color(1.2032688e-08, 0.020748908, 0.09944335, 1)
@@ -156,13 +138,14 @@ shape = SubResource("BoxShape3D_5exq1")
 debug_color = Color(0.972549, 0, 0.4509804, 1)
 
 [node name="Test Sub" type="Node3D" parent="."]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 12, 0.9694538, 6)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 12, 4.969454, 6)
 script = ExtResource("8_4pb3l")
 
 [node name="RigidBody3D" type="RigidBody3D" parent="Test Sub"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0)
 collision_layer = 8
 collision_mask = 8
+freeze = true
 script = ExtResource("4_ewrsg")
 buoyancy_strength = 2.5
 
@@ -235,7 +218,7 @@ submarine = NodePath("../..")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1.5000004, 2.598077, 0, -2.598077, 1.5000004, 0, 0, 0, 2.9999995, 23, 5, 0)
 mesh = SubResource("CylinderMesh_uvc0e")
-surface_material_override/0 = SubResource("ShaderMaterial_dtvsg")
+surface_material_override/0 = ExtResource("18_0i0hf")
 script = ExtResource("16_dtvsg")
 min_fill = -0.5
 max_fill = 1.5

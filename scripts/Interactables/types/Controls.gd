@@ -34,13 +34,16 @@ func _process(delta: float) -> void:
 	#if back access engine and remove throttle till we hit - max
 	elif input_axis.y > 0:
 		submarine.adjust_throttle(-1, delta) # backward
+	else:
+		submarine.adjust_throttle(0, delta)
 	#if left access tail rudder and angle left
 	if input_axis.x < 0:
 		submarine.turn_rudder(1, delta) # left
 	#if right access tail rudder and angle right
 	elif input_axis.x > 0:
-		submarine.turn_rudder(-1, delta)  # right	
-		#move the player to the Controls Position
+		submarine.turn_rudder(-1, delta)  # right
+	else:
+		submarine.turn_rudder(0, delta)
 
 func interact(player: Node) -> void:
 	if not is_multiplayer_authority():

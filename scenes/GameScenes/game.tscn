@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cvng4ixelnyom" path="res://scripts/Multiplayer/peer_manager.gd" id="1_2hyik"]
 [ext_resource type="Script" uid="uid://dhrw6d7lhn0sd" path="res://scripts/Multiplayer/lobby.gd" id="2_35j7c"]
 [ext_resource type="Script" uid="uid://c7lw7bkgqlxbw" path="res://scripts/Multiplayer/map_spawn.gd" id="3_bke5t"]
-[ext_resource type="PackedScene" uid="uid://darmbns6e3i5y" path="res://scenes/GameScenes/water.tscn" id="4_2hyik"]
+[ext_resource type="PackedScene" uid="uid://b3ymnvv2q4yki" path="res://scenes/GameScenes/map.tscn" id="4_2hyik"]
 
 [node name="Game" type="Node3D"]
 
@@ -14,12 +14,12 @@ script = ExtResource("1_2hyik")
 script = ExtResource("2_35j7c")
 peer_manager = NodePath("../PeerManager")
 map_spawner = NodePath("../MapSpawn")
-local_addr = "10.0.0.227"
+local_addr = "172.17.176.1"
 
 [node name="MapSpawn" type="MultiplayerSpawner" parent="."]
 spawn_path = NodePath("../Level")
 script = ExtResource("3_bke5t")
 map = ExtResource("4_2hyik")
-map_path = "res://scenes/GameScenes/water.tscn"
+map_path = "res://scenes/GameScenes/map.tscn"
 
 [node name="Level" type="Node3D" parent="."]

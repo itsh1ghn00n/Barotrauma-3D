@@ -1,7 +1,6 @@
-[gd_scene load_steps=37 format=3 uid="uid://b3ymnvv2q4yki"]
+[gd_scene load_steps=46 format=3 uid="uid://b3ymnvv2q4yki"]
 
 [ext_resource type="Texture2D" uid="uid://c16gkrjdf7hbg" path="res://textures/texture_06.png" id="1_wijl4"]
-[ext_resource type="Script" uid="uid://dkv0us20elj6n" path="res://scripts/Interactables/interaction_manager.gd" id="1_wslke"]
 [ext_resource type="PackedScene" uid="uid://2qsjh5aaptj8" path="res://scenes/character.tscn" id="2_e0an3"]
 [ext_resource type="Script" uid="uid://dka26dmanv8gs" path="res://scripts/Multiplayer/player_spawn.gd" id="2_wijl4"]
 [ext_resource type="PackedScene" uid="uid://fw2vf3yk8sym" path="res://models/metal_floor2.tscn" id="5_2klcf"]
@@ -15,8 +14,14 @@
 [ext_resource type="PackedScene" uid="uid://c32xog2601wb0" path="res://models/UJunct.tscn" id="11_wslke"]
 [ext_resource type="PackedScene" uid="uid://rebsyvumbhqo" path="res://models/Couch.gltf" id="12_c00ee"]
 [ext_resource type="PackedScene" uid="uid://cjktkfrkd6knb" path="res://items/Scenes/medkit.tscn" id="13_gw3fx"]
-[ext_resource type="Script" uid="uid://c3au8rynemisc" path="res://scripts/command_manager.gd" id="15_c00ee"]
-[ext_resource type="PackedScene" uid="uid://b5oba7am038t" path="res://pc.tscn" id="15_p7tei"]
+[ext_resource type="PackedScene" uid="uid://b5oba7am038t" path="res://scenes/pc.tscn" id="15_p7tei"]
+[ext_resource type="Script" uid="uid://c3oxgehluk75x" path="res://addons/verlet_rope_4/Physics/VerletRopeSimulated.cs" id="17_l52dn"]
+[ext_resource type="Script" uid="uid://dja12uyulc7ee" path="res://addons/verlet_rope_4/Physics/VerletRopeRigid.cs" id="18_po8p6"]
+[ext_resource type="Script" uid="uid://cvxw3h20i7vjf" path="res://addons/verlet_rope_4/Physics/Joints/VerletJointSimulated.cs" id="18_ssa7r"]
+[ext_resource type="Script" uid="uid://cuw8dk3lkvm2n" path="res://addons/verlet_rope_4/Physics/Joints/VerletJointRigid.cs" id="19_n4m4e"]
+[ext_resource type="PackedScene" uid="uid://dlogex7b7vy3b" path="res://scenes/ObjectScenes/fuel_port.tscn" id="20_n4m4e"]
+[ext_resource type="Material" uid="uid://cay6xwdpars4y" path="res://scenes/GameScenes/MetalMat.tres" id="20_po8p6"]
+[ext_resource type="Shader" uid="uid://6aeobrboncr5" path="res://scenes/GameScenes/waterLevel.gdshader" id="22_n4bc0"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_e0an3"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -155,6 +160,26 @@ size = Vector2(100, 100)
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_iw27f"]
 data = PackedVector3Array(50, 0, 50, -50, 0, 50, 50, 0, -50, -50, 0, 50, -50, 0, -50, 50, 0, -50)
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_knebx"]
+seed = 110
+frequency = 0.0005
+domain_warp_enabled = true
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_knebx"]
+height = 1.9000001
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n4m4e"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.354)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xgwn8"]
+render_priority = 0
+shader = ExtResource("22_n4bc0")
+shader_parameter/water_level = 0.0
+shader_parameter/water_height_range = Vector2(1.9, 0.39)
+shader_parameter/current_angle = 0.0
+shader_parameter/liquid_color = Color(1, 0.38410568, 0.09320182, 1)
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_gldc4"]
 
 [node name="Map" type="Node3D"]
@@ -165,14 +190,6 @@ shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_urblq")
-
-[node name="Managers" type="Node" parent="."]
-
-[node name="InteractionManager" type="Node3D" parent="Managers"]
-script = ExtResource("1_wslke")
-
-[node name="CommandManager" type="Node" parent="Managers"]
-script = ExtResource("15_c00ee")
 
 [node name="PlayerSpawn" type="MultiplayerSpawner" parent="." node_paths=PackedStringArray("spawn_points")]
 spawn_path = NodePath("../Players")
@@ -467,14 +484,6 @@ metadata/surface_type = "default"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SceneObj/Terrain/floor"]
 shape = SubResource("ConcavePolygonShape3D_iw27f")
 
-[node name="RigidBody3D" type="RigidBody3D" parent="SceneObj/Terrain"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6836991, 13.545373)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SceneObj/Terrain/RigidBody3D"]
-shape = SubResource("SphereShape3D_gldc4")
-
-[node name="CSGSphere3D" type="CSGSphere3D" parent="SceneObj/Terrain/RigidBody3D"]
-
 [node name="Items" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -2)
 
@@ -488,3 +497,138 @@ transform = Transform3D(0.3882285, 0, -1.4488888, 0, 1.5, 0, 1.4488888, 0, 0.388
 
 [node name="pc(screen)3" parent="." instance=ExtResource("15_p7tei")]
 transform = Transform3D(-0.3882286, 0, -1.4488887, 0, 1.4999999, 0, 1.4488887, 0, -0.3882286, 10.9, 0.8, 0.8)
+
+[node name="CageDrop" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -6)
+
+[node name="RopeAnchor" type="Node3D" parent="CageDrop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
+
+[node name="VerletRopeSimulated" type="Node3D" parent="CageDrop/RopeAnchor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+script = ExtResource("17_l52dn")
+Gravity = Vector3(0, -9.8, 0)
+ApplyWind = true
+WindDirection = Vector3(60, 0, 0)
+WindNoise = SubResource("FastNoiseLite_knebx")
+metadata/_custom_type_script = "uid://c3oxgehluk75x"
+
+[node name="JointSimulated" type="Node" parent="CageDrop/RopeAnchor/VerletRopeSimulated" node_paths=PackedStringArray("VerletRope", "EndBody", "EndCustomLocation")]
+script = ExtResource("18_ssa7r")
+VerletRope = NodePath("..")
+EndBody = NodePath("../../../RigidBody3D")
+EndCustomLocation = NodePath("../../../RigidBody3D/Connection")
+JointMaxDistance = 5.0
+JointMaxForce = 100.0
+metadata/verlet_rope_physical_create_simulated_joint = 2093846747
+
+[node name="VerletRopeRigid" type="Node3D" parent="CageDrop/RopeAnchor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -2, 10)
+script = ExtResource("18_po8p6")
+CollisionLayer = 0
+CollisionMask = 0
+RopeLength = 6.0
+metadata/_custom_type_script = "uid://dja12uyulc7ee"
+
+[node name="JointRigid" type="Node" parent="CageDrop/RopeAnchor/VerletRopeRigid" node_paths=PackedStringArray("VerletRope", "StartCustomLocation", "EndCustomLocation")]
+script = ExtResource("19_n4m4e")
+VerletRope = NodePath("..")
+StartCustomLocation = NodePath("../../Node3D2")
+EndCustomLocation = NodePath("../../Node3D")
+metadata/verlet_rope_physical_create_rigid_joint = 1936129013
+
+[node name="Node3D" type="Node3D" parent="CageDrop/RopeAnchor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.2, -2, 7.2)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="CageDrop/RopeAnchor/Node3D"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CageDrop/RopeAnchor/Node3D/StaticBody3D"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="Node3D2" type="Node3D" parent="CageDrop/RopeAnchor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1999998, -2, 10.5)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="CageDrop/RopeAnchor/Node3D2"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CageDrop/RopeAnchor/Node3D2/StaticBody3D"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="RigidBody3D" type="RigidBody3D" parent="CageDrop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="CageDrop/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.024999976, 0)
+height = 1.95
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CageDrop/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.049999952, 0)
+shape = SubResource("CylinderShape3D_knebx")
+
+[node name="Connection" type="Node3D" parent="CageDrop/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="FuelPort" parent="." instance=ExtResource("20_n4m4e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.1, 0.9, 9)
+
+[node name="Fuel Tank" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, 9)
+
+[node name="GFX" type="Node3D" parent="Fuel Tank"]
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="Fuel Tank/GFX"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.61249995, 0)
+material_override = ExtResource("20_po8p6")
+radius = 1.0
+height = 0.775
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="Fuel Tank/GFX"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.9437501, 0)
+material_override = ExtResource("20_po8p6")
+radius = 1.0
+height = 0.2875
+
+[node name="Glass" type="CSGCylinder3D" parent="Fuel Tank/GFX"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3000002, 0)
+material_override = SubResource("StandardMaterial3D_n4m4e")
+radius = 1.0
+height = 3.0
+
+[node name="Fuel" type="CSGCylinder3D" parent="Fuel Tank/GFX"]
+transform = Transform3D(1, 0, 0, 0, -1.0000001, -5.9604645e-08, 0, 5.9604645e-08, -1.0000001, 0, 1.2816405, 0)
+material_override = SubResource("ShaderMaterial_xgwn8")
+radius = 0.8
+height = 3.0
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 8, 6)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="StaticBody3D"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="VerletRopeSimulated2" type="Node3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 4)
+script = ExtResource("17_l52dn")
+Gravity = Vector3(0, -9.8, 0)
+RopeLength = 2.0
+RopeWidth = 0.2
+MaterialOverride = ExtResource("20_po8p6")
+metadata/_custom_type_script = "uid://c3oxgehluk75x"
+
+[node name="JointSimulated" type="Node" parent="StaticBody3D/VerletRopeSimulated2" node_paths=PackedStringArray("VerletRope", "StartBody", "StartCustomLocation", "EndBody", "EndCustomLocation")]
+script = ExtResource("18_ssa7r")
+VerletRope = NodePath("..")
+StartBody = NodePath("../../../FuelHandle")
+StartCustomLocation = NodePath("../../../FuelHandle")
+EndBody = NodePath("../..")
+EndCustomLocation = NodePath("../..")
+JointMaxDistance = 6.0
+metadata/verlet_rope_physical_create_simulated_joint = 38852839
+
+[node name="FuelHandle" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6836991, 13.545373)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FuelHandle"]
+shape = SubResource("SphereShape3D_gldc4")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="FuelHandle"]
+material_override = ExtResource("20_po8p6")

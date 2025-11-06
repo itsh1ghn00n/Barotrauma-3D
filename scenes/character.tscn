@@ -93,6 +93,9 @@ script = ExtResource("2_wa5vi")
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, -0.0221288, 0)
 fov = 77.8941
 
+[node name="HandSocket" type="Node3D" parent="Head/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05016631, -0.75355995)
+
 [node name="Interactor" type="RayCast3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, -0.009346664, 0)
 target_position = Vector3(0, 2, 0)
@@ -144,11 +147,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12470555, 0)
 collide_with_areas = true
 debug_shape_custom_color = Color(1, 1, 1, 1)
 
-[node name="Hotbar" type="Node3D" parent="."]
+[node name="Hotbar" type="Node3D" parent="." node_paths=PackedStringArray("hand_socket", "cam_node")]
 script = ExtResource("20_u0pwc")
-
-[node name="HandSocket" type="Node3D" parent="Hotbar"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55903846, -0.5535599)
+hand_socket = NodePath("../Head/Camera3D/HandSocket")
+cam_node = NodePath("../Head/Camera3D")
 
 [node name="Inventory" type="Node3D" parent="Hotbar"]
 script = ExtResource("20_cicko")

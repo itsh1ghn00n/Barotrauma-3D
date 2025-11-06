@@ -9,7 +9,7 @@ group_uniforms Visuals;
 uniform vec4 liquid_color     : source_color = vec4(0.7, 0.1, 0.6, 1.0);
 uniform vec4 foam_color       : source_color = vec4(0.9f, 0.3, 0.8, 1.0);
 uniform float foam_line       : hint_range(0.0, 1.0, 0.001) = 0.2;
-uniform float fill_amount     : hint_range(0.0, 3.0, 0.001) = 0.5;
+uniform float fill_amount     : hint_range(0.0, 1.0, 0.001) = 0;
 uniform vec2 size             = vec2(1.0, 1.0);
 uniform float glass_thickness = 0.05;
 uniform float scale           = 1.0;
@@ -23,6 +23,9 @@ uniform float BubbleStrength: hint_range(0.0, 1.0, 0.001) = 0.5;
 uniform float BubbleMask    : hint_range(0.0, 1.0, 0.001) = 0.5;
 uniform vec2 BubbleSpeed    = vec2(3.0, 3.0);
 uniform sampler2D bubbles_tex;
+
+uniform float mesh_min_y = -0.5;
+uniform float mesh_max_y = 0.5;
 
 varying lowp vec3 pos;
 varying lowp float rot_scale;
@@ -43,10 +46,14 @@ void fragment() {
 	/* Set liquid line to fill amount, add noise waves and incline. */
 	lowp float wave_noise_1 = texture(waves_noise, (2.0 * pos.xz + 0.5 * TIME * vec2(1.0, 1.0)) * scale).r;
 	lowp float wave_noise_2 = texture(waves_noise, (2.0 * pos.xz - 0.5 * TIME * vec2(1.0, 1.0)) * scale).g;
-	lowp float wave = wave_intensity * length(coeff) * (wave_noise_1 - 0.5f + wave_noise_2 - 0.5f) + dot(pos.xz, coeff);
+	lowp float wave = wave_intensity * length(coeff) * (wave_noise_1 - 0.5 + wave_noise_2 - 0.5) + dot(pos.xz, coeff);
 	wave *= smoothstep(0.05, 0.25, fill_amount);
-	lowp float liquid_line = (fill_amount * 2.0 - 1.0 + wave) * rot_scale;
-	if (pos.y > liquid_line) discard;// Discard all vertices above the liquid line. */
+
+	float world_height = dot(pos, normalize(world_vec_up_to_model));
+	float liquid_line  = mix(mesh_min_y, mesh_max_y, fill_amount) + wave * 0.1;
+
+	if (world_height > liquid_line)
+	    discard;
 
 	if (HasBubbles){
 		float bubble_weight = vel;

@@ -1,7 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://cjktkfrkd6knb"]
+[gd_scene load_steps=10 format=3 uid="uid://cjktkfrkd6knb"]
 
 [ext_resource type="PackedScene" uid="uid://6ux3q47tkxy8" path="res://items/Scenes/baseitem.tscn" id="1_c08s6"]
 [ext_resource type="Resource" uid="uid://dxyyrcokiqyqj" path="res://items/Medkit.tres" id="2_knerv"]
+[ext_resource type="Script" uid="uid://bbxujca1pkpjr" path="res://scripts/Interactables/UsableItems/UsableItem.gd" id="2_wttt8"]
+[ext_resource type="Script" uid="uid://b5tsc6jvav3re" path="res://scripts/Interactables/UsableItems/HealAction.gd" id="3_wttt8"]
+
+[sub_resource type="Resource" id="Resource_hsoa0"]
+script = ExtResource("3_wttt8")
+metadata/_custom_type_script = "uid://b5tsc6jvav3re"
 
 [sub_resource type="BoxMesh" id="BoxMesh_4scn2"]
 
@@ -15,6 +21,9 @@ albedo_color = Color(0, 0, 0, 1)
 albedo_color = Color(0, 0, 0, 1)
 
 [node name="PickupItem" instance=ExtResource("1_c08s6")]
+script = ExtResource("2_wttt8")
+max_durability = 3
+action = SubResource("Resource_hsoa0")
 
 [node name="BaseItem" parent="." index="0"]
 collision_layer = 5

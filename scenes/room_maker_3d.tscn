@@ -1,0 +1,51 @@
+[gd_scene load_steps=11 format=3 uid="uid://cf06s2svqh62s"]
+
+[ext_resource type="Script" uid="uid://qt5uoevg6y3h" path="res://RoomMaker.gd" id="1_glhon"]
+[ext_resource type="Script" uid="uid://blvbqklsbe4ne" path="res://OrbitCamera.gd" id="2_fxo72"]
+[ext_resource type="PackedScene" uid="uid://d4lk7am3spwim" path="res://models/SubWallNoWin.tscn" id="2_kntmf"]
+[ext_resource type="PackedScene" uid="uid://lqhocvedvumn" path="res://scenes/sub_door.tscn" id="3_3jm0o"]
+[ext_resource type="Script" uid="uid://dp4uy0i1yotwu" path="res://CursorController.gd" id="3_vg2cr"]
+[ext_resource type="PackedScene" uid="uid://c32xog2601wb0" path="res://models/UJunct.tscn" id="4_w8t50"]
+[ext_resource type="PackedScene" uid="uid://c1aekp0b0hu8m" path="res://scenes/room_marker.tscn" id="5_w8t50"]
+[ext_resource type="Texture2D" uid="uid://8xr0iwq4hvca" path="res://textures/Sprite-0001.png" id="7_3jm0o"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_w8t50"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aqjsn"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 1, 1, 0.47500002)
+albedo_texture = ExtResource("7_3jm0o")
+uv1_scale = Vector3(2, 2, 1)
+texture_filter = 0
+
+[node name="RoomMaker3D" type="Node3D"]
+script = ExtResource("1_glhon")
+compartments = Array[PackedScene]([ExtResource("2_kntmf"), ExtResource("3_3jm0o"), ExtResource("4_w8t50"), ExtResource("5_w8t50")])
+
+[node name="CameraPivot" type="Node3D" parent="."]
+script = ExtResource("2_fxo72")
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 0.90107703, 0.4336591, 0, -0.4336591, 0.90107703, 0, 0, 2)
+
+[node name="Cursor" type="Marker3D" parent="." node_paths=PackedStringArray("orbit_camera")]
+script = ExtResource("3_vg2cr")
+orbit_camera = NodePath("../CameraPivot/Camera3D")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Cursor"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CompartmentsRoot" type="Node3D" parent="."]
+
+[node name="GridMap" type="GridMap" parent="."]
+cell_octant_size = 1
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.5330092, 0.84610945, 0, -0.84610945, 0.5330092, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(100, 0, 0, 0, 1, 0, 0, 0, 100, 0, 0, 0)
+mesh = SubResource("PlaneMesh_w8t50")
+surface_material_override/0 = SubResource("StandardMaterial3D_aqjsn")

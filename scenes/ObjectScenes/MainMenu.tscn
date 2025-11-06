@@ -2,15 +2,15 @@
 
 [ext_resource type="PackedScene" uid="uid://bcasj7r4tdd25" path="res://scenes/ObjectScenes/console.tscn" id="1_rvj33"]
 [ext_resource type="FontFile" uid="uid://dvalnago47lrv" path="res://textures/Born2bSportyFS.otf" id="2_ofrew"]
-[ext_resource type="Script" uid="uid://d0n6jp88r2kbn" path="res://scripts/menu.gd" id="3_f1h3b"]
+[ext_resource type="Script" uid="uid://d0n6jp88r2kbn" path="res://scripts/UI/menu.gd" id="3_f1h3b"]
 
 [node name="Terminal" instance=ExtResource("1_rvj33")]
 
-[node name="Container" parent="Control" index="1"]
+[node name="Container" parent="Console" index="1"]
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="offpanel" parent="Control" index="2"]
+[node name="offpanel" parent="Console" index="2"]
 grow_horizontal = 2
 grow_vertical = 2
 

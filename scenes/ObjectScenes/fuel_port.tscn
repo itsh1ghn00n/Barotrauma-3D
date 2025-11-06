@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://dlogex7b7vy3b"]
+
+[ext_resource type="Material" uid="uid://cay6xwdpars4y" path="res://scenes/GameScenes/MetalMat.tres" id="1_nrpbr"]
+
+[node name="FuelPort" type="Node3D"]
+
+[node name="GFX" type="Node3D" parent="."]
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="GFX"]
+material_override = ExtResource("1_nrpbr")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="GFX/CSGSphere3D"]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -0.25, 0, 0)
+radius = 0.4
+height = 0.5
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="GFX/CSGSphere3D/CSGCylinder3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.099999905, 0)
+operation = 2
+radius = 0.3
+height = 0.5
+
+[node name="Node3D" type="Node3D" parent="."]

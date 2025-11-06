@@ -12,15 +12,18 @@ class_name Player
 
 var current_interactable: TerminalInteractable = null
 
+var health: Health
+
 var gravity : float = 0.0
 var submerged := false
 var can_move := true
 
 func _ready() -> void:
+	hotbar.set_multiplayer_authority(get_multiplayer_authority())
 	if is_multiplayer_authority():
+		health = Health.new(100,100)
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		camera.make_current()
-		hotbar.cam_node = camera
 	else:
 		set_process_input(false)
 	pass

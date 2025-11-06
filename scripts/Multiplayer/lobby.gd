@@ -19,7 +19,7 @@ func _ready() -> void:
 		setup_local_lobbies()
 		create_local_lobby()
 		
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(2.0).timeout
 	if "--client" in args:
 		setup_local_lobbies()
 		var idx = args.find("--client")
@@ -34,6 +34,8 @@ func setup_local_lobbies():
 
 func create_local_lobby():	
 	var err = peer_manager.get_peer().create_server(local_port, local_max_players, 0)
+	print("Create server result:", err)
+	print("Actual bound port:", local_port)
 	if err != OK:
 		print("Server creation error: ", err)
 	else:
@@ -57,8 +59,7 @@ func join_local_lobby():
 	if err != OK:
 		print("Client connection error: ", err)
 	else:
-		print("Attempting to connect to server at ", local_addr, ":", local_port)
-
+		print(multiplayer.get_unique_id(),":ID Attempting to connect to server at ", local_addr, ":", local_port)
 	peer_manager.update_multiplayer_peer()
 
 	multiplayer.connected_to_server.connect(_on_connected_to_server)

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dfumy0g0oqb5n"
-path.s3tc="res://.godot/imported/pcmonitorretro.jpg-b77fb72df9ea8a71febeaa06a3f3ba49.s3tc.ctex"
+path.s3tc="res://.godot/imported/pcmonitorretro.jpg-d2cb2736134a8437408efa8dfa2b717e.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://pcmonitorretro.jpg"
-dest_files=["res://.godot/imported/pcmonitorretro.jpg-b77fb72df9ea8a71febeaa06a3f3ba49.s3tc.ctex"]
+source_file="res://textures/pcmonitorretro.jpg"
+dest_files=["res://.godot/imported/pcmonitorretro.jpg-d2cb2736134a8437408efa8dfa2b717e.s3tc.ctex"]
 
 [params]
 

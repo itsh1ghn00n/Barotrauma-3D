@@ -8,12 +8,15 @@ class_name Buoyancy
 @export var gravity := 9.8
 @export var water_height := 0.0
 @export var leveling_force := 2.0 # keeps the sub upright
+var depth = 0.0
 
 @onready var compartments := get_tree().get_nodes_in_group("Compartments")
 
 func _physics_process(delta: float) -> void:
+	#print("[Submarine] Depth: %.1f" %return_depth())
+	
 	for c in compartments:
-		var depth : float = water_height - c.global_position.y
+		depth = water_height - c.global_position.y
 		if depth <= 0:
 			continue
 
@@ -38,3 +41,6 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	if submerged_any:
 		state.linear_velocity *= 1 - water_drag
 		state.angular_velocity *= 1 - water_angular_drag
+		
+func return_depth() -> float:
+	return depth
