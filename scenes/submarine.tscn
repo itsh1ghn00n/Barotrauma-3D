@@ -13,7 +13,6 @@ size = Vector3(5, 3, 7)
 
 [node name="Submarine" type="Node3D"]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
-visible = false
 script = ExtResource("1_cjhfg")
 
 [node name="RigidBody" type="RigidBody3D" parent="."]

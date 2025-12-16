@@ -1,0 +1,297 @@
+[gd_scene load_steps=20 format=3 uid="uid://brnahsvhwk01m"]
+
+[ext_resource type="Script" uid="uid://btgkwppd5405j" path="res://models/imported/TempCamControl.gd" id="2_odnyq"]
+[ext_resource type="Texture2D" uid="uid://dmytkebukf45i" path="res://WaterGibits.png" id="5_f8la7"]
+[ext_resource type="PackedScene" uid="uid://ca0wevg1lb4rx" path="res://utils/WaterMaker3D/WaterMaker3D.tscn" id="5_niq6v"]
+[ext_resource type="Material" uid="uid://1wvssg54sn8l" path="res://models/imported/Seabed.tres" id="6_5k42g"]
+[ext_resource type="PackedScene" uid="uid://i40amwsrjwmt" path="res://models/imported/gully.tscn" id="7_qw5bx"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_buiyj"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_p5pve"]
+sky_material = SubResource("ProceduralSkyMaterial_buiyj")
+
+[sub_resource type="Environment" id="Environment_2ouhc"]
+background_mode = 2
+background_color = Color(0.093007915, 0.330487, 0.99999994, 1)
+sky = SubResource("Sky_p5pve")
+tonemap_mode = 2
+glow_enabled = true
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0
+volumetric_fog_emission = Color(0, 0.541548, 0.91998774, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_46ckm"]
+resource_local_to_scene = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_lorw6"]
+resource_local_to_scene = true
+noise = SubResource("FastNoiseLite_46ckm")
+seamless = true
+as_normal_map = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_m5fm0"]
+resource_local_to_scene = true
+noise = SubResource("FastNoiseLite_46ckm")
+seamless = true
+as_normal_map = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k5u4e"]
+resource_local_to_scene = true
+transparency = 1
+cull_mode = 2
+depth_draw_mode = 1
+albedo_color = Color(0.30980393, 0.5411765, 0.8666667, 0.3882353)
+roughness = 0.0
+normal_enabled = true
+normal_texture = SubResource("NoiseTexture2D_lorw6")
+refraction_enabled = true
+refraction_texture = SubResource("NoiseTexture2D_m5fm0")
+uv1_scale = Vector3(0.01, 0.01, 0.01)
+uv1_triplanar = true
+uv1_world_triplanar = true
+
+[sub_resource type="Curve" id="Curve_odnyq"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.370788, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_f8la7"]
+curve = SubResource("Curve_odnyq")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6cdjx"]
+emission_shape = 3
+emission_box_extents = Vector3(10, 10, 5)
+direction = Vector3(0, -1, 0)
+spread = 180.0
+initial_velocity_min = 0.099999994
+initial_velocity_max = 0.5
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_f8la7")
+color = Color(0.31768876, 0.64875895, 0.9025287, 1)
+hue_variation_min = -0.020000022
+hue_variation_max = 0.019999977
+anim_offset_max = 0.79999995
+collision_mode = 1
+collision_friction = 0.0
+collision_bounce = 0.2
+
+[sub_resource type="Shader" id="Shader_b0eho"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.5.stable.mono's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_burley, specular_schlick_ggx;
+
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color, filter_nearest, repeat_enable;
+uniform ivec2 albedo_texture_size;
+uniform float point_size : hint_range(0.1, 128.0, 0.1);
+
+uniform float roughness : hint_range(0.0, 1.0);
+uniform sampler2D texture_metallic : hint_default_white, filter_nearest, repeat_enable;
+uniform vec4 metallic_texture_channel;
+uniform sampler2D texture_roughness : hint_roughness_r, filter_nearest, repeat_enable;
+
+uniform float specular : hint_range(0.0, 1.0, 0.01);
+uniform float metallic : hint_range(0.0, 1.0, 0.01);
+
+uniform int particles_anim_h_frames : hint_range(1, 128);
+uniform int particles_anim_v_frames : hint_range(1, 128);
+uniform bool particles_anim_loop;
+
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+void vertex() {
+	UV = UV * uv1_scale.xy + uv1_offset.xy;
+
+	// Billboard Mode: Particles
+	mat4 mat_world = mat4(
+			normalize(INV_VIEW_MATRIX[0]),
+			normalize(INV_VIEW_MATRIX[1]),
+			normalize(INV_VIEW_MATRIX[2]),
+			MODEL_MATRIX[3]);
+	mat_world = mat_world * mat4(
+			vec4(cos(INSTANCE_CUSTOM.x), -sin(INSTANCE_CUSTOM.x), 0.0, 0.0),
+			vec4(sin(INSTANCE_CUSTOM.x), cos(INSTANCE_CUSTOM.x), 0.0, 0.0),
+			vec4(0.0, 0.0, 1.0, 0.0),
+			vec4(0.0, 0.0, 0.0, 1.0));
+	MODELVIEW_MATRIX = VIEW_MATRIX * mat_world;
+
+	// Billboard Keep Scale: Enabled
+	MODELVIEW_MATRIX = MODELVIEW_MATRIX * mat4(
+			vec4(length(MODEL_MATRIX[0].xyz), 0.0, 0.0, 0.0),
+			vec4(0.0, length(MODEL_MATRIX[1].xyz), 0.0, 0.0),
+			vec4(0.0, 0.0, length(MODEL_MATRIX[2].xyz), 0.0),
+			vec4(0.0, 0.0, 0.0, 1.0));
+
+	MODELVIEW_NORMAL_MATRIX = mat3(MODELVIEW_MATRIX);
+
+	float h_frames = float(particles_anim_h_frames);
+	float v_frames = float(particles_anim_v_frames);
+	float particle_total_frames = float(particles_anim_h_frames * particles_anim_v_frames);
+	float particle_frame = floor(INSTANCE_CUSTOM.z * float(particle_total_frames));
+	if (!particles_anim_loop) {
+		particle_frame = clamp(particle_frame, 0.0, particle_total_frames - 1.0);
+	} else {
+		particle_frame = mod(particle_frame, particle_total_frames);
+	}
+	UV /= vec2(h_frames, v_frames);
+	UV += vec2(mod(particle_frame, h_frames) / h_frames, floor((particle_frame + 0.5) / h_frames) / v_frames);
+}
+
+void fragment() {
+    vec2 base_uv = UV;
+
+    vec4 albedo_tex = texture(texture_albedo, base_uv);
+
+    // Apply vertex color here (from particle system)
+    vec3 final_rgb = albedo.rgb * albedo_tex.rgb * COLOR.rgb;
+    float final_alpha = albedo.a * albedo_tex.a * COLOR.a;
+
+    ALBEDO = final_rgb;
+
+    float metallic_tex = dot(texture(texture_metallic, base_uv), metallic_texture_channel);
+    METALLIC = metallic_tex * metallic;
+    SPECULAR = specular;
+
+    vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
+    float roughness_tex = dot(texture(texture_roughness, base_uv), roughness_texture_channel);
+    ROUGHNESS = roughness_tex * roughness;
+
+    ALPHA = final_alpha;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_odnyq"]
+render_priority = 0
+shader = SubResource("Shader_b0eho")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/texture_albedo = ExtResource("5_f8la7")
+shader_parameter/albedo_texture_size = Vector2i(1, 1)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/specular = 0.0
+shader_parameter/metallic = 0.0
+shader_parameter/particles_anim_h_frames = 5
+shader_parameter/particles_anim_v_frames = 2
+shader_parameter/particles_anim_loop = false
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+
+[sub_resource type="QuadMesh" id="QuadMesh_ldngx"]
+material = SubResource("ShaderMaterial_odnyq")
+size = Vector2(0.2, 0.2)
+subdivide_width = 1
+subdivide_depth = 1
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f8la7"]
+atlas = ExtResource("5_f8la7")
+region = Rect2(0, 0, 3, 3)
+
+[node name="Map" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+visible = false
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_2ouhc")
+
+[node name="Managers" type="Node" parent="."]
+
+[node name="spawn 1" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 6.1, 1)
+
+[node name="spawn 2" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 6.1, 4)
+
+[node name="spawn 3" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.1, -1)
+
+[node name="spawn 4" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.1, 1)
+
+[node name="Players" type="Node3D" parent="."]
+
+[node name="WaterMaker3D" parent="." groups=["WaterMakers"] instance=ExtResource("5_niq6v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, -97, -1)
+size = Vector3(139, 196, 138)
+material = SubResource("StandardMaterial3D_k5u4e")
+water_texture_uv_scale = 0.01
+fog_color = Color(0, 0.043137256, 0.15686275, 1)
+deep_fog_color = Color(1.504086e-08, 0.014339652, 0.07876364, 1)
+fog_fade_dist = 0.5
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.08189962, -0.061740797, 0.99472636, -0.029809022, 0.9974811, 0.064366065, -0.9961947, -0.03492338, 0.07985289, 0.6000001, -126.879555, -2.5746937)
+fov = 77.8941
+script = ExtResource("2_odnyq")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 0.9999999, 4.867218e-13, -0.76740265, -0.5486336)
+light_energy = 16.0
+distance_fade_enabled = true
+spot_range = 30.424
+spot_angle = 60.0
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(3.8764338, 5.1024604, -2.4169474, -1.9420807, 12.351906, 0, 1.7882088, 2.3537781, 5.2393956, 2.9466367, -129.96097, -8.61081)
+material_override = ExtResource("6_5k42g")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+transform = Transform3D(-1.642032, -4.850154, -1.4265249, -0.8654474, 12.351904, -6.140713e-08, 0.9606412, 2.8374949, -2.438371, -3.5523808, -129.28384, -6.7669544)
+material_override = ExtResource("6_5k42g")
+size = Vector3(1, 0.47937012, 1)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="."]
+transform = Transform3D(0.3406422, 1.0061746, 2.7793427, -0.86544746, 12.351903, -1.715072e-07, -1.8716474, -5.5283804, 0.50584435, 3.392215, -130.98077, -4.3693295)
+material_override = ExtResource("6_5k42g")
+size = Vector3(1, 0.47937012, 1)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="."]
+transform = Transform3D(0.34064218, 1.0061742, 2.7793427, -0.37389505, 13.337459, -0.12553348, -2.0278723, -2.2901187, 0.4900203, -2.8569322, -129.26521, -1.604194)
+material_override = ExtResource("6_5k42g")
+size = Vector3(1, 0.21673584, 0.49353027)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="."]
+transform = Transform3D(1.7125478, -2.7050488, -1.5182787, 0.3580803, 13.2971735, -0.28880835, 1.1432669, -0.11277372, 2.3647504, -2.8883574, -129.19412, -5.0929446)
+material_override = ExtResource("6_5k42g")
+size = Vector3(1, 0.21673584, 0.49353027)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2381134, -129.96097, -10.210211)
+visible = false
+size = Vector3(26.699188, 1, 31.648346)
+
+[node name="Gully2" parent="." instance=ExtResource("7_qw5bx")]
+transform = Transform3D(-4.371139e-07, 0, 10, 0, 10, 0, -10, 0, -4.371139e-07, 2.5147367, -130.73604, -3.1263037)
+
+[node name="Gully3" parent="." instance=ExtResource("7_qw5bx")]
+transform = Transform3D(-4.3711393e-07, 0, 10, 8.742278e-07, -10, 3.8213715e-14, 10, 8.742278e-07, 4.3711393e-07, 2.5147367, -121.007195, -3.1263037)
+
+[node name="UnderwaterParticles" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, -124, -4)
+amount = 200
+lifetime = 10.0
+preprocess = 30.0
+transform_align = 1
+process_material = SubResource("ParticleProcessMaterial_6cdjx")
+draw_pass_1 = SubResource("QuadMesh_ldngx")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 48, 0)
+pixel_size = 0.1
+billboard = 1
+alpha_cut = 1
+texture_filter = 0
+texture = SubResource("AtlasTexture_f8la7")
+region_rect = Rect2(3, 0, 3, 3)

@@ -1,0 +1,82 @@
+[gd_scene load_steps=9 format=3 uid="uid://dvpk4cfyuhvgq"]
+
+[ext_resource type="Script" uid="uid://b2pllf12q3vme" path="res://scripts/Interactables/interactable.gd" id="1_d0i3k"]
+[ext_resource type="PackedScene" uid="uid://bdb0gmane1iv1" path="res://scripts/Interactables/types/door_behavior.tscn" id="2_dv66t"]
+[ext_resource type="Material" uid="uid://cxt6ka02f8co5" path="res://scenes/ObjectScenes/doorMat.tres" id="3_tgpc7"]
+
+[sub_resource type="Animation" id="Animation_jh32y"]
+length = 0.001
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CSGBox3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.2940941, 1.1530349, 0)
+
+[sub_resource type="Animation" id="Animation_be0no"]
+resource_name = "close_door"
+length = 0.5
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CSGBox3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.2940941, 3.5760205, 0, 0.5, 1, 0.29400063, 1.166329, 0)
+
+[sub_resource type="Animation" id="Animation_nakos"]
+resource_name = "open_door"
+length = 0.5
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CSGBox3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.2940941, 1.1530349, 0, 0.5, 1, 0.2940941, 3.5760205, 0)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_blm8a"]
+_data = {
+&"RESET": SubResource("Animation_jh32y"),
+&"close_door": SubResource("Animation_be0no"),
+&"open_door": SubResource("Animation_nakos")
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nakos"]
+size = Vector3(0.32507324, 2.3791199, 1.7501831)
+
+[node name="Door" type="StaticBody3D"]
+collision_layer = 4
+script = ExtResource("1_d0i3k")
+
+[node name="Behaviors" type="Node3D" parent="."]
+
+[node name="DoorBehavior" parent="Behaviors" node_paths=PackedStringArray("anim") instance=ExtResource("2_dv66t")]
+anim = NodePath("../../AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_blm8a")
+}
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.30367088, 1.1806166, -0.0008544922)
+shape = SubResource("BoxShape3D_nakos")
+debug_color = Color(0.7986677, 0.04528828, 0.9999998, 0.41960785)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2940941, 1.1530349, 0)
+material_override = ExtResource("3_tgpc7")
+use_collision = true
+size = Vector3(0.2388916, 2.4178467, 0.91296387)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28399658, 1.1636257, -0.61559296)
+use_collision = true
+size = Vector3(0.2388916, 2.4178467, 0.32888794)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28399658, 1.1636257, 0.59464455)
+use_collision = true
+size = Vector3(0.2388916, 2.4178467, 0.32888794)

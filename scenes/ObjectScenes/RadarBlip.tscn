@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://d1ert7504rgxi"]
+
+[ext_resource type="Texture2D" uid="uid://dmytkebukf45i" path="res://WaterGibits.png" id="1_ujua3"]
+
+[node name="ScrapBlip" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1.732707e-06, 0.82324934, 0.2701744, 1)
+texture_filter = 1
+position = Vector2(-0.55, -0.82)
+scale = Vector2(2, 2)
+texture = ExtResource("1_ujua3")
+region_enabled = true
+region_rect = Rect2(9, 0, 3, 3)

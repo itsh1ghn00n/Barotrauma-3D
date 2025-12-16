@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://cjktkfrkd6knb"]
+
+[ext_resource type="PackedScene" uid="uid://6ux3q47tkxy8" path="res://itemdata/Scenes/baseitem.tscn" id="1_c08s6"]
+[ext_resource type="Resource" uid="uid://dxyyrcokiqyqj" path="res://itemdata/resource/Medkit.tres" id="2_knerv"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_knerv"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wttt8"]
+albedo_color = Color(0.8995899, 0.05206851, 0, 1)
+
+[node name="PickupItem" instance=ExtResource("1_c08s6")]
+
+[node name="InventoryAddBehavior" parent="Behaviors" index="1"]
+item_data = ExtResource("2_knerv")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1, -1.4901161e-08, 0.15, 0)
+material_override = SubResource("StandardMaterial3D_knerv")
+size = Vector3(0.1, 0.1, 0.3)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="." index="2"]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 0.6, 0, 1, 0, -4.371139e-08, -1.4901161e-08, 0.15, 0)
+material_override = SubResource("StandardMaterial3D_knerv")
+size = Vector3(0.1, 0.1, 0.3)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00043945014, 0)
+material_override = SubResource("StandardMaterial3D_wttt8")
+size = Vector3(0.5, 0.25, 0.5)

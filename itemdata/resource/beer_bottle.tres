@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=2 format=3 uid="uid://cqdrs66ofgf48"]
+
+[ext_resource type="Script" uid="uid://bjtkprburcbnd" path="res://itemdata/ItemData.gd" id="1_4yesg"]
+
+[resource]
+script = ExtResource("1_4yesg")
+name = "Beer Bottle"
+scene_path = "res://itemdata/Scenes/beer_bottle.tscn"
+metadata/_custom_type_script = "uid://bjtkprburcbnd"

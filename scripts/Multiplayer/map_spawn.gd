@@ -6,4 +6,6 @@ func _ready() -> void:
 	
 func spawn_map(data) -> Node:
 	var new_map = (load(data) as PackedScene).instantiate()
+	
+	call_deferred("emit_signal", "map_spawned", new_map)
 	return new_map

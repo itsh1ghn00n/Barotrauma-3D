@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://cmp3qo3h8aa5b"]
+
+[resource]
+transparency = 1
+blend_mode = 1
+metallic_specular = 0.0
+roughness = 0.0
+emission = Color(1, 1, 0.4072413, 1)
+emission_energy_multiplier = 16.0

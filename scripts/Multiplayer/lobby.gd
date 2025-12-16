@@ -6,12 +6,14 @@ extends Node
 @export_category("Local Lobby")
 
 var local_lobby_id : int = 1
-@export var local_addr : String = "67.176.84.224"
+var local_ips = IP.get_local_addresses()
+@export var local_addr : String
 @export var local_port : int = 5000
 @export var local_max_players : int = 4
 signal on_local_lobby_created
 
 func _ready() -> void:
+	local_addr = get_host_local_addr()
 	var args = OS.get_cmdline_args()
 	
 	await get_tree().process_frame
@@ -74,3 +76,10 @@ func _on_connection_failed() -> void:
 
 func _on_server_disconnected() -> void:
 	print("Disconnected from the server.")
+
+func get_host_local_addr() -> String:
+	var local_ips = IP.get_local_addresses()
+	for addr in local_ips:
+		if addr.begins_with("192.") or addr.begins_with("10.") or addr.begins_with("172."):
+			return addr
+	return "127.0.0.1"  # fallback

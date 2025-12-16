@@ -2,54 +2,106 @@
 extends Node3D
 class_name Submarine
 
-@onready var compartments := get_tree().get_nodes_in_group("Compartments")
+@onready var compartments: Array[Node] = []
 @onready var ballasts := get_tree().get_nodes_in_group("ballasts")
-@onready var buoyancy := $RigidBody3D
+@export var buoyancy: Buoyancy
 
+@export var physics_body_path: NodePath
+var physics_body: RigidBody3D
+
+@export var engine_pos: Node3D
+
+var selected_compartment := 0
+
+var target_position: Vector3 = Vector3(3,-10,0)
 #Throttle
-#--------------------------------------
 @export var max_throttle: float = 10.0
 @export var throttle_accel: float = 0.5 # how fast throttle changes per second
 
-var current_throttle: float = 0.0
-#--------------------------------------
+@export var current_throttle: float = 0.0
 
 #Rudder
-#--------------------------------------
 @export var max_turn_angle: float = 40.0
 @export var rudder_turn_speed: float = 20.0   # degrees per second
 
-var current_turn: float = 0.0
-#--------------------------------------
+@export var current_turn: float = 0.0
 
 @export var move_speed: float = 2.0  # base speed multiplier
 
 func _ready() -> void:
 	init_commands()
+	physics_body = get_node(physics_body_path) as RigidBody3D
+	
+func _input(event):
+	if event.is_action_pressed("comp_next"):
+		selected_compartment = (selected_compartment + 1) % compartments.size()
+		print("[Compartment] Selected:", compartments[selected_compartment].name)
 
-func _input(event: InputEvent) -> void:
-	pass
-	#if event.is_action_pressed("test"):
-		#bail_all(100)
-	#if event.is_action_pressed("test2"):
-		#add_water_to_compartment(1,100)
-		#add_water_to_compartment(2,100)
-		#add_water_to_compartment(3,100)
-	#if event.is_action_pressed("test3"):
-		#fill_all(100)
-	#if event.is_action_pressed("test4"):
-		#add_water_to_compartment(4,100)
-		#add_water_to_compartment(5,100)
-		#get_volume_percentage()
-		
+	if event.is_action_pressed("comp_prev"):
+		selected_compartment = (selected_compartment - 1 + compartments.size()) % compartments.size()
+		print("[Compartment] Selected:", compartments[selected_compartment].name)
+
+	# Increase water
+	#if event.is_action_pressed("comp_increase"):
+		#var new_depth = buoyancy.return_water_height() + 10.0
+		#buoyancy.set_water_h(new_depth)
+		#print("Submarine depth increased: ", new_depth)
+		#compartments[selected_compartment].modify_water(+0.5)
+		#print("[Compartment] Added 0.5 m³ to", compartments[selected_compartment].name)
+
+	# Decrease water
+	#if event.is_action_pressed("comp_decrease"):
+		#var new_depth = buoyancy.return_water_height() - 10.0
+		#buoyancy.set_water_h(new_depth)
+		#print("Submarine depth decreased: ", new_depth)
+		#compartments[selected_compartment].modify_water(-0.5)
+		#print("[Compartment] Removed 0.5 m³ from", compartments[selected_compartment].name)
+
+	# Flood instantly
+	if event.is_action_pressed("comp_flood"):
+		compartments[selected_compartment].set_fill_percentage(1.0)
+		print("[Compartment] Flooded", compartments[selected_compartment].name)
+
+	# Drain instantly
+	if event.is_action_pressed("comp_drain"):
+		compartments[selected_compartment].set_fill_percentage(0.0)
+		print("[Compartment] Drained", compartments[selected_compartment].name)
+
+	# Raise water height
+	if event.is_action_pressed("water_raise") and buoyancy:
+		buoyancy.water_height += 1.0
+		print("[Water] Height:", buoyancy.water_height)
+
+	# Lower water height
+	if event.is_action_pressed("water_lower") and buoyancy:
+		buoyancy.water_height -= 1.0
+		print("[Water] Height:", buoyancy.water_height)
+
 
 func _physics_process(delta: float) -> void:
-	# Apply movement based on current throttle
-	var forward_dir = global_transform.basis.x.normalized()
-	global_position += forward_dir * current_throttle * move_speed * delta
+	if not physics_body:
+		return
+	
+	if (buoyancy.compartments.size() > compartments.size()):
+		compartments = buoyancy.compartments
+		#move_to_target(target_position, delta)
+		
+	var _a = DebugDraw3D.new_scoped_config().set_thickness(0.01)
+	var forward_dir = -physics_body.global_transform.basis.x # No y movement
+	
+	#DebugDraw3D.draw_line(global_transform.origin, global_transform.origin+ forward_dir, Color.GREEN)
+	
+	global_transform = physics_body.global_transform
+	
+	var force = forward_dir * current_throttle * move_speed * 10
+	physics_body.apply_central_force(force)
 	
 	if abs(current_turn) > 0.1:
-		rotate_y(deg_to_rad(current_turn) * 0.1 * delta)
+		var torque = Vector3(0, current_turn * rudder_turn_speed * 10, 0)  # Adjust strength
+		physics_body.apply_torque(torque)
+		
+	current_throttle -= sign(current_throttle) * throttle_accel * delta
+	current_turn -= sign(current_turn) * rudder_turn_speed * delta
 
 func init_commands():
 	CommandManager.register_command("sub.modify", func(console):
@@ -85,6 +137,12 @@ func adjust_throttle(direction: int, delta: float) -> void:
 	# direction = 1 for forward, -1 for reverse, 0 for no input
 	if direction != 0:
 		current_throttle += direction * throttle_accel * delta
+	else:
+		# Smoothly center when no input
+		if abs(current_throttle) > 0.5:
+			current_throttle -= sign(current_throttle) * throttle_accel * delta
+		else:
+			current_throttle = 0.0
 	# Clamp between -max_throttle and +max_throttle
 	current_throttle = clamp(current_throttle, -max_throttle, max_throttle)
 
@@ -127,3 +185,7 @@ func get_volume_percentage() -> void:
 		working_percent += c.fill_percentage
 	var total_perc = (working_percent * 100 / 6)
 	print("Total Vol: ",total_vol, "Total %: ", total_perc)
+	
+func set_target_depth(depth: float) -> void:
+	if buoyancy:
+		buoyancy.set_desired_depth(depth)

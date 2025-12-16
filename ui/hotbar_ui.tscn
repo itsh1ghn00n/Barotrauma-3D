@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://cpmlnaouypy5p"]
+
+[ext_resource type="Script" uid="uid://wmtj207gcq20" path="res://scenes/ObjectScenes/hotbar_ui.gd" id="1_p5cey"]
+
+[sub_resource type="Theme" id="Theme_8mpyu"]
+
+[node name="HotbarUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_p5cey")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
+custom_minimum_size = Vector2(40, 40)
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -67.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = SubResource("Theme_8mpyu")
+theme_override_constants/separation = 6
+alignment = 1

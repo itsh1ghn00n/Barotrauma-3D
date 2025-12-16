@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddvm5b0epowdv"]
+
+[ext_resource type="Script" uid="uid://k5kda45nqm2y" path="res://scripts/Interactables/types/ControlBehavior.gd" id="1_sacmh"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_d07e8"]
+properties/0/path = NodePath(".:in_use")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:player_id")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+
+[node name="ControlBehavior" type="Node"]
+script = ExtResource("1_sacmh")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_interval = 0.01
+replication_config = SubResource("SceneReplicationConfig_d07e8")

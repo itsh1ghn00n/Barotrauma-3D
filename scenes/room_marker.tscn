@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://c1aekp0b0hu8m"]
 
 [ext_resource type="Script" uid="uid://bt8olcj7kqdsa" path="res://meshtest.gd" id="1_qg7r8"]
-[ext_resource type="Material" uid="uid://c7nk72rpshiyg" path="res://scenes/GameScenes/watermat.tres" id="2_mgwdq"]
+[ext_resource type="Material" uid="uid://c7nk72rpshiyg" path="res://materials/watermat.tres" id="2_mgwdq"]
 
 [node name="MeshNodes" type="Node3D" node_paths=PackedStringArray("vert")]
 script = ExtResource("1_qg7r8")

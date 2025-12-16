@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://dmemvsepxw3i7"]
+
+[ext_resource type="Script" uid="uid://bjtkprburcbnd" path="res://itemdata/ItemData.gd" id="1_2vo3b"]
+[ext_resource type="Texture2D" uid="uid://bm1q1bb84j5iu" path="res://itemdata/Icons/Lantern_Icon.png" id="1_xro6y"]
+
+[resource]
+script = ExtResource("1_2vo3b")
+name = "Lantern"
+icon = ExtResource("1_xro6y")
+scene_path = "res://itemdata/Scenes/lantern.tscn"
+metadata/_custom_type_script = "uid://bjtkprburcbnd"

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://dmysd88nla3va"]
+
+[ext_resource type="Script" uid="uid://bjtkprburcbnd" path="res://itemdata/ItemData.gd" id="1_kmg5i"]
+[ext_resource type="Texture2D" uid="uid://ddk0ca0vrfvd2" path="res://itemdata/Icons/Scrap_Icon.png" id="1_spfhf"]
+
+[resource]
+script = ExtResource("1_kmg5i")
+name = "Scrap"
+icon = ExtResource("1_spfhf")
+stack_size = 16
+scene_path = "res://itemdata/Scenes/scrap.tscn"
+metadata/_custom_type_script = "uid://bjtkprburcbnd"

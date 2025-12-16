@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dlogex7b7vy3b"]
 
-[ext_resource type="Material" uid="uid://cay6xwdpars4y" path="res://scenes/GameScenes/MetalMat.tres" id="1_nrpbr"]
+[ext_resource type="Material" uid="uid://cay6xwdpars4y" path="res://materials/MetalMat.tres" id="1_nrpbr"]
 
 [node name="FuelPort" type="Node3D"]
 

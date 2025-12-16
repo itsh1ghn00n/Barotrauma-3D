@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://di8th50shqpvx" path="res://models/pc(screen).fbx" id="1_heffb"]
 [ext_resource type="Script" uid="uid://6xa83k04rg4g" path="res://scripts/Interactables/types/Terminal.gd" id="2_uuu8i"]
-[ext_resource type="PackedScene" uid="uid://bcasj7r4tdd25" path="res://scenes/ObjectScenes/console.tscn" id="3_pghs8"]
+[ext_resource type="PackedScene" uid="uid://b8ea8q1bnrq3c" path="res://scenes/ObjectScenes/radar.tscn" id="3_heffb"]
 [ext_resource type="Texture2D" uid="uid://b4vd40xkd74lx" path="res://textures/keyboard2.jpg" id="4_o15x3"]
 [ext_resource type="Texture2D" uid="uid://dfumy0g0oqb5n" path="res://textures/pcmonitorretro.jpg" id="5_dbnjo"]
 
@@ -20,7 +20,7 @@ albedo_texture = ExtResource("5_dbnjo")
 emission = Color(1, 1, 1, 1)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_s818i"]
-viewport_path = NodePath("StaticBody3D/TerminalViewport")
+viewport_path = NodePath("StaticBody3D/SubViewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oj12w"]
 resource_local_to_scene = true
@@ -40,12 +40,13 @@ monitor = NodePath("../monitor")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
 transform = Transform3D(0.9848077, 0, -0.17364818, 0, 1, 0, 0.17364818, 0, 0.9848077, 0.012940951, -0.25000003, 0.40170372)
+visible = false
 shape = SubResource("BoxShape3D_3d7xj")
 
-[node name="TerminalViewport" parent="StaticBody3D" index="1" instance=ExtResource("3_pghs8")]
-size = Vector2i(1150, 650)
+[node name="SubViewport" parent="StaticBody3D" index="1" instance=ExtResource("3_heffb")]
 
 [node name="keyboard" parent="." index="1"]
+visible = false
 surface_material_override/0 = SubResource("StandardMaterial3D_3d7xj")
 
 [node name="monitor" parent="." index="2"]

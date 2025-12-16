@@ -20,15 +20,16 @@ func _on_child_entered_tree(child: Node):
 		print("targetMesh found: %s" % targetMesh.name)
 		
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("test_1"):
-		mat.set_shader_parameter("fill_amount", max_fill)
-		print("Fill set to full")
-	if event.is_action_pressed("test_2"):
-		mat.set_shader_parameter("fill_amount", 0.5)
-		print("Fill set to half")
-	if event.is_action_pressed("test_3"):
-		mat.set_shader_parameter("fill_amount", min_fill)
-		print("Fill set to empty")
+	pass
+	#if event.is_action_pressed("test_1"):
+		#mat.set_shader_parameter("fill_amount", max_fill)
+		#print("Fill set to full")
+	#if event.is_action_pressed("test_2"):
+		#mat.set_shader_parameter("fill_amount", 0.5)
+		#print("Fill set to half")
+	#if event.is_action_pressed("test_3"):
+		#mat.set_shader_parameter("fill_amount", min_fill)
+		#print("Fill set to empty")
 
 func _process(delta):
 	if targetMesh == null:
@@ -37,26 +38,26 @@ func _process(delta):
 		return
 
 	# --- Keyboard controls for manual fill ---
-	if Input.is_action_just_pressed("test_1"):  # key '1'
-		mat.set_shader_parameter("fill_amount", max_fill)
-		print("Fill set to full")
-	elif Input.is_action_just_pressed("test_2"):  # key '2'
-		mat.set_shader_parameter("fill_amount", 0.5)
-		print("Fill set to half")
-	elif Input.is_action_just_pressed("test_3"):  # key '3'
-		mat.set_shader_parameter("fill_amount", min_fill)
-		print("Fill set to empty")
+	#if Input.is_action_just_pressed("test_1"):  # key '1'
+		#mat.set_shader_parameter("fill_amount", max_fill)
+		#print("Fill set to full")
+	#elif Input.is_action_just_pressed("test_2"):  # key '2'
+		#mat.set_shader_parameter("fill_amount", 0.5)
+		#print("Fill set to half")
+	#elif Input.is_action_just_pressed("test_3"):  # key '3'
+		#mat.set_shader_parameter("fill_amount", min_fill)
+		#print("Fill set to empty")
 
 	# --- Automatic wave animation ---
-	#var fill = mat.get_shader_parameter("fill_amount")
-	#fill += direction * speed * delta
+	var fill = mat.get_shader_parameter("fill_amount")
+	fill += direction * speed * delta
 
-	#if fill >= max_fill:
-		#fill = max_fill
-		#direction = -1
-	#elif fill <= min_fill:
-		#fill = min_fill
-		#direction = 1
+	if fill >= max_fill:
+		fill = max_fill
+		direction = -1
+	elif fill <= min_fill:
+		fill = min_fill
+		direction = 1
 
-	#mat.set_shader_parameter("fill_amount", fill)
-	#rotation.z += speed / 3 * delta
+	mat.set_shader_parameter("fill_amount", fill)
+	rotation.z += speed / 3 * delta

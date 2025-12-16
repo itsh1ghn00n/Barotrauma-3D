@@ -1,0 +1,2103 @@
+[gd_scene load_steps=85 format=3 uid="uid://b3ymnvv2q4yki"]
+
+[ext_resource type="Texture2D" uid="uid://c16gkrjdf7hbg" path="res://textures/texture_06.png" id="1_wijl4"]
+[ext_resource type="PackedScene" uid="uid://2qsjh5aaptj8" path="res://scenes/character.tscn" id="2_e0an3"]
+[ext_resource type="Script" uid="uid://dka26dmanv8gs" path="res://scripts/Multiplayer/player_spawn.gd" id="2_wijl4"]
+[ext_resource type="Script" uid="uid://ddupyq52e21ni" path="res://itemdata/item_manager.gd" id="3_dv6ho"]
+[ext_resource type="PackedScene" uid="uid://fw2vf3yk8sym" path="res://models/metal_floor2.tscn" id="5_2klcf"]
+[ext_resource type="Script" uid="uid://dem0vtwq38ow" path="res://scripts/Buoyancy/WaterArea.gd" id="6_2lpho"]
+[ext_resource type="Script" uid="uid://bqglnkncrdkxf" path="res://scripts/Buoyancy/submarine.gd" id="6_p7tei"]
+[ext_resource type="PackedScene" uid="uid://lqhocvedvumn" path="res://scenes/sub_door.tscn" id="8_jh32y"]
+[ext_resource type="PackedScene" uid="uid://d4lk7am3spwim" path="res://models/SubWallNoWin.tscn" id="8_wslke"]
+[ext_resource type="Script" uid="uid://blf2ocdlxk5j3" path="res://scripts/Buoyancy/compartment.gd" id="11_c70he"]
+[ext_resource type="PackedScene" uid="uid://df4rjy4oowurb" path="res://models/SubHull-2x7.gltf" id="11_n1psn"]
+[ext_resource type="PackedScene" uid="uid://c32xog2601wb0" path="res://models/UJunct.tscn" id="11_wslke"]
+[ext_resource type="PackedScene" uid="uid://rebsyvumbhqo" path="res://models/Couch.gltf" id="12_c00ee"]
+[ext_resource type="Script" uid="uid://b2pllf12q3vme" path="res://scripts/Interactables/interactable.gd" id="12_ltckv"]
+[ext_resource type="PackedScene" uid="uid://cjktkfrkd6knb" path="res://itemdata/Scenes/medkit.tscn" id="13_gw3fx"]
+[ext_resource type="PackedScene" uid="uid://bdb0gmane1iv1" path="res://scripts/Interactables/types/door_behavior.tscn" id="15_fvmnk"]
+[ext_resource type="PackedScene" uid="uid://b5oba7am038t" path="res://scenes/pc.tscn" id="15_p7tei"]
+[ext_resource type="Script" uid="uid://c3oxgehluk75x" path="res://addons/verlet_rope_4/Physics/VerletRopeSimulated.cs" id="17_l52dn"]
+[ext_resource type="PackedScene" uid="uid://bm575803a7q36" path="res://itemdata/Scenes/scrap.tscn" id="17_xm28t"]
+[ext_resource type="Script" uid="uid://dja12uyulc7ee" path="res://addons/verlet_rope_4/Physics/VerletRopeRigid.cs" id="18_po8p6"]
+[ext_resource type="Script" uid="uid://cvxw3h20i7vjf" path="res://addons/verlet_rope_4/Physics/Joints/VerletJointSimulated.cs" id="18_ssa7r"]
+[ext_resource type="Script" uid="uid://cuw8dk3lkvm2n" path="res://addons/verlet_rope_4/Physics/Joints/VerletJointRigid.cs" id="19_n4m4e"]
+[ext_resource type="PackedScene" uid="uid://dlogex7b7vy3b" path="res://scenes/ObjectScenes/fuel_port.tscn" id="20_n4m4e"]
+[ext_resource type="Material" uid="uid://cay6xwdpars4y" path="res://materials/MetalMat.tres" id="20_po8p6"]
+[ext_resource type="Script" uid="uid://buwkft6eup0pn" path="res://scenes/GameScenes/fuel_tank.gd" id="22_hfypl"]
+[ext_resource type="Material" uid="uid://c7nk72rpshiyg" path="res://materials/watermat.tres" id="26_ega1k"]
+[ext_resource type="Script" uid="uid://cyy8ilcqduvf5" path="res://scripts/FuelTank.gd" id="27_ega1k"]
+[ext_resource type="Script" uid="uid://dilhg28s5p1vq" path="res://scripts/Machines/Scrapper.gd" id="28_e54n0"]
+[ext_resource type="Texture2D" uid="uid://mobbade1y3ji" path="res://textures/HoseTexture.png" id="28_vbmvi"]
+[ext_resource type="PackedScene" uid="uid://ct4237w07sbwl" path="res://itemdata/Scenes/fuel_cell.tscn" id="29_8ljht"]
+[ext_resource type="PackedScene" uid="uid://10kfxiikm00a" path="res://scripts/Interactables/types/pickup_behavior.tscn" id="30_dv6ho"]
+[ext_resource type="Script" uid="uid://ba1nutw2d2rc5" path="res://scenes/GameScenes/scrap_spawner.gd" id="33_t5leq"]
+[ext_resource type="Script" uid="uid://bjtkprburcbnd" path="res://itemdata/ItemData.gd" id="34_pt41o"]
+[ext_resource type="Resource" uid="uid://dmysd88nla3va" path="res://itemdata/scrap.tres" id="35_dv6ho"]
+[ext_resource type="PackedScene" uid="uid://i40amwsrjwmt" path="res://models/imported/gully.tscn" id="36_dv6ho"]
+[ext_resource type="PackedScene" uid="uid://dne31etgoanm6" path="res://scenes/GameScenes/water_area.tscn" id="37_efuua"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_e0an3"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_p5pve"]
+sky_material = SubResource("ProceduralSkyMaterial_e0an3")
+
+[sub_resource type="Environment" id="Environment_urblq"]
+background_mode = 2
+background_color = Color(0.093007915, 0.330487, 0.99999994, 1)
+sky = SubResource("Sky_p5pve")
+tonemap_mode = 2
+glow_enabled = true
+volumetric_fog_density = 0.2
+volumetric_fog_emission = Color(0, 0.541548, 0.91998774, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2klcf"]
+size = Vector3(1.453186, 1.512146, 4.057129)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2lpho"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nakos"]
+transparency = 1
+albedo_color = Color(0, 0.49287373, 0.82164097, 0.47843137)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nakos"]
+size = Vector3(0.32507324, 2.3791199, 1.7501831)
+
+[sub_resource type="Animation" id="Animation_jh32y"]
+length = 0.001
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CSGBox3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.2940941, 1.1530349, 0)
+
+[sub_resource type="Animation" id="Animation_be0no"]
+resource_name = "close_door"
+length = 0.5
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CSGBox3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.2940941, 3.5760205, 0, 0.5, 1, 0.29400063, 1.166329, 0)
+
+[sub_resource type="Animation" id="Animation_nakos"]
+resource_name = "open_door"
+length = 0.5
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CSGBox3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.2940941, 1.1530349, 0, 0.5, 1, 0.2940941, 3.5760205, 0)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_blm8a"]
+_data = {
+&"RESET": SubResource("Animation_jh32y"),
+&"close_door": SubResource("Animation_be0no"),
+&"open_door": SubResource("Animation_nakos")
+}
+
+[sub_resource type="Animation" id="Animation_mlgqr"]
+length = 0.001
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CSGBox3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.294, 1.164, -0.263)
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CSGBox3D4")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0.2940941, 1.164, 0.27464008)
+
+[sub_resource type="Animation" id="Animation_wslke"]
+resource_name = "close_door"
+length = 0.25
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CSGBox3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.29400063, 1.164, -0.8473768, 0.25, 1, 0.294, 1.164, -0.263, 0.26666668, 1, 0.294, 1.164, -0.263)
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CSGBox3D4")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0.2940941, 1.164, 0.8045521, 0.25, 1, 0.2940941, 1.164, 0.27464008, 0.26666668, 1, 0.2940941, 1.164, 0.27464008)
+
+[sub_resource type="Animation" id="Animation_blm8a"]
+resource_name = "open_door"
+length = 0.5
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CSGBox3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.294, 1.164, -0.263, 0.5, 1, 0.29400063, 1.164, -0.8473768)
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CSGBox3D4")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0.2940941, 1.164, 0.27464008, 0.5, 1, 0.2940941, 1.164, 0.8045521)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gw3fx"]
+_data = {
+&"RESET": SubResource("Animation_mlgqr"),
+&"close_door": SubResource("Animation_wslke"),
+&"open_door": SubResource("Animation_blm8a")
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p5pve"]
+albedo_texture = ExtResource("1_wijl4")
+uv1_scale = Vector3(50, 50, 50)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_urblq"]
+size = Vector2(100, 100)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pt41o"]
+size = Vector3(101, 9.7, 100)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_knebx"]
+seed = 110
+frequency = 0.0005
+domain_warp_enabled = true
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_knebx"]
+height = 1.9000001
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_pt41o"]
+properties/0/path = NodePath("RigidBody3D:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("RigidBody3D:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n4m4e"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.354)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_6l8at"]
+height = 4.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_xm28t"]
+radius = 0.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ltckv"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 0.47108638, 0.2901952, 1)
+albedo_texture = ExtResource("28_vbmvi")
+normal_texture = ExtResource("28_vbmvi")
+rim = 0.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_gldc4"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ega1k"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:linear_velocity")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[sub_resource type="Animation" id="Animation_e54n0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Gears/Gear3:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.5707964, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Gears/Gear4:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.5707964, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Gears/Gear5:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.5707964, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_xm28t"]
+resource_name = "scrap"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Gears/Gear:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(1.5707964, 0, 0), Vector3(1.5707964, 1.5707964, 0), Vector3(1.5707964, 3.1415927, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Gears/Gear2:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(1.5707964, 0, 0), Vector3(1.5707964, -1.5707964, 0), Vector3(1.5707964, -3.1415927, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Gears/Gear3:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(1.5707964, 0, 0), Vector3(1.5707964, 1.5707964, 0), Vector3(1.5707964, 3.1415927, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Gears/Gear4:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(1.5707964, 0, 0), Vector3(1.5707964, -1.5707964, 0), Vector3(1.5707964, -3.1415927, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Gears/Gear5:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(1.5707964, 0, 0), Vector3(1.5707964, 1.5707964, 0), Vector3(1.5707964, 3.1415927, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8ljht"]
+_data = {
+&"RESET": SubResource("Animation_e54n0"),
+&"scrap": SubResource("Animation_xm28t")
+}
+
+[sub_resource type="Gradient" id="Gradient_xm28t"]
+colors = PackedColorArray(1, 0.8422274, 0.43872428, 1, 0.99999994, 0.36733955, 0.1725491, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_e54n0"]
+gradient = SubResource("Gradient_xm28t")
+
+[sub_resource type="Curve" id="Curve_8ljht"]
+_limits = [0.0, 3.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.111111104, 2.2335258), 0.0, 0.0, 0, 0, Vector2(0.39473683, 2.6167629), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_vbmvi"]
+curve = SubResource("Curve_8ljht")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ega1k"]
+lifetime_randomness = 0.1
+angle_min = 120.000015
+angle_max = 162.90001
+spread = 0.0
+initial_velocity_min = 4.0
+initial_velocity_max = 4.0
+linear_accel_min = -7.8900023
+linear_accel_max = 17.369997
+scale_over_velocity_curve = SubResource("CurveTexture_vbmvi")
+color_ramp = SubResource("GradientTexture1D_e54n0")
+
+[sub_resource type="Curve" id="Curve_a2lsh"]
+_data = [Vector2(0, 0), 0.0, 10.075387, 0, 0, Vector2(0.09625669, 0.47918844), 0.39525908, 0.39525908, 0, 0, Vector2(0.59358287, 0.26274723), -0.7588972, -0.7588972, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t5leq"]
+shading_mode = 0
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_827lo"]
+material = SubResource("StandardMaterial3D_t5leq")
+size = 0.1
+sections = 2
+curve = SubResource("Curve_a2lsh")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8ljht"]
+size = Vector3(0.7, 0.7, 1.8000001)
+
+[sub_resource type="Animation" id="Animation_a2lsh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mesh/RightPistons/CSGCylinder3D4:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.3999996, 0.31249994, -0.40000057)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Mesh/RightPistons/CSGCylinder3D5:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.6999998, 0.31249994, -0.40000057)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Mesh/RightPistons/CSGCylinder3D6:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.312, -0.4)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Mesh/RightPistons/CSGCylinder3D7:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.7, 0.312, -0.4)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Mesh/RightPistons/CSGCylinder3D8:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-1.4000001, 0.31199998, -0.39999962)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Mesh/EngineBlock:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Mesh/LeftPistons/CSGCylinder3D4:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.4, 0.713, -0.8)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Mesh/LeftPistons/CSGCylinder3D5:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.7, 0.312, -0.4)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Mesh/LeftPistons/CSGCylinder3D6:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.713, -0.8)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Mesh/LeftPistons/CSGCylinder3D8:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-1.4, 0.713, -0.8)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Mesh/LeftPistons/CSGCylinder3D7:position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.7, 0.312, -0.4)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Mesh/Gear6:rotation")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 1.5707964)]
+}
+
+[sub_resource type="Animation" id="Animation_ega1k"]
+resource_name = "off"
+length = 0.2
+loop_mode = 1
+
+[sub_resource type="Animation" id="Animation_vbmvi"]
+resource_name = "running"
+length = 0.2
+loop_mode = 1
+step = 0.0333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mesh/RightPistons/CSGCylinder3D4:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.099999994, 0.19999999),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(1.3999996, 0.31249994, -0.40000057), Vector3(1.3999996, 0.71250004, -0.8000002), Vector3(1.3999996, 0.31249994, -0.40000057)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Mesh/RightPistons/CSGCylinder3D5:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.099999994, 0.19999999),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.6999998, 0.71250004, -0.8000002), Vector3(0.6999998, 0.31249994, -0.40000057), Vector3(0.6999998, 0.71250004, -0.8000002)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Mesh/RightPistons/CSGCylinder3D6:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.099999994, 0.19999999),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0.312, -0.4), Vector3(0, 0.7124998, -0.8000002), Vector3(0, 0.312, -0.4)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Mesh/RightPistons/CSGCylinder3D7:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.099999994, 0.19999999),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.70000017, 0.71250004, -0.8000002), Vector3(-0.70000017, 0.28823596, -0.37573612), Vector3(-0.70000017, 0.71250004, -0.8000002)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Mesh/RightPistons/CSGCylinder3D8:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.099999994, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-1.4000001, 0.31199998, -0.39999962), Vector3(-1.4000001, 0.73626405, -0.8242637), Vector3(-1.4000001, 0.31199998, -0.39999962)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Mesh/EngineBlock:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.049960047, 0.1, 0.15, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.04363323, 0, 0), Vector3(0.04363323, 0, 0), Vector3(-0.04363323, 0, 0), Vector3(0.09599311, 0, 0), Vector3(-0.04363323, 0, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Mesh/LeftPistons/CSGCylinder3D4:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(1.4, 0.713, -0.8), Vector3(1.4, 0.312, -0.4), Vector3(1.4, 0.713, -0.8)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Mesh/LeftPistons/CSGCylinder3D5:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.7, 0.312, -0.4), Vector3(0.7, 0.713, -0.8), Vector3(0.7, 0.312, -0.4)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Mesh/LeftPistons/CSGCylinder3D6:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0.713, -0.8), Vector3(0, 0.312, -0.4), Vector3(0, 0.713, -0.8)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Mesh/LeftPistons/CSGCylinder3D8:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-1.4, 0.713, -0.8), Vector3(-1.4, 0.312, -0.4), Vector3(-1.4, 0.713, -0.8)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Mesh/LeftPistons/CSGCylinder3D7:position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.7, 0.312, -0.4), Vector3(-0.7, 0.713, -0.8), Vector3(-0.7, 0.312, -0.4)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Mesh/Gear6:rotation")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 1.5707964), Vector3(1.5707964, 0, 1.5707964), Vector3(3.1415927, 0, 1.5707964)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_t5leq"]
+_data = {
+&"RESET": SubResource("Animation_a2lsh"),
+&"off": SubResource("Animation_ega1k"),
+&"running": SubResource("Animation_vbmvi")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_827lo"]
+animation = &"off"
+advance_on_start = true
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pt41o"]
+animation = &"running"
+advance_on_start = true
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_vbmvi"]
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_dv6ho"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_efuua"]
+graph_offset = Vector2(-383, 114)
+nodes/output/position = Vector2(400, 120)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_pt41o")
+nodes/Animation/position = Vector2(-80, 140)
+"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_827lo")
+"nodes/Animation 2/position" = Vector2(60, 320)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_dv6ho")
+nodes/TimeScale/position = Vector2(60, 140)
+nodes/Blend2/node = SubResource("AnimationNodeBlend2_vbmvi")
+nodes/Blend2/position = Vector2(245.20004, 227.95001)
+node_connections = [&"output", 0, &"Blend2", &"TimeScale", 0, &"Animation", &"Blend2", 0, &"Animation 2", &"Blend2", 1, &"TimeScale"]
+
+[node name="Map" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_urblq")
+
+[node name="PlayerSpawn" type="MultiplayerSpawner" parent="." node_paths=PackedStringArray("spawn_points")]
+spawn_path = NodePath("../Players")
+script = ExtResource("2_wijl4")
+player_scene = ExtResource("2_e0an3")
+spawn_points = [NodePath("../spawn 1"), NodePath("../spawn 2"), NodePath("../spawn 3"), NodePath("../spawn 4")]
+
+[node name="ItemManager" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://6ux3q47tkxy8")
+spawn_path = NodePath("../Items")
+script = ExtResource("3_dv6ho")
+
+[node name="spawn 1" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4000046, 3.6, 1)
+
+[node name="spawn 2" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4000046, 3.6, -1)
+
+[node name="spawn 3" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.59999543, 3.6, -1)
+
+[node name="spawn 4" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.59999543, 3.6, 1)
+
+[node name="Players" type="Node3D" parent="."]
+
+[node name="SceneObj" type="Node3D" parent="."]
+
+[node name="StaticBody3D2" parent="SceneObj" instance=ExtResource("5_2klcf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.931942, 0.01867497, 15.447426)
+metadata/surface_type = "metal"
+
+[node name="StaticBody3D3" parent="SceneObj" instance=ExtResource("5_2klcf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.931942, 0.01867497, 15.447426)
+metadata/surface_type = "metal"
+
+[node name="StaticBody3D4" parent="SceneObj" instance=ExtResource("5_2klcf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.931942, 0.01867497, 15.447426)
+metadata/surface_type = "metal"
+
+[node name="WaterArea2" type="Node3D" parent="SceneObj"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SceneObj/WaterArea2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4313965, 0.13568878, 25.42424)
+use_collision = true
+size = Vector3(5.862793, 0.36328125, 13.533569)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="SceneObj/WaterArea2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.17315674, 2.765306, 25.440353)
+use_collision = true
+size = Vector3(0.6536865, 5.2869873, 13.565796)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="SceneObj/WaterArea2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.8793564, 2.765306, 25.440353)
+use_collision = true
+size = Vector3(0.6536865, 5.2869873, 13.565796)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="SceneObj/WaterArea2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3032112, 2.765306, 31.88192)
+use_collision = true
+size = Vector3(5.3058777, 5.2869873, 0.68266296)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="SceneObj/WaterArea2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3032112, 2.765306, 19.006783)
+use_collision = true
+size = Vector3(5.3058777, 5.2869873, 0.68266296)
+
+[node name="WaterArea" type="Area3D" parent="SceneObj/WaterArea2"]
+transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 1, -1.995098, 2.765306, 24.862753)
+gravity = 0.0
+script = ExtResource("6_2lpho")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SceneObj/WaterArea2/WaterArea"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -0.34835827, -0.09475708, 0.64819336)
+shape = SubResource("BoxShape3D_2klcf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SceneObj/WaterArea2/WaterArea/CollisionShape3D"]
+transform = Transform3D(1.4327482, 0, 0, 0, 1.4739954, 0, 0, 0, 4.006031, 0, 0, 0)
+mesh = SubResource("BoxMesh_2lpho")
+surface_material_override/0 = SubResource("StandardMaterial3D_nakos")
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="SceneObj/WaterArea2"]
+transform = Transform3D(0.6111128, -0.79154366, 0, 0.79154366, 0.6111128, 0, 0, 0, 1, 2.0465393, 1.6405455, 17.348814)
+use_collision = true
+size = Vector3(1.7195358, 9.903549, 2.5561638)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="SceneObj/WaterArea2"]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -3.5733597, 4.470045, 17.348814)
+use_collision = true
+size = Vector3(1.7195358, 4.4190598, 2.5561638)
+
+[node name="Test Sub" type="Node3D" parent="SceneObj"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 6)
+script = ExtResource("6_p7tei")
+
+[node name="SubDoor" parent="SceneObj/Test Sub" instance=ExtResource("8_jh32y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.683852, 1.2784178, 1.5298605)
+
+[node name="SubDoor2" parent="SceneObj/Test Sub" instance=ExtResource("8_jh32y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2000008, 1.4, -1.4000001)
+
+[node name="Compartments" type="Node3D" parent="SceneObj/Test Sub"]
+
+[node name="SubWallNoWin" parent="SceneObj/Test Sub/Compartments" instance=ExtResource("8_wslke")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2950745, 1.3225265, 1.6230202)
+
+[node name="SubWallNoWin2" parent="SceneObj/Test Sub/Compartments" instance=ExtResource("8_wslke")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2950745, 1.3225265, 1.6230202)
+
+[node name="SubWallNoWin3" parent="SceneObj/Test Sub/Compartments" instance=ExtResource("8_wslke")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.29507446, 1.3225265, 1.6230202)
+
+[node name="SubWallNoWin4" parent="SceneObj/Test Sub/Compartments" instance=ExtResource("8_wslke")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7049255, 1.3225265, 1.6230202)
+
+[node name="SubWallNoWin5" parent="SceneObj/Test Sub/Compartments" instance=ExtResource("8_wslke")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.7049255, 1.3225265, 1.6230202)
+
+[node name="SubWallNoWin6" parent="SceneObj/Test Sub/Compartments" instance=ExtResource("8_wslke")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 3.7049255, 1.3225265, -1.3769798)
+
+[node name="SubWallNoWin7" parent="SceneObj/Test Sub/Compartments" instance=ExtResource("8_wslke")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1.7049255, 1.3225265, -1.3769798)
+
+[node name="UJunct" parent="SceneObj/Test Sub/Compartments" instance=ExtResource("11_wslke")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 6.4330273, 0.31561875, 0.12109375)
+script = ExtResource("11_c70he")
+
+[node name="default9" parent="SceneObj/Test Sub" instance=ExtResource("11_n1psn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.699356, 1.0788624, 1.6098099)
+
+[node name="default10" parent="SceneObj/Test Sub" instance=ExtResource("12_c00ee")]
+transform = Transform3D(-0.69500977, 0, -0.7190003, 0, 1, 0, 0.7190003, 0, -0.69500977, 7.1924896, 0.5, -1.6274605)
+
+[node name="Door" type="StaticBody3D" parent="SceneObj"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.703461, 0, 15.13942)
+collision_layer = 4
+script = ExtResource("12_ltckv")
+
+[node name="Behaviors" type="Node3D" parent="SceneObj/Door"]
+
+[node name="DoorBehavior" parent="SceneObj/Door/Behaviors" instance=ExtResource("15_fvmnk")]
+anim_path = NodePath("../../AnimationPlayer")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SceneObj/Door"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.30367088, 1.1806166, -0.0008544922)
+shape = SubResource("BoxShape3D_nakos")
+debug_color = Color(0.7986677, 0.04528828, 0.9999998, 0.41960785)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SceneObj/Door"]
+libraries = {
+&"": SubResource("AnimationLibrary_blm8a")
+}
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SceneObj/Door"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2940941, 1.1530349, 0)
+use_collision = true
+size = Vector3(0.2388916, 2.4178467, 0.91296387)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="SceneObj/Door"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28399658, 1.1636257, -0.61559296)
+use_collision = true
+size = Vector3(0.2388916, 2.4178467, 0.32888794)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="SceneObj/Door"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28399658, 1.1636257, 0.59464455)
+use_collision = true
+size = Vector3(0.2388916, 2.4178467, 0.32888794)
+
+[node name="Door2" type="StaticBody3D" parent="SceneObj"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.703461, 0, 11.987953)
+collision_layer = 4
+script = ExtResource("12_ltckv")
+
+[node name="Behaviors" type="Node3D" parent="SceneObj/Door2"]
+
+[node name="DoorBehavior" parent="SceneObj/Door2/Behaviors" instance=ExtResource("15_fvmnk")]
+anim_path = NodePath("../../AnimationPlayer")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SceneObj/Door2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.30367088, 1.1806166, 0.030303955)
+shape = SubResource("BoxShape3D_nakos")
+debug_color = Color(0.7986677, 0.04528828, 0.9999998, 0.41960785)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SceneObj/Door2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.294, 1.164, -0.263)
+use_collision = true
+size = Vector3(0.239, 2.418, 0.55)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="SceneObj/Door2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2940941, 1.164, 0.27464008)
+use_collision = true
+size = Vector3(0.239, 2.418, 0.55)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="SceneObj/Door2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.284, 1.164, -0.7)
+use_collision = true
+size = Vector3(0.2388916, 2.4178467, 0.32888794)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="SceneObj/Door2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.284, 1.164, 0.7)
+use_collision = true
+size = Vector3(0.2388916, 2.4178467, 0.32888794)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SceneObj/Door2"]
+libraries = {
+&"": SubResource("AnimationLibrary_gw3fx")
+}
+
+[node name="Terrain" type="Node3D" parent="SceneObj"]
+
+[node name="Mesh" type="StaticBody3D" parent="SceneObj/Terrain"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SceneObj/Terrain/Mesh"]
+material_override = SubResource("StandardMaterial3D_p5pve")
+mesh = SubResource("PlaneMesh_urblq")
+skeleton = NodePath("../../..")
+metadata/surface_type = "default"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SceneObj/Terrain/Mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.85, 0.5)
+shape = SubResource("BoxShape3D_pt41o")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SceneObj/Terrain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.91742, 4.70728)
+layers = 31
+use_collision = true
+collision_layer = 27
+collision_mask = 31
+size = Vector3(8.83398, 6.83484, 0.959473)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="SceneObj/Terrain"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -3.83341, 2.91742, 1.79285e-08)
+layers = 31
+use_collision = true
+collision_layer = 27
+collision_mask = 31
+size = Vector3(9.86621, 6.83484, 1.19434)
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="SceneObj/Terrain"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 4.50962, 2.91742, 1.07891e-08)
+layers = 31
+use_collision = true
+collision_layer = 27
+collision_mask = 31
+size = Vector3(9.86621, 6.83484, 0.867676)
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="SceneObj/Terrain/CSGBox3D9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.84217e-14, -0.90451, 0.137451)
+operation = 2
+use_collision = true
+size = Vector3(2.37598, 4.39844, 2.18994)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="SceneObj/Terrain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.91742, -4.54834)
+layers = 31
+use_collision = true
+collision_layer = 27
+collision_mask = 15
+size = Vector3(8.83398, 6.83484, 1.27734)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="SceneObj/Terrain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 2.91742, -5)
+layers = 31
+use_collision = true
+collision_layer = 27
+collision_mask = 31
+size = Vector3(3.83984, 6.83484, 3.62793)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="SceneObj/Terrain"]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 16, 1.5, -5)
+layers = 31
+use_collision = true
+collision_layer = 27
+collision_mask = 31
+size = Vector3(2, 4, 2)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="SceneObj/Terrain"]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 8, 1.5, 4)
+layers = 31
+use_collision = true
+collision_layer = 27
+collision_mask = 31
+size = Vector3(2, 4, 2)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="SceneObj/Terrain"]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 15, 1.5, 1)
+layers = 31
+use_collision = true
+collision_layer = 27
+collision_mask = 31
+size = Vector3(2, 4, 2)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="SceneObj/Terrain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.14724, 0)
+layers = 31
+use_collision = true
+collision_layer = 27
+collision_mask = 31
+size = Vector3(8.83398, 0.369141, 10.0352)
+
+[node name="Items" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -2)
+
+[node name="Medkit" parent="Items" instance=ExtResource("13_gw3fx")]
+
+[node name="ScrapItem" parent="Items" instance=ExtResource("17_xm28t")]
+transform = Transform3D(0.22414389, -0.83651626, 0.49999997, -0.12940954, 0.48296288, 0.8660254, -0.9659258, -0.25881907, -1.13133405e-08, 2, -2.3, 13)
+
+[node name="ScrapItem2" parent="Items" instance=ExtResource("17_xm28t")]
+transform = Transform3D(2.8083516e-08, 4.1320035e-08, 1, -0.25881907, 0.9659258, -5.9604645e-08, -0.9659258, -0.25881904, -1.7172477e-08, 2.2, -1.3, 13)
+
+[node name="ScrapItem3" parent="Items" instance=ExtResource("17_xm28t")]
+transform = Transform3D(0.90767336, 0.24321036, 0.34202018, -0.25881907, 0.9659258, -5.9604645e-08, -0.33036608, -0.088521294, 0.9396926, 2.2, -1.6999999, 13.3)
+
+[node name="Fuel Cell" parent="Items" instance=ExtResource("29_8ljht")]
+transform = Transform3D(1, 0, 0, 0, 1.3113416e-07, -1, 0, 1, 1.3113416e-07, 2.6, -2.6, 9.5)
+
+[node name="pc(screen)" parent="." instance=ExtResource("15_p7tei")]
+transform = Transform3D(-6.556708e-08, 0, -1.5, 0, 1.5, 0, 1.5, 0, -6.556708e-08, 11, 0.8, 0)
+
+[node name="pc(screen)2" parent="." instance=ExtResource("15_p7tei")]
+transform = Transform3D(0.3882285, 0, -1.4488888, 0, 1.5, 0, 1.4488888, 0, 0.3882285, 10.9, 0.8, -0.8)
+
+[node name="pc(screen)3" parent="." instance=ExtResource("15_p7tei")]
+transform = Transform3D(-0.3882286, 0, -1.4488887, 0, 1.4999999, 0, 1.4488887, 0, -0.3882286, 10.9, 0.8, 0.8)
+
+[node name="CageDrop" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -6)
+
+[node name="RopeAnchor" type="Node3D" parent="CageDrop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
+
+[node name="VerletRopeSimulated" type="Node3D" parent="CageDrop/RopeAnchor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+script = ExtResource("17_l52dn")
+Gravity = Vector3(0, -9.8, 0)
+ApplyWind = true
+WindDirection = Vector3(60, 0, 0)
+WindNoise = SubResource("FastNoiseLite_knebx")
+metadata/_custom_type_script = "uid://c3oxgehluk75x"
+
+[node name="JointSimulated" type="Node" parent="CageDrop/RopeAnchor/VerletRopeSimulated" node_paths=PackedStringArray("VerletRope", "EndBody", "EndCustomLocation")]
+script = ExtResource("18_ssa7r")
+VerletRope = NodePath("..")
+EndBody = NodePath("../../../RigidBody3D")
+EndCustomLocation = NodePath("../../../RigidBody3D/Connection")
+JointMaxDistance = 5.0
+JointMaxForce = 100.0
+metadata/verlet_rope_physical_create_simulated_joint = 2093846747
+
+[node name="VerletRopeRigid" type="Node3D" parent="CageDrop/RopeAnchor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -2, 10)
+script = ExtResource("18_po8p6")
+CollisionLayer = 0
+CollisionMask = 0
+RopeLength = 6.0
+metadata/_custom_type_script = "uid://dja12uyulc7ee"
+
+[node name="JointRigid" type="Node" parent="CageDrop/RopeAnchor/VerletRopeRigid" node_paths=PackedStringArray("VerletRope", "StartCustomLocation", "EndCustomLocation")]
+script = ExtResource("19_n4m4e")
+VerletRope = NodePath("..")
+StartCustomLocation = NodePath("../../Node3D2")
+EndCustomLocation = NodePath("../../Node3D")
+metadata/verlet_rope_physical_create_rigid_joint = 1936129013
+
+[node name="Node3D" type="Node3D" parent="CageDrop/RopeAnchor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.2, -2, 7.2)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="CageDrop/RopeAnchor/Node3D"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CageDrop/RopeAnchor/Node3D/StaticBody3D"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="Node3D2" type="Node3D" parent="CageDrop/RopeAnchor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1999998, -2, 10.5)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="CageDrop/RopeAnchor/Node3D2"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CageDrop/RopeAnchor/Node3D2/StaticBody3D"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="RigidBody3D" type="RigidBody3D" parent="CageDrop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="CageDrop/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.024999976, 0)
+height = 1.95
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CageDrop/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.049999952, 0)
+shape = SubResource("CylinderShape3D_knebx")
+
+[node name="Connection" type="Node3D" parent="CageDrop/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="CageDrop"]
+replication_config = SubResource("SceneReplicationConfig_pt41o")
+
+[node name="Fuel Tank" type="StaticBody3D" parent="." node_paths=PackedStringArray("AttachPoint", "AttachZone", "FuelPort", "Fueltank")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, 9)
+script = ExtResource("22_hfypl")
+AttachPoint = NodePath("FuelPort/Node3D2")
+AttachZone = NodePath("FuelPort/Area3D")
+FuelPort = NodePath("../FuelHandle")
+magnet_strength = 60.0
+stop_distance = 0.1
+Fueltank = NodePath("GFX/Fuel")
+
+[node name="GFX" type="Node3D" parent="Fuel Tank"]
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="Fuel Tank/GFX"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.61249995, 0)
+material_override = ExtResource("20_po8p6")
+radius = 1.0
+height = 0.775
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="Fuel Tank/GFX"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.9437501, 0)
+material_override = ExtResource("20_po8p6")
+radius = 1.0
+height = 0.2875
+
+[node name="Glass" type="CSGCylinder3D" parent="Fuel Tank/GFX"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3000002, 0)
+material_override = SubResource("StandardMaterial3D_n4m4e")
+radius = 1.0
+height = 3.0
+
+[node name="Fuel" type="CSGCylinder3D" parent="Fuel Tank/GFX"]
+transform = Transform3D(1, 0, 0, 0, -1.0000001, -5.9604645e-08, 0, 5.9604645e-08, -1.0000001, 0, 1.2816405, 0)
+radius = 0.8
+height = 3.0
+material = ExtResource("26_ega1k")
+script = ExtResource("27_ega1k")
+max_fuel = 50.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Fuel Tank"]
+transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 2, 0, 1, 0)
+shape = SubResource("CylinderShape3D_6l8at")
+
+[node name="FuelPort" parent="Fuel Tank" instance=ExtResource("20_n4m4e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9000001, -0.100000024, 0)
+
+[node name="Area3D" type="Area3D" parent="Fuel Tank/FuelPort"]
+
+[node name="AttachShape" type="CollisionShape3D" parent="Fuel Tank/FuelPort/Area3D"]
+shape = SubResource("SphereShape3D_xm28t")
+
+[node name="Node3D2" type="Node3D" parent="Fuel Tank/FuelPort"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.79999995, 0, 0)
+
+[node name="FuelRopeBase" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 8, 6)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="FuelRopeBase"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="VerletRopeSimulated2" type="Node3D" parent="FuelRopeBase"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 4)
+script = ExtResource("17_l52dn")
+SimulationParticles = 15
+Gravity = Vector3(0, -9.8, 0)
+RopeCollisionBehavior = 1
+RayCastHitFromInside = true
+RayCastHitBackFaces = true
+RopeLength = 10.0
+RopeWidth = 0.2
+MaterialOverride = SubResource("StandardMaterial3D_ltckv")
+metadata/_custom_type_script = "uid://c3oxgehluk75x"
+
+[node name="JointSimulated" type="Node" parent="FuelRopeBase/VerletRopeSimulated2" node_paths=PackedStringArray("VerletRope", "StartBody", "StartCustomLocation", "EndBody", "EndCustomLocation")]
+script = ExtResource("18_ssa7r")
+VerletRope = NodePath("..")
+StartBody = NodePath("../../../FuelHandle")
+StartCustomLocation = NodePath("../../../FuelHandle")
+EndBody = NodePath("../..")
+EndCustomLocation = NodePath("../..")
+JointMaxDistance = 10.0
+metadata/verlet_rope_physical_create_simulated_joint = 38852839
+
+[node name="FuelHandle" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6836991, 6.545373)
+collision_layer = 5
+script = ExtResource("12_ltckv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FuelHandle"]
+shape = SubResource("SphereShape3D_gldc4")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="FuelHandle"]
+layers = 5
+material_override = ExtResource("20_po8p6")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="FuelHandle"]
+replication_interval = 0.05
+replication_config = SubResource("SceneReplicationConfig_ega1k")
+
+[node name="Behaviors" type="Node" parent="FuelHandle"]
+
+[node name="PickupBehavior" parent="FuelHandle/Behaviors" instance=ExtResource("30_dv6ho")]
+
+[node name="Scrapper" type="Node3D" parent="." node_paths=PackedStringArray("_anim_player", "scrap_zone", "output")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 9)
+script = ExtResource("28_e54n0")
+_anim_player = NodePath("AnimationPlayer")
+scrap_zone = NodePath("ScrapZone")
+output = NodePath("OutputNode")
+fuelcell_scene = ExtResource("29_8ljht")
+
+[node name="Mesh" type="Node3D" parent="Scrapper"]
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="Scrapper/Mesh"]
+transform = Transform3D(1.4, 0, 0, 0, 1.3, 0, 0, 0, 1, 0, 0, 1)
+material_override = ExtResource("20_po8p6")
+use_collision = true
+polygon = PackedVector2Array(0, 1, 0.6, 1, 1, 0.5, 1, 0, 0, 0)
+depth = 2.0
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Scrapper/Mesh/CSGPolygon3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.71428573, 0.7692308, -1)
+operation = 2
+size = Vector3(0.6, 0.6, 1.8000001)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Scrapper/Mesh"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0.6, 0.40000004, -1.0500002)
+material_override = ExtResource("20_po8p6")
+radius = 0.4
+height = 0.3
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="Scrapper/Mesh/CSGCylinder3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.39999962, 8.940697e-08)
+operation = 2
+radius = 0.4
+radial_segments = 8
+rings = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Scrapper"]
+libraries = {
+&"": SubResource("AnimationLibrary_8ljht")
+}
+speed_scale = 1.5
+
+[node name="Gears" type="Node3D" parent="Scrapper"]
+
+[node name="Gear" type="Node3D" parent="Scrapper/Gears"]
+transform = Transform3D(0.99999994, 0, 0, 0, -9.1294645e-08, -0.4787946, 0, 2.088578, -2.0928777e-08, 0.7392338, 0.70043594, 0.72314453)
+rotation_order = 0
+
+[node name="Mesh" type="CSGCylinder3D" parent="Scrapper/Gears/Gear"]
+transform = Transform3D(0.85800004, 0, 0, 0, 0.8580001, -1.7763568e-15, 0, -1.4210855e-14, 1.7920002, 0, 0, 0)
+material_override = ExtResource("20_po8p6")
+radius = 0.4
+height = 0.2
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="Scrapper/Gears/Gear/Mesh"]
+operation = 2
+radius = 0.2
+height = 0.2
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="Scrapper/Gears/Gear/Mesh"]
+transform = Transform3D(0.21548767, 0, 0, 0, -1.3297285e-08, 0.9236927, 0, -0.30420646, -4.03759e-08, -0.064203925, 0.09084071, -0.36423016)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D2" type="CSGPolygon3D" parent="Scrapper/Gears/Gear/Mesh"]
+transform = Transform3D(0.20249216, 0.10404473, 1.3809368e-08, 0, -1.3297285e-08, 0.9236927, 0.07370111, -0.28586057, -3.7940936e-08, 0.06424209, 0.09084071, -0.36422345)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D3" type="CSGPolygon3D" parent="Scrapper/Gears/Gear/Mesh"]
+transform = Transform3D(0.16507314, 0.19554015, 2.5953126e-08, 0, -1.3297285e-08, 0.9236927, 0.1385128, -0.2330357, -3.0929737e-08, 0.18493956, 0.09084071, -0.32028604)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D4" type="CSGPolygon3D" parent="Scrapper/Gears/Gear/Mesh"]
+transform = Transform3D(0.10774385, 0.2634505, 3.4966547e-08, 0, -1.3297285e-08, 0.9236927, 0.18661778, -0.15210325, -2.018795e-08, 0.2833306, 0.09084071, -0.23771733)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D5" type="CSGPolygon3D" parent="Scrapper/Gears/Gear/Mesh"]
+transform = Transform3D(0.03741906, 0.29958487, 3.9762494e-08, 0, -1.3297285e-08, 0.9236927, 0.21221392, -0.052824926, -7.011205e-09, 0.34754777, 0.09084071, -0.12647647)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D6" type="CSGPolygon3D" parent="Scrapper/Gears/Gear/Mesh"]
+transform = Transform3D(-0.037419014, 0.29958487, 3.9762494e-08, 0, -1.3297285e-08, 0.9236927, 0.21221392, 0.052824862, 7.011196e-09, 0.36984557, 0.09084071, 1.9334258e-05)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D7" type="CSGPolygon3D" parent="Scrapper/Gears/Gear/Mesh"]
+transform = Transform3D(-0.107743815, 0.2634505, 3.4966547e-08, 0, -1.3297285e-08, 0.9236927, 0.18661778, 0.1521032, 2.0187944e-08, 0.3475345, 0.09084071, 0.1265128)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D8" type="CSGPolygon3D" parent="Scrapper/Gears/Gear/Mesh"]
+transform = Transform3D(-0.1650731, 0.19554015, 2.5953126e-08, 0, -1.3297285e-08, 0.9236927, 0.1385128, 0.23303562, 3.0929726e-08, 0.28330567, 0.09084071, 0.23774695)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D9" type="CSGPolygon3D" parent="Scrapper/Gears/Gear/Mesh"]
+transform = Transform3D(-0.20249216, 0.104044765, 1.3809374e-08, 0, -1.3297285e-08, 0.9236927, 0.07370114, 0.28586057, 3.7940936e-08, 0.18490604, 0.09084071, 0.32030535)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D10" type="CSGPolygon3D" parent="Scrapper/Gears/Gear/Mesh"]
+transform = Transform3D(-0.21548767, 3.6264236e-08, 4.8131826e-15, 0, -1.3297285e-08, 0.9236927, 2.5688133e-08, 0.30420646, 4.03759e-08, 0.06420397, 0.09084071, 0.36423016)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D11" type="CSGPolygon3D" parent="Scrapper/Gears/Gear/Mesh"]
+transform = Transform3D(-0.20249219, -0.1040447, -1.3809363e-08, 0, -1.3297285e-08, 0.9236927, -0.07370109, 0.28586057, 3.7940936e-08, -0.064242035, 0.09084071, 0.36422345)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D12" type="CSGPolygon3D" parent="Scrapper/Gears/Gear/Mesh"]
+transform = Transform3D(-0.16507314, -0.1955401, -2.595312e-08, 0, -1.3297285e-08, 0.9236927, -0.13851276, 0.23303568, 3.0929737e-08, -0.18493952, 0.09084071, 0.32028598)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D13" type="CSGPolygon3D" parent="Scrapper/Gears/Gear/Mesh"]
+transform = Transform3D(-0.10774385, -0.26345047, -3.4966547e-08, 0, -1.3297285e-08, 0.9236927, -0.18661776, 0.15210326, 2.0187953e-08, -0.28333056, 0.09084071, 0.23771735)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D14" type="CSGPolygon3D" parent="Scrapper/Gears/Gear/Mesh"]
+transform = Transform3D(-0.037419077, -0.29958484, -3.976249e-08, 0, -1.3297285e-08, 0.9236927, -0.21221389, 0.05282495, 7.0112076e-09, -0.34754774, 0.09084071, 0.1264765)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D15" type="CSGPolygon3D" parent="Scrapper/Gears/Gear/Mesh"]
+transform = Transform3D(0.03741899, -0.29958487, -3.9762494e-08, 0, -1.3297285e-08, 0.9236927, -0.21221392, -0.052824832, -7.011192e-09, -0.36984554, 0.09084071, -1.9297006e-05)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D16" type="CSGPolygon3D" parent="Scrapper/Gears/Gear/Mesh"]
+transform = Transform3D(0.10774378, -0.26345053, -3.4966554e-08, 0, -1.3297285e-08, 0.9236927, -0.18661779, -0.15210316, -2.0187942e-08, -0.34753454, 0.09084071, -0.12651275)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D17" type="CSGPolygon3D" parent="Scrapper/Gears/Gear/Mesh"]
+transform = Transform3D(0.16507307, -0.1955402, -2.595313e-08, 0, -1.3297285e-08, 0.9236927, -0.13851283, -0.23303558, -3.092972e-08, -0.2833057, 0.09084071, -0.23774688)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D18" type="CSGPolygon3D" parent="Scrapper/Gears/Gear/Mesh"]
+transform = Transform3D(0.20249212, -0.10404481, -1.380938e-08, 0, -1.3297285e-08, 0.9236927, -0.07370117, -0.28586048, -3.7940925e-08, -0.18490608, 0.09084071, -0.32030526)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="Scrapper/Gears/Gear/Mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.10214276, 0)
+operation = 2
+radius = 0.35
+height = 0.02919922
+
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="Scrapper/Gears/Gear/Mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.102, 0)
+operation = 2
+radius = 0.35
+height = 0.02919922
+
+[node name="Gear2" type="Node3D" parent="Scrapper/Gears"]
+transform = Transform3D(0.99999994, 0, 0, 0, -9.1294645e-08, -0.4787946, 0, 2.088578, -2.0928777e-08, 0.73923385, 0.7004359, 0.3671713)
+rotation_order = 0
+
+[node name="Mesh" type="CSGCylinder3D" parent="Scrapper/Gears/Gear2"]
+transform = Transform3D(0.85800004, 0, 0, 0, 0.8580001, -1.7763568e-15, 0, -1.4210855e-14, 1.7920002, 0, 0, 0)
+material_override = ExtResource("20_po8p6")
+radius = 0.4
+height = 0.2
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="Scrapper/Gears/Gear2/Mesh"]
+operation = 2
+radius = 0.2
+height = 0.2
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="Scrapper/Gears/Gear2/Mesh"]
+transform = Transform3D(0.21548767, 0, 0, 0, -1.3297285e-08, 0.9236927, 0, -0.30420646, -4.03759e-08, -0.064203925, 0.09084071, -0.36423016)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D2" type="CSGPolygon3D" parent="Scrapper/Gears/Gear2/Mesh"]
+transform = Transform3D(0.20249216, 0.10404473, 1.3809368e-08, 0, -1.3297285e-08, 0.9236927, 0.07370111, -0.28586057, -3.7940936e-08, 0.06424209, 0.09084071, -0.36422345)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D3" type="CSGPolygon3D" parent="Scrapper/Gears/Gear2/Mesh"]
+transform = Transform3D(0.16507314, 0.19554015, 2.5953126e-08, 0, -1.3297285e-08, 0.9236927, 0.1385128, -0.2330357, -3.0929737e-08, 0.18493956, 0.09084071, -0.32028604)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D4" type="CSGPolygon3D" parent="Scrapper/Gears/Gear2/Mesh"]
+transform = Transform3D(0.10774385, 0.2634505, 3.4966547e-08, 0, -1.3297285e-08, 0.9236927, 0.18661778, -0.15210325, -2.018795e-08, 0.2833306, 0.09084071, -0.23771733)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D5" type="CSGPolygon3D" parent="Scrapper/Gears/Gear2/Mesh"]
+transform = Transform3D(0.03741906, 0.29958487, 3.9762494e-08, 0, -1.3297285e-08, 0.9236927, 0.21221392, -0.052824926, -7.011205e-09, 0.34754777, 0.09084071, -0.12647647)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D6" type="CSGPolygon3D" parent="Scrapper/Gears/Gear2/Mesh"]
+transform = Transform3D(-0.037419014, 0.29958487, 3.9762494e-08, 0, -1.3297285e-08, 0.9236927, 0.21221392, 0.052824862, 7.011196e-09, 0.36984557, 0.09084071, 1.9334258e-05)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D7" type="CSGPolygon3D" parent="Scrapper/Gears/Gear2/Mesh"]
+transform = Transform3D(-0.107743815, 0.2634505, 3.4966547e-08, 0, -1.3297285e-08, 0.9236927, 0.18661778, 0.1521032, 2.0187944e-08, 0.3475345, 0.09084071, 0.1265128)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D8" type="CSGPolygon3D" parent="Scrapper/Gears/Gear2/Mesh"]
+transform = Transform3D(-0.1650731, 0.19554015, 2.5953126e-08, 0, -1.3297285e-08, 0.9236927, 0.1385128, 0.23303562, 3.0929726e-08, 0.28330567, 0.09084071, 0.23774695)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D9" type="CSGPolygon3D" parent="Scrapper/Gears/Gear2/Mesh"]
+transform = Transform3D(-0.20249216, 0.104044765, 1.3809374e-08, 0, -1.3297285e-08, 0.9236927, 0.07370114, 0.28586057, 3.7940936e-08, 0.18490604, 0.09084071, 0.32030535)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D10" type="CSGPolygon3D" parent="Scrapper/Gears/Gear2/Mesh"]
+transform = Transform3D(-0.21548767, 3.6264236e-08, 4.8131826e-15, 0, -1.3297285e-08, 0.9236927, 2.5688133e-08, 0.30420646, 4.03759e-08, 0.06420397, 0.09084071, 0.36423016)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D11" type="CSGPolygon3D" parent="Scrapper/Gears/Gear2/Mesh"]
+transform = Transform3D(-0.20249219, -0.1040447, -1.3809363e-08, 0, -1.3297285e-08, 0.9236927, -0.07370109, 0.28586057, 3.7940936e-08, -0.064242035, 0.09084071, 0.36422345)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D12" type="CSGPolygon3D" parent="Scrapper/Gears/Gear2/Mesh"]
+transform = Transform3D(-0.16507314, -0.1955401, -2.595312e-08, 0, -1.3297285e-08, 0.9236927, -0.13851276, 0.23303568, 3.0929737e-08, -0.18493952, 0.09084071, 0.32028598)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D13" type="CSGPolygon3D" parent="Scrapper/Gears/Gear2/Mesh"]
+transform = Transform3D(-0.10774385, -0.26345047, -3.4966547e-08, 0, -1.3297285e-08, 0.9236927, -0.18661776, 0.15210326, 2.0187953e-08, -0.28333056, 0.09084071, 0.23771735)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D14" type="CSGPolygon3D" parent="Scrapper/Gears/Gear2/Mesh"]
+transform = Transform3D(-0.037419077, -0.29958484, -3.976249e-08, 0, -1.3297285e-08, 0.9236927, -0.21221389, 0.05282495, 7.0112076e-09, -0.34754774, 0.09084071, 0.1264765)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D15" type="CSGPolygon3D" parent="Scrapper/Gears/Gear2/Mesh"]
+transform = Transform3D(0.03741899, -0.29958487, -3.9762494e-08, 0, -1.3297285e-08, 0.9236927, -0.21221392, -0.052824832, -7.011192e-09, -0.36984554, 0.09084071, -1.9297006e-05)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D16" type="CSGPolygon3D" parent="Scrapper/Gears/Gear2/Mesh"]
+transform = Transform3D(0.10774378, -0.26345053, -3.4966554e-08, 0, -1.3297285e-08, 0.9236927, -0.18661779, -0.15210316, -2.0187942e-08, -0.34753454, 0.09084071, -0.12651275)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D17" type="CSGPolygon3D" parent="Scrapper/Gears/Gear2/Mesh"]
+transform = Transform3D(0.16507307, -0.1955402, -2.595313e-08, 0, -1.3297285e-08, 0.9236927, -0.13851283, -0.23303558, -3.092972e-08, -0.2833057, 0.09084071, -0.23774688)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D18" type="CSGPolygon3D" parent="Scrapper/Gears/Gear2/Mesh"]
+transform = Transform3D(0.20249212, -0.10404481, -1.380938e-08, 0, -1.3297285e-08, 0.9236927, -0.07370117, -0.28586048, -3.7940925e-08, -0.18490608, 0.09084071, -0.32030526)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="Scrapper/Gears/Gear2/Mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.10214276, 0)
+operation = 2
+radius = 0.35
+height = 0.02919922
+
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="Scrapper/Gears/Gear2/Mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.102, 0)
+operation = 2
+radius = 0.35
+height = 0.02919922
+
+[node name="Gear3" type="Node3D" parent="Scrapper/Gears"]
+transform = Transform3D(0.99999994, 0, 0, 0, -9.1294645e-08, -0.4787946, 0, 2.088578, -2.0928777e-08, 0.7392338, 0.70043594, 0.014871597)
+rotation_order = 0
+
+[node name="Mesh" type="CSGCylinder3D" parent="Scrapper/Gears/Gear3"]
+transform = Transform3D(0.85800004, 0, 0, 0, 0.8580001, -1.7763568e-15, 0, -1.4210855e-14, 1.7920002, 0, 0, 0)
+material_override = ExtResource("20_po8p6")
+radius = 0.4
+height = 0.2
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="Scrapper/Gears/Gear3/Mesh"]
+operation = 2
+radius = 0.2
+height = 0.2
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="Scrapper/Gears/Gear3/Mesh"]
+transform = Transform3D(0.21548767, 0, 0, 0, -1.3297285e-08, 0.9236927, 0, -0.30420646, -4.03759e-08, -0.064203925, 0.09084071, -0.36423016)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D2" type="CSGPolygon3D" parent="Scrapper/Gears/Gear3/Mesh"]
+transform = Transform3D(0.20249216, 0.10404473, 1.3809368e-08, 0, -1.3297285e-08, 0.9236927, 0.07370111, -0.28586057, -3.7940936e-08, 0.06424209, 0.09084071, -0.36422345)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D3" type="CSGPolygon3D" parent="Scrapper/Gears/Gear3/Mesh"]
+transform = Transform3D(0.16507314, 0.19554015, 2.5953126e-08, 0, -1.3297285e-08, 0.9236927, 0.1385128, -0.2330357, -3.0929737e-08, 0.18493956, 0.09084071, -0.32028604)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D4" type="CSGPolygon3D" parent="Scrapper/Gears/Gear3/Mesh"]
+transform = Transform3D(0.10774385, 0.2634505, 3.4966547e-08, 0, -1.3297285e-08, 0.9236927, 0.18661778, -0.15210325, -2.018795e-08, 0.2833306, 0.09084071, -0.23771733)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D5" type="CSGPolygon3D" parent="Scrapper/Gears/Gear3/Mesh"]
+transform = Transform3D(0.03741906, 0.29958487, 3.9762494e-08, 0, -1.3297285e-08, 0.9236927, 0.21221392, -0.052824926, -7.011205e-09, 0.34754777, 0.09084071, -0.12647647)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D6" type="CSGPolygon3D" parent="Scrapper/Gears/Gear3/Mesh"]
+transform = Transform3D(-0.037419014, 0.29958487, 3.9762494e-08, 0, -1.3297285e-08, 0.9236927, 0.21221392, 0.052824862, 7.011196e-09, 0.36984557, 0.09084071, 1.9334258e-05)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D7" type="CSGPolygon3D" parent="Scrapper/Gears/Gear3/Mesh"]
+transform = Transform3D(-0.107743815, 0.2634505, 3.4966547e-08, 0, -1.3297285e-08, 0.9236927, 0.18661778, 0.1521032, 2.0187944e-08, 0.3475345, 0.09084071, 0.1265128)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D8" type="CSGPolygon3D" parent="Scrapper/Gears/Gear3/Mesh"]
+transform = Transform3D(-0.1650731, 0.19554015, 2.5953126e-08, 0, -1.3297285e-08, 0.9236927, 0.1385128, 0.23303562, 3.0929726e-08, 0.28330567, 0.09084071, 0.23774695)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D9" type="CSGPolygon3D" parent="Scrapper/Gears/Gear3/Mesh"]
+transform = Transform3D(-0.20249216, 0.104044765, 1.3809374e-08, 0, -1.3297285e-08, 0.9236927, 0.07370114, 0.28586057, 3.7940936e-08, 0.18490604, 0.09084071, 0.32030535)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D10" type="CSGPolygon3D" parent="Scrapper/Gears/Gear3/Mesh"]
+transform = Transform3D(-0.21548767, 3.6264236e-08, 4.8131826e-15, 0, -1.3297285e-08, 0.9236927, 2.5688133e-08, 0.30420646, 4.03759e-08, 0.06420397, 0.09084071, 0.36423016)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D11" type="CSGPolygon3D" parent="Scrapper/Gears/Gear3/Mesh"]
+transform = Transform3D(-0.20249219, -0.1040447, -1.3809363e-08, 0, -1.3297285e-08, 0.9236927, -0.07370109, 0.28586057, 3.7940936e-08, -0.064242035, 0.09084071, 0.36422345)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D12" type="CSGPolygon3D" parent="Scrapper/Gears/Gear3/Mesh"]
+transform = Transform3D(-0.16507314, -0.1955401, -2.595312e-08, 0, -1.3297285e-08, 0.9236927, -0.13851276, 0.23303568, 3.0929737e-08, -0.18493952, 0.09084071, 0.32028598)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D13" type="CSGPolygon3D" parent="Scrapper/Gears/Gear3/Mesh"]
+transform = Transform3D(-0.10774385, -0.26345047, -3.4966547e-08, 0, -1.3297285e-08, 0.9236927, -0.18661776, 0.15210326, 2.0187953e-08, -0.28333056, 0.09084071, 0.23771735)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D14" type="CSGPolygon3D" parent="Scrapper/Gears/Gear3/Mesh"]
+transform = Transform3D(-0.037419077, -0.29958484, -3.976249e-08, 0, -1.3297285e-08, 0.9236927, -0.21221389, 0.05282495, 7.0112076e-09, -0.34754774, 0.09084071, 0.1264765)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D15" type="CSGPolygon3D" parent="Scrapper/Gears/Gear3/Mesh"]
+transform = Transform3D(0.03741899, -0.29958487, -3.9762494e-08, 0, -1.3297285e-08, 0.9236927, -0.21221392, -0.052824832, -7.011192e-09, -0.36984554, 0.09084071, -1.9297006e-05)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D16" type="CSGPolygon3D" parent="Scrapper/Gears/Gear3/Mesh"]
+transform = Transform3D(0.10774378, -0.26345053, -3.4966554e-08, 0, -1.3297285e-08, 0.9236927, -0.18661779, -0.15210316, -2.0187942e-08, -0.34753454, 0.09084071, -0.12651275)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D17" type="CSGPolygon3D" parent="Scrapper/Gears/Gear3/Mesh"]
+transform = Transform3D(0.16507307, -0.1955402, -2.595313e-08, 0, -1.3297285e-08, 0.9236927, -0.13851283, -0.23303558, -3.092972e-08, -0.2833057, 0.09084071, -0.23774688)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D18" type="CSGPolygon3D" parent="Scrapper/Gears/Gear3/Mesh"]
+transform = Transform3D(0.20249212, -0.10404481, -1.380938e-08, 0, -1.3297285e-08, 0.9236927, -0.07370117, -0.28586048, -3.7940925e-08, -0.18490608, 0.09084071, -0.32030526)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="Scrapper/Gears/Gear3/Mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.10214276, 0)
+operation = 2
+radius = 0.35
+height = 0.02919922
+
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="Scrapper/Gears/Gear3/Mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.102, 0)
+operation = 2
+radius = 0.35
+height = 0.02919922
+
+[node name="Gear4" type="Node3D" parent="Scrapper/Gears"]
+transform = Transform3D(0.99999994, 0, 0, 0, -9.1294645e-08, -0.4787946, 0, 2.088578, -2.0928777e-08, 0.73923385, 0.7004359, -0.33818913)
+rotation_order = 0
+
+[node name="Mesh" type="CSGCylinder3D" parent="Scrapper/Gears/Gear4"]
+transform = Transform3D(0.85800004, 0, 0, 0, 0.8580001, -1.7763568e-15, 0, -1.4210855e-14, 1.7920002, 0, 0, 0)
+material_override = ExtResource("20_po8p6")
+radius = 0.4
+height = 0.2
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="Scrapper/Gears/Gear4/Mesh"]
+operation = 2
+radius = 0.2
+height = 0.2
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="Scrapper/Gears/Gear4/Mesh"]
+transform = Transform3D(0.21548767, 0, 0, 0, -1.3297285e-08, 0.9236927, 0, -0.30420646, -4.03759e-08, -0.064203925, 0.09084071, -0.36423016)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D2" type="CSGPolygon3D" parent="Scrapper/Gears/Gear4/Mesh"]
+transform = Transform3D(0.20249216, 0.10404473, 1.3809368e-08, 0, -1.3297285e-08, 0.9236927, 0.07370111, -0.28586057, -3.7940936e-08, 0.06424209, 0.09084071, -0.36422345)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D3" type="CSGPolygon3D" parent="Scrapper/Gears/Gear4/Mesh"]
+transform = Transform3D(0.16507314, 0.19554015, 2.5953126e-08, 0, -1.3297285e-08, 0.9236927, 0.1385128, -0.2330357, -3.0929737e-08, 0.18493956, 0.09084071, -0.32028604)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D4" type="CSGPolygon3D" parent="Scrapper/Gears/Gear4/Mesh"]
+transform = Transform3D(0.10774385, 0.2634505, 3.4966547e-08, 0, -1.3297285e-08, 0.9236927, 0.18661778, -0.15210325, -2.018795e-08, 0.2833306, 0.09084071, -0.23771733)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D5" type="CSGPolygon3D" parent="Scrapper/Gears/Gear4/Mesh"]
+transform = Transform3D(0.03741906, 0.29958487, 3.9762494e-08, 0, -1.3297285e-08, 0.9236927, 0.21221392, -0.052824926, -7.011205e-09, 0.34754777, 0.09084071, -0.12647647)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D6" type="CSGPolygon3D" parent="Scrapper/Gears/Gear4/Mesh"]
+transform = Transform3D(-0.037419014, 0.29958487, 3.9762494e-08, 0, -1.3297285e-08, 0.9236927, 0.21221392, 0.052824862, 7.011196e-09, 0.36984557, 0.09084071, 1.9334258e-05)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D7" type="CSGPolygon3D" parent="Scrapper/Gears/Gear4/Mesh"]
+transform = Transform3D(-0.107743815, 0.2634505, 3.4966547e-08, 0, -1.3297285e-08, 0.9236927, 0.18661778, 0.1521032, 2.0187944e-08, 0.3475345, 0.09084071, 0.1265128)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D8" type="CSGPolygon3D" parent="Scrapper/Gears/Gear4/Mesh"]
+transform = Transform3D(-0.1650731, 0.19554015, 2.5953126e-08, 0, -1.3297285e-08, 0.9236927, 0.1385128, 0.23303562, 3.0929726e-08, 0.28330567, 0.09084071, 0.23774695)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D9" type="CSGPolygon3D" parent="Scrapper/Gears/Gear4/Mesh"]
+transform = Transform3D(-0.20249216, 0.104044765, 1.3809374e-08, 0, -1.3297285e-08, 0.9236927, 0.07370114, 0.28586057, 3.7940936e-08, 0.18490604, 0.09084071, 0.32030535)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D10" type="CSGPolygon3D" parent="Scrapper/Gears/Gear4/Mesh"]
+transform = Transform3D(-0.21548767, 3.6264236e-08, 4.8131826e-15, 0, -1.3297285e-08, 0.9236927, 2.5688133e-08, 0.30420646, 4.03759e-08, 0.06420397, 0.09084071, 0.36423016)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D11" type="CSGPolygon3D" parent="Scrapper/Gears/Gear4/Mesh"]
+transform = Transform3D(-0.20249219, -0.1040447, -1.3809363e-08, 0, -1.3297285e-08, 0.9236927, -0.07370109, 0.28586057, 3.7940936e-08, -0.064242035, 0.09084071, 0.36422345)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D12" type="CSGPolygon3D" parent="Scrapper/Gears/Gear4/Mesh"]
+transform = Transform3D(-0.16507314, -0.1955401, -2.595312e-08, 0, -1.3297285e-08, 0.9236927, -0.13851276, 0.23303568, 3.0929737e-08, -0.18493952, 0.09084071, 0.32028598)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D13" type="CSGPolygon3D" parent="Scrapper/Gears/Gear4/Mesh"]
+transform = Transform3D(-0.10774385, -0.26345047, -3.4966547e-08, 0, -1.3297285e-08, 0.9236927, -0.18661776, 0.15210326, 2.0187953e-08, -0.28333056, 0.09084071, 0.23771735)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D14" type="CSGPolygon3D" parent="Scrapper/Gears/Gear4/Mesh"]
+transform = Transform3D(-0.037419077, -0.29958484, -3.976249e-08, 0, -1.3297285e-08, 0.9236927, -0.21221389, 0.05282495, 7.0112076e-09, -0.34754774, 0.09084071, 0.1264765)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D15" type="CSGPolygon3D" parent="Scrapper/Gears/Gear4/Mesh"]
+transform = Transform3D(0.03741899, -0.29958487, -3.9762494e-08, 0, -1.3297285e-08, 0.9236927, -0.21221392, -0.052824832, -7.011192e-09, -0.36984554, 0.09084071, -1.9297006e-05)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D16" type="CSGPolygon3D" parent="Scrapper/Gears/Gear4/Mesh"]
+transform = Transform3D(0.10774378, -0.26345053, -3.4966554e-08, 0, -1.3297285e-08, 0.9236927, -0.18661779, -0.15210316, -2.0187942e-08, -0.34753454, 0.09084071, -0.12651275)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D17" type="CSGPolygon3D" parent="Scrapper/Gears/Gear4/Mesh"]
+transform = Transform3D(0.16507307, -0.1955402, -2.595313e-08, 0, -1.3297285e-08, 0.9236927, -0.13851283, -0.23303558, -3.092972e-08, -0.2833057, 0.09084071, -0.23774688)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D18" type="CSGPolygon3D" parent="Scrapper/Gears/Gear4/Mesh"]
+transform = Transform3D(0.20249212, -0.10404481, -1.380938e-08, 0, -1.3297285e-08, 0.9236927, -0.07370117, -0.28586048, -3.7940925e-08, -0.18490608, 0.09084071, -0.32030526)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="Scrapper/Gears/Gear4/Mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.10214276, 0)
+operation = 2
+radius = 0.35
+height = 0.02919922
+
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="Scrapper/Gears/Gear4/Mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.102, 0)
+operation = 2
+radius = 0.35
+height = 0.02919922
+
+[node name="Gear5" type="Node3D" parent="Scrapper/Gears"]
+transform = Transform3D(0.99999994, 0, 0, 0, -9.1294645e-08, -0.4787946, 0, 2.088578, -2.0928777e-08, 0.7392338, 0.70043594, -0.6915951)
+rotation_order = 0
+
+[node name="Mesh" type="CSGCylinder3D" parent="Scrapper/Gears/Gear5"]
+transform = Transform3D(0.85800004, 0, 0, 0, 0.8580001, -1.7763568e-15, 0, -1.4210855e-14, 1.7920002, 0, 0, 0)
+material_override = ExtResource("20_po8p6")
+radius = 0.4
+height = 0.2
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="Scrapper/Gears/Gear5/Mesh"]
+operation = 2
+radius = 0.2
+height = 0.2
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="Scrapper/Gears/Gear5/Mesh"]
+transform = Transform3D(0.21548767, 0, 0, 0, -1.3297285e-08, 0.9236927, 0, -0.30420646, -4.03759e-08, -0.064203925, 0.09084071, -0.36423016)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D2" type="CSGPolygon3D" parent="Scrapper/Gears/Gear5/Mesh"]
+transform = Transform3D(0.20249216, 0.10404473, 1.3809368e-08, 0, -1.3297285e-08, 0.9236927, 0.07370111, -0.28586057, -3.7940936e-08, 0.06424209, 0.09084071, -0.36422345)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D3" type="CSGPolygon3D" parent="Scrapper/Gears/Gear5/Mesh"]
+transform = Transform3D(0.16507314, 0.19554015, 2.5953126e-08, 0, -1.3297285e-08, 0.9236927, 0.1385128, -0.2330357, -3.0929737e-08, 0.18493956, 0.09084071, -0.32028604)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D4" type="CSGPolygon3D" parent="Scrapper/Gears/Gear5/Mesh"]
+transform = Transform3D(0.10774385, 0.2634505, 3.4966547e-08, 0, -1.3297285e-08, 0.9236927, 0.18661778, -0.15210325, -2.018795e-08, 0.2833306, 0.09084071, -0.23771733)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D5" type="CSGPolygon3D" parent="Scrapper/Gears/Gear5/Mesh"]
+transform = Transform3D(0.03741906, 0.29958487, 3.9762494e-08, 0, -1.3297285e-08, 0.9236927, 0.21221392, -0.052824926, -7.011205e-09, 0.34754777, 0.09084071, -0.12647647)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D6" type="CSGPolygon3D" parent="Scrapper/Gears/Gear5/Mesh"]
+transform = Transform3D(-0.037419014, 0.29958487, 3.9762494e-08, 0, -1.3297285e-08, 0.9236927, 0.21221392, 0.052824862, 7.011196e-09, 0.36984557, 0.09084071, 1.9334258e-05)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D7" type="CSGPolygon3D" parent="Scrapper/Gears/Gear5/Mesh"]
+transform = Transform3D(-0.107743815, 0.2634505, 3.4966547e-08, 0, -1.3297285e-08, 0.9236927, 0.18661778, 0.1521032, 2.0187944e-08, 0.3475345, 0.09084071, 0.1265128)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D8" type="CSGPolygon3D" parent="Scrapper/Gears/Gear5/Mesh"]
+transform = Transform3D(-0.1650731, 0.19554015, 2.5953126e-08, 0, -1.3297285e-08, 0.9236927, 0.1385128, 0.23303562, 3.0929726e-08, 0.28330567, 0.09084071, 0.23774695)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D9" type="CSGPolygon3D" parent="Scrapper/Gears/Gear5/Mesh"]
+transform = Transform3D(-0.20249216, 0.104044765, 1.3809374e-08, 0, -1.3297285e-08, 0.9236927, 0.07370114, 0.28586057, 3.7940936e-08, 0.18490604, 0.09084071, 0.32030535)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D10" type="CSGPolygon3D" parent="Scrapper/Gears/Gear5/Mesh"]
+transform = Transform3D(-0.21548767, 3.6264236e-08, 4.8131826e-15, 0, -1.3297285e-08, 0.9236927, 2.5688133e-08, 0.30420646, 4.03759e-08, 0.06420397, 0.09084071, 0.36423016)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D11" type="CSGPolygon3D" parent="Scrapper/Gears/Gear5/Mesh"]
+transform = Transform3D(-0.20249219, -0.1040447, -1.3809363e-08, 0, -1.3297285e-08, 0.9236927, -0.07370109, 0.28586057, 3.7940936e-08, -0.064242035, 0.09084071, 0.36422345)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D12" type="CSGPolygon3D" parent="Scrapper/Gears/Gear5/Mesh"]
+transform = Transform3D(-0.16507314, -0.1955401, -2.595312e-08, 0, -1.3297285e-08, 0.9236927, -0.13851276, 0.23303568, 3.0929737e-08, -0.18493952, 0.09084071, 0.32028598)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D13" type="CSGPolygon3D" parent="Scrapper/Gears/Gear5/Mesh"]
+transform = Transform3D(-0.10774385, -0.26345047, -3.4966547e-08, 0, -1.3297285e-08, 0.9236927, -0.18661776, 0.15210326, 2.0187953e-08, -0.28333056, 0.09084071, 0.23771735)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D14" type="CSGPolygon3D" parent="Scrapper/Gears/Gear5/Mesh"]
+transform = Transform3D(-0.037419077, -0.29958484, -3.976249e-08, 0, -1.3297285e-08, 0.9236927, -0.21221389, 0.05282495, 7.0112076e-09, -0.34754774, 0.09084071, 0.1264765)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D15" type="CSGPolygon3D" parent="Scrapper/Gears/Gear5/Mesh"]
+transform = Transform3D(0.03741899, -0.29958487, -3.9762494e-08, 0, -1.3297285e-08, 0.9236927, -0.21221392, -0.052824832, -7.011192e-09, -0.36984554, 0.09084071, -1.9297006e-05)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D16" type="CSGPolygon3D" parent="Scrapper/Gears/Gear5/Mesh"]
+transform = Transform3D(0.10774378, -0.26345053, -3.4966554e-08, 0, -1.3297285e-08, 0.9236927, -0.18661779, -0.15210316, -2.0187942e-08, -0.34753454, 0.09084071, -0.12651275)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D17" type="CSGPolygon3D" parent="Scrapper/Gears/Gear5/Mesh"]
+transform = Transform3D(0.16507307, -0.1955402, -2.595313e-08, 0, -1.3297285e-08, 0.9236927, -0.13851283, -0.23303558, -3.092972e-08, -0.2833057, 0.09084071, -0.23774688)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D18" type="CSGPolygon3D" parent="Scrapper/Gears/Gear5/Mesh"]
+transform = Transform3D(0.20249212, -0.10404481, -1.380938e-08, 0, -1.3297285e-08, 0.9236927, -0.07370117, -0.28586048, -3.7940925e-08, -0.18490608, 0.09084071, -0.32030526)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="Scrapper/Gears/Gear5/Mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.10214276, 0)
+operation = 2
+radius = 0.35
+height = 0.02919922
+
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="Scrapper/Gears/Gear5/Mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.102, 0)
+operation = 2
+radius = 0.35
+height = 0.02919922
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="Scrapper"]
+transform = Transform3D(0.70710677, -0.7071068, 0, 0.7071068, 0.70710677, 0, 0, 0, 1, 0.6, 1.2, 0)
+visible = false
+transform_align = 2
+trail_lifetime = 0.01
+process_material = SubResource("ParticleProcessMaterial_ega1k")
+draw_pass_1 = SubResource("RibbonTrailMesh_827lo")
+
+[node name="ScrapZone" type="Area3D" parent="Scrapper"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0)
+collision_layer = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Scrapper/ScrapZone"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14999998, -0.14999998, 0)
+shape = SubResource("BoxShape3D_8ljht")
+
+[node name="OutputNode" type="Node3D" parent="Scrapper"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0.4, -1.5000001)
+
+[node name="Engine" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1, 0, 12.2)
+
+[node name="Mesh" type="Node3D" parent="Engine"]
+
+[node name="EngineBlock" type="CSGBox3D" parent="Engine/Mesh"]
+transform = Transform3D(1, 0, 0, 0, 0.9999998, 0, 0, 0, 0.9999998, 0.75, 0.8, -0.14999962)
+material_override = ExtResource("20_po8p6")
+size = Vector3(3.5, 1.6, 1.7)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Engine/Mesh/EngineBlock"]
+transform = Transform3D(1, 0, 0, 0, 0.70710677, -0.70710677, 0, 0.70710677, 0.70710677, 9.536743e-07, 0.72322315, 0.752512)
+operation = 2
+size = Vector3(3.6000001, 0.4, 0.7)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Engine/Mesh/EngineBlock"]
+transform = Transform3D(1, 0, 0, 0, 0.7071067, 0.7071067, 0, -0.7071067, 0.7071067, 0, 0.722868, -0.7528677)
+material_override = ExtResource("20_po8p6")
+operation = 2
+size = Vector3(3.6000001, 0.4, 0.7)
+
+[node name="RightPistons" type="Node3D" parent="Engine/Mesh"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.75, 0.8, -0.14999962)
+
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="Engine/Mesh/RightPistons"]
+transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 1.3999996, 0.31249994, -0.40000057)
+material_override = ExtResource("20_po8p6")
+radius = 0.3
+height = 0.77500004
+
+[node name="CSGCylinder3D5" type="CSGCylinder3D" parent="Engine/Mesh/RightPistons"]
+transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0.6999998, 0.31249994, -0.40000057)
+material_override = ExtResource("20_po8p6")
+radius = 0.3
+height = 0.77500004
+
+[node name="CSGCylinder3D6" type="CSGCylinder3D" parent="Engine/Mesh/RightPistons"]
+transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 1.4210855e-14, -0.70710677, 0.70710677, 0, 0.312, -0.4)
+material_override = ExtResource("20_po8p6")
+radius = 0.3
+height = 0.77500004
+
+[node name="CSGCylinder3D7" type="CSGCylinder3D" parent="Engine/Mesh/RightPistons"]
+transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, -0.7, 0.312, -0.4)
+material_override = ExtResource("20_po8p6")
+radius = 0.3
+height = 0.77500004
+
+[node name="CSGCylinder3D8" type="CSGCylinder3D" parent="Engine/Mesh/RightPistons"]
+transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 1.4210855e-14, -0.70710677, 0.70710677, -1.4000001, 0.31199998, -0.39999962)
+material_override = ExtResource("20_po8p6")
+radius = 0.3
+height = 0.77500004
+
+[node name="LeftPistons" type="Node3D" parent="Engine/Mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0.8, -0.14999962)
+
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="Engine/Mesh/LeftPistons"]
+transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 1.4, 0.713, -0.8)
+material_override = ExtResource("20_po8p6")
+radius = 0.3
+height = 0.77500004
+
+[node name="CSGCylinder3D5" type="CSGCylinder3D" parent="Engine/Mesh/LeftPistons"]
+transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0.7, 0.312, -0.4)
+material_override = ExtResource("20_po8p6")
+radius = 0.3
+height = 0.77500004
+
+[node name="CSGCylinder3D6" type="CSGCylinder3D" parent="Engine/Mesh/LeftPistons"]
+transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 1.4210855e-14, -0.70710677, 0.70710677, 0, 0.713, -0.8)
+material_override = ExtResource("20_po8p6")
+radius = 0.3
+height = 0.77500004
+
+[node name="CSGCylinder3D7" type="CSGCylinder3D" parent="Engine/Mesh/LeftPistons"]
+transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, -0.7, 0.312, -0.4)
+material_override = ExtResource("20_po8p6")
+radius = 0.3
+height = 0.77500004
+
+[node name="CSGCylinder3D8" type="CSGCylinder3D" parent="Engine/Mesh/LeftPistons"]
+transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 1.4210855e-14, -0.70710677, 0.70710677, -1.4, 0.713, -0.8)
+material_override = ExtResource("20_po8p6")
+radius = 0.3
+height = 0.77500004
+
+[node name="Gear6" type="Node3D" parent="Engine/Mesh"]
+transform = Transform3D(-8.742277e-08, -0.87720007, 0, 1.9999999, -3.8343632e-08, 0, 0, 0, 0.95799994, 2.651514, 0.884297, -0.17275429)
+rotation_order = 0
+
+[node name="Mesh" type="CSGCylinder3D" parent="Engine/Mesh/Gear6"]
+transform = Transform3D(0.85800004, 0, 0, 0, 0.8580001, -1.7763568e-15, 0, -1.4210855e-14, 1.7920002, 0, 0, 0)
+material_override = ExtResource("20_po8p6")
+radius = 0.4
+height = 0.2
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="Engine/Mesh/Gear6/Mesh"]
+operation = 2
+radius = 0.2
+height = 0.2
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="Engine/Mesh/Gear6/Mesh"]
+transform = Transform3D(0.21548767, 0, 0, 0, -1.3297285e-08, 0.9236927, 0, -0.30420646, -4.03759e-08, -0.064203925, 0.09084071, -0.36423016)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D2" type="CSGPolygon3D" parent="Engine/Mesh/Gear6/Mesh"]
+transform = Transform3D(0.20249216, 0.10404473, 1.3809368e-08, 0, -1.3297285e-08, 0.9236927, 0.07370111, -0.28586057, -3.7940936e-08, 0.06424209, 0.09084071, -0.36422345)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D3" type="CSGPolygon3D" parent="Engine/Mesh/Gear6/Mesh"]
+transform = Transform3D(0.16507314, 0.19554015, 2.5953126e-08, 0, -1.3297285e-08, 0.9236927, 0.1385128, -0.2330357, -3.0929737e-08, 0.18493956, 0.09084071, -0.32028604)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D4" type="CSGPolygon3D" parent="Engine/Mesh/Gear6/Mesh"]
+transform = Transform3D(0.10774385, 0.2634505, 3.4966547e-08, 0, -1.3297285e-08, 0.9236927, 0.18661778, -0.15210325, -2.018795e-08, 0.2833306, 0.09084071, -0.23771733)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D5" type="CSGPolygon3D" parent="Engine/Mesh/Gear6/Mesh"]
+transform = Transform3D(0.03741906, 0.29958487, 3.9762494e-08, 0, -1.3297285e-08, 0.9236927, 0.21221392, -0.052824926, -7.011205e-09, 0.34754777, 0.09084071, -0.12647647)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D6" type="CSGPolygon3D" parent="Engine/Mesh/Gear6/Mesh"]
+transform = Transform3D(-0.037419014, 0.29958487, 3.9762494e-08, 0, -1.3297285e-08, 0.9236927, 0.21221392, 0.052824862, 7.011196e-09, 0.36984557, 0.09084071, 1.9334258e-05)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D7" type="CSGPolygon3D" parent="Engine/Mesh/Gear6/Mesh"]
+transform = Transform3D(-0.107743815, 0.2634505, 3.4966547e-08, 0, -1.3297285e-08, 0.9236927, 0.18661778, 0.1521032, 2.0187944e-08, 0.3475345, 0.09084071, 0.1265128)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D8" type="CSGPolygon3D" parent="Engine/Mesh/Gear6/Mesh"]
+transform = Transform3D(-0.1650731, 0.19554015, 2.5953126e-08, 0, -1.3297285e-08, 0.9236927, 0.1385128, 0.23303562, 3.0929726e-08, 0.28330567, 0.09084071, 0.23774695)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D9" type="CSGPolygon3D" parent="Engine/Mesh/Gear6/Mesh"]
+transform = Transform3D(-0.20249216, 0.104044765, 1.3809374e-08, 0, -1.3297285e-08, 0.9236927, 0.07370114, 0.28586057, 3.7940936e-08, 0.18490604, 0.09084071, 0.32030535)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D10" type="CSGPolygon3D" parent="Engine/Mesh/Gear6/Mesh"]
+transform = Transform3D(-0.21548767, 3.6264236e-08, 4.8131826e-15, 0, -1.3297285e-08, 0.9236927, 2.5688133e-08, 0.30420646, 4.03759e-08, 0.06420397, 0.09084071, 0.36423016)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D11" type="CSGPolygon3D" parent="Engine/Mesh/Gear6/Mesh"]
+transform = Transform3D(-0.20249219, -0.1040447, -1.3809363e-08, 0, -1.3297285e-08, 0.9236927, -0.07370109, 0.28586057, 3.7940936e-08, -0.064242035, 0.09084071, 0.36422345)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D12" type="CSGPolygon3D" parent="Engine/Mesh/Gear6/Mesh"]
+transform = Transform3D(-0.16507314, -0.1955401, -2.595312e-08, 0, -1.3297285e-08, 0.9236927, -0.13851276, 0.23303568, 3.0929737e-08, -0.18493952, 0.09084071, 0.32028598)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D13" type="CSGPolygon3D" parent="Engine/Mesh/Gear6/Mesh"]
+transform = Transform3D(-0.10774385, -0.26345047, -3.4966547e-08, 0, -1.3297285e-08, 0.9236927, -0.18661776, 0.15210326, 2.0187953e-08, -0.28333056, 0.09084071, 0.23771735)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D14" type="CSGPolygon3D" parent="Engine/Mesh/Gear6/Mesh"]
+transform = Transform3D(-0.037419077, -0.29958484, -3.976249e-08, 0, -1.3297285e-08, 0.9236927, -0.21221389, 0.05282495, 7.0112076e-09, -0.34754774, 0.09084071, 0.1264765)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D15" type="CSGPolygon3D" parent="Engine/Mesh/Gear6/Mesh"]
+transform = Transform3D(0.03741899, -0.29958487, -3.9762494e-08, 0, -1.3297285e-08, 0.9236927, -0.21221392, -0.052824832, -7.011192e-09, -0.36984554, 0.09084071, -1.9297006e-05)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D16" type="CSGPolygon3D" parent="Engine/Mesh/Gear6/Mesh"]
+transform = Transform3D(0.10774378, -0.26345053, -3.4966554e-08, 0, -1.3297285e-08, 0.9236927, -0.18661779, -0.15210316, -2.0187942e-08, -0.34753454, 0.09084071, -0.12651275)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D17" type="CSGPolygon3D" parent="Engine/Mesh/Gear6/Mesh"]
+transform = Transform3D(0.16507307, -0.1955402, -2.595313e-08, 0, -1.3297285e-08, 0.9236927, -0.13851283, -0.23303558, -3.092972e-08, -0.2833057, 0.09084071, -0.23774688)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGPolygon3D18" type="CSGPolygon3D" parent="Engine/Mesh/Gear6/Mesh"]
+transform = Transform3D(0.20249212, -0.10404481, -1.380938e-08, 0, -1.3297285e-08, 0.9236927, -0.07370117, -0.28586048, -3.7940925e-08, -0.18490608, 0.09084071, -0.32030526)
+polygon = PackedVector2Array(0, 0, 0.2, 0.4, 0.4, 0.4, 0.6, 0)
+depth = 0.2
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="Engine/Mesh/Gear6/Mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.10214276, 0)
+operation = 2
+radius = 0.35
+height = 0.02919922
+
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="Engine/Mesh/Gear6/Mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.102, 0)
+operation = 2
+radius = 0.35
+height = 0.02919922
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Engine"]
+libraries = {
+&"": SubResource("AnimationLibrary_t5leq")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="Engine"]
+tree_root = SubResource("AnimationNodeBlendTree_efuua")
+anim_player = NodePath("../AnimationPlayer")
+parameters/TimeScale/scale = 0.3999999999999986
+parameters/Blend2/blend_amount = 1.0
+
+[node name="ScrapSpawner" type="Node3D" parent="." node_paths=PackedStringArray("ray")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 101, 0, 0)
+script = ExtResource("33_t5leq")
+sceneArray = Array[ExtResource("34_pt41o")]([ExtResource("35_dv6ho")])
+ray = NodePath("RayCast3D")
+
+[node name="RayCast3D" type="RayCast3D" parent="ScrapSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, 0)
+target_position = Vector3(0, -15, 0)
+
+[node name="Mesh" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 101, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Mesh"]
+material_override = SubResource("StandardMaterial3D_p5pve")
+mesh = SubResource("PlaneMesh_urblq")
+skeleton = NodePath("../../../..")
+metadata/surface_type = "default"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.85, 0.5)
+shape = SubResource("BoxShape3D_pt41o")
+
+[node name="Gully" parent="." instance=ExtResource("36_dv6ho")]
+transform = Transform3D(-6.556708e-07, 0, 15, 0, 15, 0, -15, 0, -6.556708e-07, 101, 0, 0)
+
+[node name="WaterArea" parent="." instance=ExtResource("37_efuua")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 101, 15.5, 0)

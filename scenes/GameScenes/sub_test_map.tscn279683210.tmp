@@ -1,0 +1,555 @@
+[gd_scene load_steps=34 format=3 uid="uid://ccssqfv4f4l3r"]
+
+[ext_resource type="Script" uid="uid://dka26dmanv8gs" path="res://scripts/Multiplayer/player_spawn.gd" id="1_ucby3"]
+[ext_resource type="Script" uid="uid://ddupyq52e21ni" path="res://itemdata/item_manager.gd" id="1_w2j54"]
+[ext_resource type="PackedScene" uid="uid://2qsjh5aaptj8" path="res://scenes/character.tscn" id="2_m3kgj"]
+[ext_resource type="PackedScene" uid="uid://lqhocvedvumn" path="res://scenes/sub_door.tscn" id="3_smvo6"]
+[ext_resource type="PackedScene" uid="uid://dvpk4cfyuhvgq" path="res://scenes/ObjectScenes/door_vert.tscn" id="4_m3kgj"]
+[ext_resource type="PackedScene" uid="uid://ct4237w07sbwl" path="res://itemdata/Scenes/fuel_cell.tscn" id="4_w2j54"]
+[ext_resource type="PackedScene" uid="uid://b0gnqgncw60e7" path="res://scenes/ObjectScenes/engine.tscn" id="5_tiytx"]
+[ext_resource type="PackedScene" uid="uid://dnanwaxbqp8g1" path="res://scenes/ObjectScenes/scrapper.tscn" id="6_6y24k"]
+[ext_resource type="PackedScene" uid="uid://bb6bo1qvrbtnm" path="res://itemdata/Scenes/lantern.tscn" id="6_kja4i"]
+[ext_resource type="PackedScene" uid="uid://cl4vq0on74sgu" path="res://scenes/ObjectScenes/door_horiz.tscn" id="7_oc0hr"]
+[ext_resource type="PackedScene" uid="uid://dfmh4hk7bdq6i" path="res://scenes/ObjectScenes/hanging_light.tscn" id="8_3ybm5"]
+[ext_resource type="PackedScene" uid="uid://bm575803a7q36" path="res://itemdata/Scenes/scrap.tscn" id="9_3ybm5"]
+[ext_resource type="Material" uid="uid://cmp3qo3h8aa5b" path="res://scenes/ObjectScenes/glass.tres" id="9_epgnw"]
+[ext_resource type="Material" uid="uid://b1hf1vyshc3wq" path="res://scenes/ObjectScenes/light_source.tres" id="10_kja4i"]
+[ext_resource type="Script" uid="uid://b2pllf12q3vme" path="res://scripts/Interactables/interactable.gd" id="10_ris4o"]
+[ext_resource type="Resource" uid="uid://dt8h7lg60owtk" path="res://itemdata/fuel_cell.tres" id="11_3ybm5"]
+[ext_resource type="PackedScene" uid="uid://dc1jr5kayr64r" path="res://scripts/Interactables/types/toggle_behavior.tscn" id="11_mx3bp"]
+[ext_resource type="PackedScene" uid="uid://bsnk8l4ncj1hy" path="res://scripts/Interactables/types/anim_behavior.tscn" id="12_32jb0"]
+[ext_resource type="PackedScene" uid="uid://bawsblr1r6tne" path="res://scenes/ObjectScenes/wall_light.tscn" id="13_lkh1x"]
+[ext_resource type="Script" uid="uid://dem0vtwq38ow" path="res://scripts/Buoyancy/WaterArea.gd" id="16_75iwp"]
+[ext_resource type="Script" uid="uid://ojnpwjhx1ix0" path="res://scripts/Buoyancy/AirArea.gd" id="17_sok1j"]
+[ext_resource type="PackedScene" uid="uid://b5oba7am038t" path="res://scenes/pc.tscn" id="20_rem3x"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tiytx"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_p5pve"]
+sky_material = SubResource("ProceduralSkyMaterial_tiytx")
+
+[sub_resource type="Environment" id="Environment_6y24k"]
+background_mode = 2
+background_color = Color(0.093007915, 0.330487, 0.99999994, 1)
+background_energy_multiplier = 0.3
+sky = SubResource("Sky_p5pve")
+tonemap_mode = 2
+ssr_max_steps = 12
+ssil_enabled = true
+sdfgi_enabled = true
+glow_enabled = true
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.1
+volumetric_fog_albedo = Color(0, 0.5411765, 0.92156863, 1)
+volumetric_fog_emission = Color(0, 0.541548, 0.91998774, 1)
+volumetric_fog_emission_energy = 0.05
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mx3bp"]
+size = Vector3(0.4, 0.4, 0.2)
+
+[sub_resource type="Animation" id="Animation_m38bm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Button:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.4363323, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Button:material:emission_energy_multiplier")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.5]
+}
+
+[sub_resource type="Animation" id="Animation_ilut1"]
+resource_name = "off"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Button:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.43633232, 0, 0), Vector3(-0.4363323, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Button:material:emission_energy_multiplier")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.5, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_xcvbs"]
+resource_name = "on"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Button:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.4363323, 0, 0), Vector3(0.43633232, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Button:material:emission_energy_multiplier")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yy34r"]
+_data = {
+&"RESET": SubResource("Animation_m38bm"),
+&"off": SubResource("Animation_ilut1"),
+&"on": SubResource("Animation_xcvbs")
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_32jb0"]
+albedo_color = Color(0.18911636, 0.64635605, 0.9999991, 1)
+emission_enabled = true
+emission = Color(0.1882353, 0.64705884, 1, 1)
+emission_energy_multiplier = 0.5
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sok1j"]
+size = Vector3(1.9, 3.3, 5.7000003)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pgpn8"]
+size = Vector3(1.9, 2.1000001, 5.7000003)
+
+[node name="Map" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+light_energy = 0.0
+light_indirect_energy = 0.0
+light_volumetric_fog_energy = 0.0
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_6y24k")
+
+[node name="ItemManager" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://6ux3q47tkxy8")
+spawn_path = NodePath("../Items")
+script = ExtResource("1_w2j54")
+
+[node name="PlayerSpawn" type="MultiplayerSpawner" parent="." node_paths=PackedStringArray("spawn_points")]
+spawn_path = NodePath("../Players")
+script = ExtResource("1_ucby3")
+player_scene = ExtResource("2_m3kgj")
+spawn_points = [NodePath("../spawn 1"), NodePath("../spawn 2"), NodePath("../spawn 3"), NodePath("../spawn 4")]
+
+[node name="Items" type="Node" parent="."]
+
+[node name="FuelCell" parent="Items" instance=ExtResource("4_w2j54")]
+transform = Transform3D(0.57357645, -0.81915206, 3.5806274e-08, 0, -4.371139e-08, -1, 0.81915206, 0.57357645, -2.5071824e-08, -0.90000004, 2.7, 1.8)
+
+[node name="ScrapItem" parent="Items" instance=ExtResource("9_3ybm5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 2)
+
+[node name="ScrapItem2" parent="Items" instance=ExtResource("9_3ybm5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 1)
+
+[node name="Lantern" parent="Items" instance=ExtResource("6_kja4i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7, 2.6000001)
+
+[node name="Players" type="Node3D" parent="."]
+
+[node name="spawn 1" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8000002, 2.6, 1)
+
+[node name="spawn 2" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8000002, 2.9, 1.5)
+
+[node name="spawn 3" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.3, -3.4)
+
+[node name="spawn 4" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8000002, 0.3, 1)
+
+[node name="SubDoor" parent="." instance=ExtResource("3_smvo6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.1, 3.3000002, -3.4)
+
+[node name="Submarine" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.54999995, -0.04999999, -5.9604645e-08)
+
+[node name="Floor" type="CSGBox3D" parent="Submarine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.5)
+use_collision = true
+size = Vector3(10.3, 0.3, 4.2000003)
+
+[node name="Wall13" type="CSGBox3D" parent="Submarine/Floor"]
+transform = Transform3D(-4.371139e-08, 0, -1, -1, -4.371139e-08, 4.371139e-08, -4.371139e-08, 1, 1.9106855e-15, 3.5762787e-07, 1.0999999, 2.4000006)
+use_collision = true
+size = Vector3(2.5, 0.90000004, 10.400001)
+
+[node name="Wall14" type="CSGBox3D" parent="Submarine/Floor"]
+transform = Transform3D(-4.371139e-08, 0, -1, -1, -4.371139e-08, 4.371139e-08, -4.371139e-08, 1, 1.9106855e-15, -1.5999998, 1.1, -2.4999995)
+use_collision = true
+size = Vector3(2.5, 0.90000004, 7.6)
+
+[node name="Wall15" type="CSGBox3D" parent="Submarine/Floor"]
+transform = Transform3D(-4.371139e-08, 0, -1, -1, -4.371139e-08, 4.371139e-08, -4.371139e-08, 1, 1.9106855e-15, 4.450001, 1.0999999, -2.4999995)
+use_collision = true
+size = Vector3(2.5, 0.90000004, 1.9)
+
+[node name="Wall16" type="CSGBox3D" parent="Submarine/Floor"]
+transform = Transform3D(-4.371139e-08, 0, -1, -1, -4.371139e-08, 4.371139e-08, -4.371139e-08, 1, 1.9106855e-15, 2.950001, -0.050000153, -2.4999995)
+use_collision = true
+size = Vector3(0.4, 0.90000004, 1.9)
+
+[node name="Wall12" type="CSGBox3D" parent="Submarine/Floor"]
+transform = Transform3D(4.3711392e-08, -1, 4.3711385e-08, -1, -4.371139e-08, 4.371139e-08, -4.3711385e-08, -4.371139e-08, -1, -5.5999994, 1.0999999, -4.7683716e-07)
+use_collision = true
+size = Vector3(2.5, 0.90000004, 5.8)
+
+[node name="Stairwell" type="Node3D" parent="Submarine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.3, 1.1, 1.5)
+
+[node name="Floor8" type="CSGBox3D" parent="Submarine/Stairwell"]
+transform = Transform3D(0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 0, 0, 1, -1.094, 0.45, -1.25)
+use_collision = true
+size = Vector3(2.5, 0.4, 1.6)
+
+[node name="Floor10" type="CSGBox3D" parent="Submarine/Stairwell"]
+transform = Transform3D(-4.371139e-08, 2.6054018e-15, -1, 5.9604645e-08, 1, 0, 1, -5.9604645e-08, -4.371139e-08, 0.80558205, -0.15044248, 2.3841858e-07)
+use_collision = true
+size = Vector3(4.1, 0.4, 1.6)
+
+[node name="Floor9" type="CSGBox3D" parent="Submarine/Stairwell"]
+transform = Transform3D(0.90630776, -0.42261827, 0, 0.42261827, 0.90630776, 0, 0, 0, 1, -1.05, -0.66, 1.25)
+use_collision = true
+size = Vector3(2.5, 0.4, 1.6)
+
+[node name="Wall6" type="CSGBox3D" parent="Submarine/Stairwell"]
+transform = Transform3D(-4.371139e-08, 0, -1, -1, -4.371139e-08, 4.371139e-08, -4.371139e-08, 1, 1.9106855e-15, -0.30000067, 1.15, 2.5)
+use_collision = true
+size = Vector3(4.6, 0.90000004, 3.8)
+
+[node name="Wall7" type="CSGBox3D" parent="Submarine/Stairwell"]
+transform = Transform3D(-4.371139e-08, 0, -1, -1, -4.371139e-08, 4.371139e-08, -4.371139e-08, 1, 1.9106855e-15, -0.30000067, 1.15, -2.5)
+use_collision = true
+size = Vector3(4.6, 0.90000004, 3.8)
+
+[node name="Wall8" type="CSGBox3D" parent="Submarine/Stairwell"]
+transform = Transform3D(4.3711392e-08, -1, 4.3711385e-08, -1, -4.371139e-08, 4.371139e-08, -4.3711385e-08, -4.371139e-08, -1, 1.9999981, 1.15, 0)
+use_collision = true
+size = Vector3(4.6, 0.9, 5.9)
+
+[node name="Wall9" type="CSGBox3D" parent="Submarine/Stairwell"]
+transform = Transform3D(4.3711392e-08, -1, 4.3711385e-08, -1, -4.371139e-08, 4.371139e-08, -4.3711385e-08, -4.371139e-08, -1, 1.9999981, 1.15, 0)
+use_collision = true
+size = Vector3(4.6, 0.9, 5.9)
+
+[node name="Roof3" type="CSGBox3D" parent="Submarine/Stairwell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.10000038, 3.2999997, 0)
+use_collision = true
+size = Vector3(4.1, 0.3, 4.2000003)
+
+[node name="Door3" parent="Submarine" instance=ExtResource("7_oc0hr")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2.25, 2.1499999, -0.69999963)
+
+[node name="Door2" parent="Submarine" instance=ExtResource("4_m3kgj")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 5.3499994, 2.1499999, 0.28)
+
+[node name="Floor2" type="CSGBox3D" parent="Submarine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, 1.5)
+use_collision = true
+size = Vector3(10.3, 0.3, 4.2000003)
+
+[node name="Floor11" type="CSGBox3D" parent="Submarine/Floor2"]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2.3, 0, -2.5)
+use_collision = true
+size = Vector3(0.90000004, 0.3, 1.6)
+
+[node name="Floor12" type="CSGBox3D" parent="Submarine/Floor2"]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2.3, 2.2000003, -2.5)
+use_collision = true
+size = Vector3(0.90000004, 0.3, 1.6)
+
+[node name="Wall" type="CSGBox3D" parent="Submarine/Floor2"]
+transform = Transform3D(-4.371139e-08, 0, -1, -1, -4.371139e-08, 4.371139e-08, -4.371139e-08, 1, 1.9106855e-15, 4.1000004, 1.0999999, -2.4999998)
+use_collision = true
+size = Vector3(2.5, 0.90000004, 2.2)
+
+[node name="Wall5" type="CSGBox3D" parent="Submarine/Floor2"]
+transform = Transform3D(-4.371139e-08, 0, -1, -1, -4.371139e-08, 4.371139e-08, -4.371139e-08, 1, 1.9106855e-15, 6.2, 0.05, 0)
+use_collision = true
+size = Vector3(4.6, 0.90000004, 2.2)
+
+[node name="Wall2" type="CSGBox3D" parent="Submarine/Floor2"]
+transform = Transform3D(-4.371139e-08, 0, -1, -1, -4.371139e-08, 4.371139e-08, -4.371139e-08, 1, 1.9106855e-15, -1.8499997, 1.0999999, -2.4999998)
+use_collision = true
+size = Vector3(2.5, 0.90000004, 6.7000003)
+
+[node name="Wall3" type="CSGBox3D" parent="Submarine/Floor2"]
+transform = Transform3D(-4.371139e-08, 0, -1, -1, -4.371139e-08, 4.371139e-08, -4.371139e-08, 1, 1.9106855e-15, 3.5762787e-07, 1.0999999, 2.5)
+use_collision = true
+size = Vector3(2.5, 0.90000004, 10.400001)
+
+[node name="Wall4" type="CSGBox3D" parent="Submarine/Floor2"]
+transform = Transform3D(4.3711392e-08, -1, 4.3711385e-08, -1, -4.371139e-08, 4.371139e-08, -4.3711385e-08, -4.371139e-08, -1, -5.5999994, 1.0999999, -4.7683716e-07)
+use_collision = true
+size = Vector3(2.5, 0.90000004, 5.8)
+
+[node name="Wall9" type="CSGBox3D" parent="Submarine/Floor2"]
+transform = Transform3D(4.3711392e-08, -1, 4.3711385e-08, -1, -4.371139e-08, 4.371139e-08, -4.3711385e-08, -4.371139e-08, -1, 5.050001, 1.0999999, 1.2499995)
+use_collision = true
+size = Vector3(2.5, 0.4, 3.3)
+
+[node name="Roof2" type="CSGBox3D" parent="Submarine/Floor2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1999998, 0)
+use_collision = true
+size = Vector3(10.3, 0.3, 4.2000003)
+
+[node name="Floor5" type="CSGBox3D" parent="Submarine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, -3.5)
+use_collision = true
+size = Vector3(10.3, 0.3, 4.2000003)
+
+[node name="Roof1" type="CSGBox3D" parent="Submarine/Floor5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1999998, 0)
+use_collision = true
+size = Vector3(10.3, 0.3, 4.2000003)
+
+[node name="Wall6" type="CSGBox3D" parent="Submarine/Floor5"]
+transform = Transform3D(4.3711392e-08, -1, 4.3711385e-08, -1, -4.371139e-08, 4.371139e-08, -4.3711385e-08, -4.371139e-08, -1, -5.5999994, 1.0999999, -1.8500004)
+use_collision = true
+size = Vector3(2.5, 0.90000004, 2.1000001)
+
+[node name="Wall9" type="CSGBox3D" parent="Submarine/Floor5"]
+transform = Transform3D(4.3711392e-08, -1, 4.3711385e-08, -1, -4.371139e-08, 4.371139e-08, -4.3711385e-08, -4.371139e-08, -1, -5.5999994, 1.0999999, 1.9499996)
+use_collision = true
+size = Vector3(2.5, 0.90000004, 2.1000001)
+
+[node name="Wall8" type="CSGBox3D" parent="Submarine/Floor5"]
+transform = Transform3D(4.3711392e-08, -1, 4.3711385e-08, -1, -4.371139e-08, 4.371139e-08, -4.3711385e-08, -4.371139e-08, -1, 5.6000004, 1.0999999, 0.09999943)
+use_collision = true
+size = Vector3(2.5, 0.90000004, 5.8)
+
+[node name="Wall7" type="CSGBox3D" parent="Submarine/Floor5"]
+transform = Transform3D(-4.371139e-08, 0, -1, -1, -4.371139e-08, 4.371139e-08, -4.371139e-08, 1, 1.9106855e-15, 3.5762787e-07, 1.0999999, -2.3999996)
+use_collision = true
+size = Vector3(2.5, 0.90000004, 10.400001)
+
+[node name="Floor4" type="CSGBox3D" parent="Submarine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.5)
+use_collision = true
+size = Vector3(10.3, 0.3, 4.2000003)
+
+[node name="Wall10" type="CSGBox3D" parent="Submarine/Floor4"]
+transform = Transform3D(4.3711392e-08, -1, 4.3711385e-08, -1, -4.371139e-08, 4.371139e-08, -4.3711385e-08, -4.371139e-08, -1, 5.6000004, 1.0999999, 0.09999943)
+use_collision = true
+size = Vector3(2.5, 0.90000004, 5.8)
+
+[node name="Wall11" type="CSGBox3D" parent="Submarine/Floor4"]
+transform = Transform3D(4.3711392e-08, -1, 4.3711385e-08, -1, -4.371139e-08, 4.371139e-08, -4.3711385e-08, -4.371139e-08, -1, -8.049999, 1.0999998, -4.7683716e-07)
+use_collision = true
+size = Vector3(2.5, 5.8, 5.8)
+
+[node name="Wall9" type="CSGBox3D" parent="Submarine/Floor4"]
+transform = Transform3D(-4.371139e-08, 0, -1, -1, -4.371139e-08, 4.371139e-08, -4.371139e-08, 1, 1.9106855e-15, 3.5762787e-07, 1.0999999, -2.3999996)
+use_collision = true
+size = Vector3(2.5, 0.90000004, 10.400001)
+
+[node name="Button" type="StaticBody3D" parent="Submarine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 3.2, -0.5)
+collision_layer = 5
+collision_mask = 5
+script = ExtResource("10_ris4o")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Submarine/Button"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1920929e-07, 0, 5.9604645e-08)
+shape = SubResource("BoxShape3D_mx3bp")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Submarine/Button"]
+libraries = {
+&"": SubResource("AnimationLibrary_yy34r")
+}
+
+[node name="Behaviors" type="Node" parent="Submarine/Button"]
+
+[node name="ToggleBehavior" parent="Submarine/Button/Behaviors" node_paths=PackedStringArray("toggle_targets") instance=ExtResource("11_mx3bp")]
+toggle_targets = [NodePath("../../../WallLight"), NodePath("../../../WallLight2"), NodePath("../../../WallLight3")]
+
+[node name="AnimBehavior" parent="Submarine/Button/Behaviors" node_paths=PackedStringArray("anim") instance=ExtResource("12_32jb0")]
+anim = NodePath("../../AnimationPlayer")
+anim_1 = "on"
+anim_2 = "off"
+
+[node name="Base" type="CSGBox3D" parent="Submarine/Button"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.07499999)
+size = Vector3(0.25, 0.25, 0.15)
+
+[node name="Button" type="CSGBox3D" parent="Submarine/Button"]
+transform = Transform3D(1, 0, 0, 0, 0.9063078, 0.42261824, 0, -0.42261824, 0.9063078, 0, 0, -0.01)
+size = Vector3(0.15, 0.15, 0.1)
+material = SubResource("StandardMaterial3D_32jb0")
+
+[node name="FluorecentLight" type="Node3D" parent="Submarine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+visible = false
+
+[node name="Mesh" type="Node3D" parent="Submarine/FluorecentLight"]
+
+[node name="Light" type="Node3D" parent="Submarine/FluorecentLight/Mesh"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Submarine/FluorecentLight/Mesh/Light"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+size = Vector3(2.8, 0.3, 0.5)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Submarine/FluorecentLight/Mesh/Light/CSGBox3D"]
+transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 1.9106855e-15, -1, 1, -4.371139e-08, -4.371139e-08, -1.7881393e-07, -0.15, -0.10000002)
+material_override = ExtResource("9_epgnw")
+operation = 2
+radius = 0.1
+height = 2.7
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="Submarine/FluorecentLight/Mesh/Light/CSGBox3D"]
+transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 1.9106855e-15, -1, 1, -4.371139e-08, -4.371139e-08, -1.7881393e-07, -0.15, 0.09999999)
+material_override = ExtResource("9_epgnw")
+operation = 2
+radius = 0.1
+height = 2.7
+
+[node name="Bulb2" type="CSGCylinder3D" parent="Submarine/FluorecentLight/Mesh/Light"]
+transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 1.9106855e-15, -1, 1, -4.371139e-08, -4.371139e-08, 0, 0, -0.10000002)
+material_override = ExtResource("10_kja4i")
+radius = 0.05
+height = 2.7
+
+[node name="Bulb" type="CSGCylinder3D" parent="Submarine/FluorecentLight/Mesh/Light"]
+transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 1.9106855e-15, -1, 1, -4.371139e-08, -4.371139e-08, 0, 0, 0.09999999)
+material_override = ExtResource("10_kja4i")
+radius = 0.05
+height = 2.7
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Submarine/FluorecentLight"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.20000005, 0)
+light_color = Color(1, 1, 0.7293979, 1)
+light_energy = 0.5
+light_size = 0.1
+shadow_enabled = true
+omni_range = 2.6000001
+
+[node name="FluorecentLight2" type="Node3D" parent="Submarine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 3.1)
+
+[node name="Mesh" type="Node3D" parent="Submarine/FluorecentLight2"]
+
+[node name="Light" type="Node3D" parent="Submarine/FluorecentLight2/Mesh"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Submarine/FluorecentLight2/Mesh/Light"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+size = Vector3(2.8, 0.3, 0.5)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Submarine/FluorecentLight2/Mesh/Light/CSGBox3D"]
+transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 1.9106855e-15, -1, 1, -4.371139e-08, -4.371139e-08, -1.7881393e-07, -0.15, -0.10000002)
+material_override = ExtResource("9_epgnw")
+operation = 2
+radius = 0.1
+height = 2.7
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="Submarine/FluorecentLight2/Mesh/Light/CSGBox3D"]
+transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 1.9106855e-15, -1, 1, -4.371139e-08, -4.371139e-08, -1.7881393e-07, -0.15, 0.09999999)
+material_override = ExtResource("9_epgnw")
+operation = 2
+radius = 0.1
+height = 2.7
+
+[node name="Bulb2" type="CSGCylinder3D" parent="Submarine/FluorecentLight2/Mesh/Light"]
+transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 1.9106855e-15, -1, 1, -4.371139e-08, -4.371139e-08, 0, 0, -0.10000002)
+material_override = ExtResource("10_kja4i")
+radius = 0.05
+height = 2.7
+
+[node name="Bulb" type="CSGCylinder3D" parent="Submarine/FluorecentLight2/Mesh/Light"]
+transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 1.9106855e-15, -1, 1, -4.371139e-08, -4.371139e-08, 0, 0, 0.09999999)
+material_override = ExtResource("10_kja4i")
+radius = 0.05
+height = 2.7
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Submarine/FluorecentLight2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.20000005, 0)
+light_color = Color(1, 1, 0.7293979, 1)
+light_energy = 0.5
+light_size = 0.1
+shadow_enabled = true
+omni_range = 2.6000001
+
+[node name="WallLight" parent="Submarine" instance=ExtResource("13_lkh1x")]
+transform = Transform3D(-3.059797e-08, -0.7, 0, 0.7, -3.059797e-08, 0, 0, 0, 0.7, 0.30000013, 3.4, -0.6)
+
+[node name="WallLight2" parent="Submarine" instance=ExtResource("13_lkh1x")]
+transform = Transform3D(-3.059797e-08, -0.7, 0, 0.7, -3.059797e-08, 0, 0, 0, 0.7, -0.89999986, 3.4, -0.6)
+
+[node name="WallLight3" parent="Submarine" instance=ExtResource("13_lkh1x")]
+transform = Transform3D(-3.059797e-08, -0.7, 0, 0.7, -3.059797e-08, 0, 0, 0, 0.7, -2.1, 3.4, -0.6)
+
+[node name="WaterArea" type="Area3D" parent="Submarine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 2.4, -2.7)
+script = ExtResource("16_75iwp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Submarine/WaterArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9499998, 1.6499999, -0.85000014)
+shape = SubResource("BoxShape3D_sok1j")
+
+[node name="AirArea" type="Area3D" parent="Submarine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.0999994, 2.4, -2.7)
+script = ExtResource("17_sok1j")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Submarine/AirArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, -0.85000014)
+shape = SubResource("BoxShape3D_pgpn8")
+
+[node name="Light" parent="." instance=ExtResource("8_3ybm5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5000005, 1.4)
+visible = false
+
+[node name="Light2" parent="." instance=ExtResource("8_3ybm5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6000001, 3.5000005, -3.4)
+
+[node name="Engine" parent="." instance=ExtResource("5_tiytx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 1.7)
+
+[node name="Scrapper" parent="." instance=ExtResource("6_6y24k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.7, 0.09999981, -2.6999998)
+fuelcell_data = ExtResource("11_3ybm5")
+
+[node name="Terminal" parent="." instance=ExtResource("20_rem3x")]
+transform = Transform3D(-1.5, 0, 1.3113416e-07, 0, 1.5, 0, -1.3113416e-07, 0, -1.5, 1.9000001, 3, 3.1)

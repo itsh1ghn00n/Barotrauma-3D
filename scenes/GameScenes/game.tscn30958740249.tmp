@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://81c6iyf2v1pj"]
+
+[ext_resource type="Script" uid="uid://cvng4ixelnyom" path="res://scripts/Multiplayer/peer_manager.gd" id="1_2hyik"]
+[ext_resource type="Script" uid="uid://dhrw6d7lhn0sd" path="res://scripts/Multiplayer/lobby.gd" id="2_35j7c"]
+[ext_resource type="Script" uid="uid://c7lw7bkgqlxbw" path="res://scripts/Multiplayer/map_spawn.gd" id="3_bke5t"]
+[ext_resource type="PackedScene" uid="uid://b3ymnvv2q4yki" path="res://scenes/GameScenes/map.tscn" id="4_2hyik"]
+[ext_resource type="Script" uid="uid://ddupyq52e21ni" path="res://itemdata/item_manager.gd" id="5_35j7c"]
+
+[node name="Game" type="Node3D"]
+
+[node name="PeerManager" type="Node" parent="."]
+script = ExtResource("1_2hyik")
+
+[node name="Lobby" type="Node" parent="." node_paths=PackedStringArray("peer_manager", "map_spawner")]
+script = ExtResource("2_35j7c")
+peer_manager = NodePath("../PeerManager")
+map_spawner = NodePath("../MapSpawn")
+local_addr = "172.17.176.1"
+
+[node name="MapSpawn" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("../Level")
+script = ExtResource("3_bke5t")
+map = ExtResource("4_2hyik")
+map_path = "res://scenes/GameScenes/map.tscn"
+
+[node name="ItemManager" type="MultiplayerSpawner" parent="."]
+script = ExtResource("5_35j7c")
+
+[node name="Level" type="Node3D" parent="."]

@@ -1,0 +1,60 @@
+[gd_scene load_steps=7 format=3 uid="uid://b0ddcv36uqqts"]
+
+[ext_resource type="PackedScene" uid="uid://6ux3q47tkxy8" path="res://itemdata/Scenes/baseitem.tscn" id="1_4qcdk"]
+[ext_resource type="Resource" uid="uid://chgahpbf7kw3t" path="res://itemdata/resource/battery.tres" id="2_mp3xf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mp3xf"]
+albedo_color = Color(0.78530335, 0.48606563, 0.13821799, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n0bx0"]
+albedo_color = Color(0.39308554, 0.3930855, 0.39308548, 1)
+metallic = 1.0
+roughness = 0.25
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cums5"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x3lby"]
+albedo_color = Color(0.9136208, 0.8154362, 0, 1)
+
+[node name="BatteryItem" instance=ExtResource("1_4qcdk")]
+collision_layer = 13
+
+[node name="InventoryAddBehavior" parent="Behaviors" index="1"]
+item_data = ExtResource("2_mp3xf")
+
+[node name="CollisionShape3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.014208972, -0.004260242, -0.009533688)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Mesh" index="0"]
+size = Vector3(0.49856567, 0.1340332, 0.2966156)
+material = SubResource("StandardMaterial3D_mp3xf")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Mesh/CSGBox3D" index="0"]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0.26203346, 1.1453848e-08, 0.08234994)
+radius = 0.03515625
+height = 0.030338287
+material = SubResource("StandardMaterial3D_n0bx0")
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="Mesh/CSGBox3D" index="1"]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0.26203346, 1.1453848e-08, -0.06581043)
+radius = 0.038085938
+height = 0.030338287
+material = SubResource("StandardMaterial3D_n0bx0")
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="Mesh/CSGBox3D/CSGCylinder3D2" index="0"]
+operation = 2
+radius = 0.02734375
+height = 0.030338287
+material = SubResource("StandardMaterial3D_n0bx0")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Mesh/CSGBox3D" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.033285893, -0.00054516643, 0.00032007694)
+size = Vector3(0.43242824, 0.1361001, 0.30038524)
+material = SubResource("StandardMaterial3D_cums5")
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="Mesh/CSGBox3D" index="3"]
+transform = Transform3D(0.2, 0, 0, 0, -8.742278e-09, 0.2, 0, -0.2, -8.742278e-09, -0.03242694, 0.068425775, 0.036640704)
+polygon = PackedVector2Array(0.086976916, 0.13864893, -0.057635963, 0.364296, 0.5113071, 0.37496465, 0.15978412, 0.27769706, 0.2853459, 0.036327183, -0.23604387, -0.0011999607)
+depth = 0.01
+material = SubResource("StandardMaterial3D_x3lby")

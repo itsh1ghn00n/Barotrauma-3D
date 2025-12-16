@@ -3,7 +3,7 @@ class_name LightToggleAction
 
 @export var light_path: NodePath
 
-func execute(user: Node, target: Node, item: UsableItem) -> void:
+func use(user: Node, target: Node, item: UsableBehavior) -> void:
 	var light = user.get_node_or_null(light_path)
 	if light:
 		light.visible = !light.visible

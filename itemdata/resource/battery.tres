@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=2 format=3 uid="uid://chgahpbf7kw3t"]
+
+[ext_resource type="Script" uid="uid://bjtkprburcbnd" path="res://itemdata/ItemData.gd" id="1_we3cs"]
+
+[resource]
+script = ExtResource("1_we3cs")
+name = "Battery"
+stack_size = 8
+scene_path = "res://itemdata/Scenes/battery_item.tscn"
+metadata/_custom_type_script = "uid://bjtkprburcbnd"

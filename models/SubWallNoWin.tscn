@@ -5,13 +5,13 @@
 [ext_resource type="Script" uid="uid://ojnpwjhx1ix0" path="res://scripts/Buoyancy/AirArea.gd" id="2_tpl7p"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pisum"]
-size = Vector3(2.0114746, 0.27148438, 1.4780769)
+size = Vector3(2.0114746, 0.60498047, 1.4780769)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fg2gk"]
-size = Vector3(1.9924316, 0.19143677, 0.82714844)
+size = Vector3(1.9924316, 0.5947418, 0.82714844)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rg4ke"]
-size = Vector3(1.942276, 0.20892334, 0.6756592)
+size = Vector3(1.942276, 0.5932312, 0.6756592)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tpl7p"]
 size = Vector3(2.0532227, 0.18798828, 2.451355)
@@ -29,15 +29,15 @@ script = ExtResource("2_jwg72")
 metadata/surface_type = "metal"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.009399414, -1.1504296, 0.0037708282)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.009399414, -1.3171777, 0.0037708282)
 shape = SubResource("BoxShape3D_pisum")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" index="1"]
-transform = Transform3D(1, 0, 0, 0, 0.8905228, 0.45493892, 0, -0.45493892, 0.8905228, 0.0043945313, -0.96614045, 1.0203347)
+transform = Transform3D(1, 0, 0, 0, 0.8905228, 0.45493892, 0, -0.45493892, 0.8905228, 0.0043945313, -1.1457167, 1.1120743)
 shape = SubResource("BoxShape3D_fg2gk")
 
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="StaticBody3D" index="2"]
-transform = Transform3D(1, 0, 0, 0, 0.8964864, -0.4430712, 0, 0.4430712, 0.8964864, -0.008384705, -0.99465925, -1.0064557)
+transform = Transform3D(1, 0, 0, 0, 0.8964864, -0.4430712, 0, 0.4430712, 0.8964864, -0.008384705, -1.1669226, -1.0915935)
 shape = SubResource("BoxShape3D_rg4ke")
 
 [node name="CollisionShape3D4" type="CollisionShape3D" parent="StaticBody3D" index="3"]
@@ -53,5 +53,5 @@ collision_layer = 2
 script = ExtResource("2_tpl7p")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00989151, 0.12658691, 0.03427124)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.1879848, -0.00989151, 0.12658691, 0.03427124)
 shape = SubResource("BoxShape3D_jwg72")

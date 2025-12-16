@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://dxyyrcokiqyqj"]
+
+[ext_resource type="Texture2D" uid="uid://df8ghtg0ve6j1" path="res://itemdata/Icons/Med_Icon.png" id="1_8jxq3"]
+[ext_resource type="Script" uid="uid://bjtkprburcbnd" path="res://itemdata/ItemData.gd" id="2_mk0lj"]
+
+[resource]
+script = ExtResource("2_mk0lj")
+name = "Medkit"
+icon = ExtResource("1_8jxq3")
+stack_size = 8
+scene_path = "res://itemdata/Scenes/medkit.tscn"
+metadata/_custom_type_script = "uid://bjtkprburcbnd"

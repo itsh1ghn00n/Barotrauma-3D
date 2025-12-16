@@ -1,0 +1,109 @@
+[gd_scene load_steps=9 format=3 uid="uid://cl4vq0on74sgu"]
+
+[ext_resource type="Script" uid="uid://b2pllf12q3vme" path="res://scripts/Interactables/interactable.gd" id="1_g6ila"]
+[ext_resource type="PackedScene" uid="uid://bdb0gmane1iv1" path="res://scripts/Interactables/types/door_behavior.tscn" id="2_b7uhr"]
+[ext_resource type="Material" uid="uid://cxt6ka02f8co5" path="res://scenes/ObjectScenes/doorMat.tres" id="3_b7uhr"]
+
+[sub_resource type="Animation" id="Animation_mlgqr"]
+length = 0.001
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CSGBox3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.294, 1.164, -0.263)
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CSGBox3D4")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0.2940941, 1.164, 0.27464008)
+
+[sub_resource type="Animation" id="Animation_wslke"]
+resource_name = "close_door"
+length = 0.25
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CSGBox3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.29400063, 1.164, -0.8473768, 0.25, 1, 0.294, 1.164, -0.263, 0.26666668, 1, 0.294, 1.164, -0.263)
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CSGBox3D4")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0.2940941, 1.164, 0.8045521, 0.25, 1, 0.2940941, 1.164, 0.27464008, 0.26666668, 1, 0.2940941, 1.164, 0.27464008)
+
+[sub_resource type="Animation" id="Animation_blm8a"]
+resource_name = "open_door"
+length = 0.5
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CSGBox3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.294, 1.164, -0.263, 0.5, 1, 0.29400063, 1.164, -0.8473768)
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CSGBox3D4")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0.2940941, 1.164, 0.27464008, 0.5, 1, 0.2940941, 1.164, 0.8045521)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gw3fx"]
+_data = {
+&"RESET": SubResource("Animation_mlgqr"),
+&"close_door": SubResource("Animation_wslke"),
+&"open_door": SubResource("Animation_blm8a")
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nakos"]
+size = Vector3(0.4, 2.3791199, 1.7501831)
+
+[node name="Door2" type="StaticBody3D"]
+collision_layer = 4
+script = ExtResource("1_g6ila")
+
+[node name="Behaviors" type="Node3D" parent="."]
+
+[node name="DoorBehavior" parent="Behaviors" node_paths=PackedStringArray("anim") instance=ExtResource("2_b7uhr")]
+anim = NodePath("../../AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_gw3fx")
+}
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.26620752, 1.1806166, 0.030303955)
+shape = SubResource("BoxShape3D_nakos")
+debug_color = Color(0.7986677, 0.04528828, 0.9999998, 0.41960785)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.294, 1.164, -0.263)
+material_override = ExtResource("3_b7uhr")
+use_collision = true
+size = Vector3(0.239, 2.418, 0.55)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2940941, 1.164, 0.27464008)
+material_override = ExtResource("3_b7uhr")
+use_collision = true
+size = Vector3(0.239, 2.418, 0.55)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.284, 1.164, -0.7)
+use_collision = true
+size = Vector3(0.2388916, 2.4178467, 0.32888794)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.284, 1.164, 0.7)
+use_collision = true
+size = Vector3(0.2388916, 2.4178467, 0.32888794)

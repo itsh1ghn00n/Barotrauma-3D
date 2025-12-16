@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bsnk8l4ncj1hy"]
+
+[ext_resource type="Script" uid="uid://ddp0sgmke3q2t" path="res://scripts/Interactables/types/AnimBehavior.gd" id="1_tylj5"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_v0uon"]
+properties/0/path = NodePath(".:value")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+
+[node name="AnimBehavior" type="Node"]
+script = ExtResource("1_tylj5")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_interval = 0.01
+replication_config = SubResource("SceneReplicationConfig_v0uon")

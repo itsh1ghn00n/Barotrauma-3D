@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bdb0gmane1iv1"]
+
+[ext_resource type="Script" uid="uid://cfu1eukr38afj" path="res://scripts/Interactables/types/OpenDoorBehavior.gd" id="1_uxc54"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_bbcj8"]
+properties/0/path = NodePath(".:is_open")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+
+[node name="DoorBehavior" type="Node"]
+script = ExtResource("1_uxc54")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_bbcj8")

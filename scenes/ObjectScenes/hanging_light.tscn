@@ -1,0 +1,106 @@
+[gd_scene load_steps=9 format=3 uid="uid://dfmh4hk7bdq6i"]
+
+[ext_resource type="Script" uid="uid://c3oxgehluk75x" path="res://addons/verlet_rope_4/Physics/VerletRopeSimulated.cs" id="1_opy5q"]
+[ext_resource type="Script" uid="uid://cvxw3h20i7vjf" path="res://addons/verlet_rope_4/Physics/Joints/VerletJointSimulated.cs" id="2_hkna0"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_tiytx"]
+radius = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oc0hr"]
+transparency = 1
+blend_mode = 1
+metallic_specular = 0.0
+roughness = 0.0
+emission = Color(1, 1, 0.4072413, 1)
+emission_energy_multiplier = 16.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w2j54"]
+transparency = 1
+metallic_specular = 0.0
+roughness = 0.0
+emission_enabled = true
+emission = Color(1, 1, 0.4072413, 1)
+emission_energy_multiplier = 16.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_437bk"]
+albedo_color = Color(0.5370113, 0.5370113, 0.5370113, 1)
+metallic = 1.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_w2j54"]
+properties/0/path = NodePath(".:rotation")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:position")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath(".:angular_velocity")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath(".:linear_velocity")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8djdi"]
+albedo_color = Color(0.27752772, 0.27752772, 0.27752772, 1)
+metallic = 1.0
+roughness = 0.6
+
+[node name="Light" type="Node3D"]
+
+[node name="LightRB" type="RigidBody3D" parent="."]
+linear_damp = 1.0
+angular_damp = 1.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LightRB"]
+shape = SubResource("SphereShape3D_tiytx")
+
+[node name="Connection" type="Node3D" parent="LightRB"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+
+[node name="Mesh" type="Node3D" parent="LightRB"]
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="LightRB/Mesh"]
+material_override = SubResource("StandardMaterial3D_oc0hr")
+radius = 0.1
+
+[node name="CSGSphere3D2" type="CSGSphere3D" parent="LightRB/Mesh"]
+transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_w2j54")
+radius = 0.05
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="LightRB/Mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.099999905, 0)
+material_override = SubResource("StandardMaterial3D_437bk")
+radius = 0.03
+height = 0.1
+
+[node name="OmniLight3D" type="OmniLight3D" parent="LightRB"]
+light_color = Color(1, 1, 0.7293979, 1)
+light_size = 0.1
+shadow_enabled = true
+omni_range = 2.0
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="LightRB"]
+replication_interval = 0.01
+replication_config = SubResource("SceneReplicationConfig_w2j54")
+
+[node name="VerletRopeSimulated" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6999999, 0)
+script = ExtResource("1_opy5q")
+SimulationParticles = 5
+Stiffness = 1.0
+Gravity = Vector3(0, -9.8, 0)
+DampingFactor = 2.0
+RopeLength = 0.5
+RopeWidth = 0.02
+UseVisibleOnScreenNotifier = false
+MaterialOverride = SubResource("StandardMaterial3D_8djdi")
+metadata/_custom_type_script = "uid://c3oxgehluk75x"
+
+[node name="JointSimulated" type="Node" parent="VerletRopeSimulated" node_paths=PackedStringArray("VerletRope", "EndBody", "EndCustomLocation")]
+script = ExtResource("2_hkna0")
+VerletRope = NodePath("..")
+EndBody = NodePath("../../LightRB")
+EndCustomLocation = NodePath("../../LightRB/Connection")
+JointMaxDistance = 0.5
+metadata/verlet_rope_physical_create_simulated_joint = 1408920093

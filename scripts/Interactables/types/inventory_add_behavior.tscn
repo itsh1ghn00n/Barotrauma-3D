@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0mw2v1lxlqeo"]
+
+[ext_resource type="Script" uid="uid://brxxlxlu1u3u4" path="res://scripts/Interactables/types/InventoryAddBehavior.gd" id="1_pyf8g"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_2bpaj"]
+properties/0/path = NodePath(".:item_id")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+
+[node name="InventoryAddBehavior" type="Node"]
+script = ExtResource("1_pyf8g")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_interval = 0.05
+replication_config = SubResource("SceneReplicationConfig_2bpaj")

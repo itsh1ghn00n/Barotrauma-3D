@@ -1,0 +1,87 @@
+[gd_scene load_steps=7 format=3 uid="uid://cjtdc6afhhr2y"]
+
+[ext_resource type="PackedScene" uid="uid://6ux3q47tkxy8" path="res://itemdata/Scenes/baseitem.tscn" id="1_lk2lk"]
+[ext_resource type="Resource" uid="uid://cqdrs66ofgf48" path="res://itemdata/resource/beer_bottle.tres" id="2_p785x"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p785x"]
+albedo_color = Color(0.9414761, 0, 0.123895355, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5adyw"]
+transparency = 1
+albedo_color = Color(0.22091639, 0.07846785, 0.012920001, 0.989)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_suqr0"]
+height = 0.3078308
+radius = 0.095703125
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_p785x"]
+height = 0.28103256
+radius = 0.049804688
+
+[node name="BeerBottle" instance=ExtResource("1_lk2lk")]
+
+[node name="InventoryAddBehavior" parent="Behaviors" index="1"]
+item_data = ExtResource("2_p785x")
+
+[node name="Mesh" type="Node3D" parent="." index="1"]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
+
+[node name="Label" type="CSGCylinder3D" parent="Mesh" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.008073449, 0)
+radius = 0.10839844
+height = 0.33859253
+material = SubResource("StandardMaterial3D_p785x")
+
+[node name="Bottle" type="CSGCylinder3D" parent="Mesh" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.007905498, 0)
+material_override = SubResource("StandardMaterial3D_5adyw")
+radius = 0.10205078
+height = 0.37550354
+material = SubResource("StandardMaterial3D_5adyw")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="Mesh/Bottle" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.18791558, 0)
+radius = 0.10229092
+radial_segments = 8
+material = SubResource("StandardMaterial3D_5adyw")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Mesh/Bottle" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.47674632, 0)
+material_override = SubResource("StandardMaterial3D_5adyw")
+radius = 0.062
+height = 0.45700073
+sides = 12
+cone = true
+material = SubResource("StandardMaterial3D_5adyw")
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="Mesh/Bottle/CSGCylinder3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.08853245, 0)
+material_override = SubResource("StandardMaterial3D_5adyw")
+radius = 0.034
+height = 0.28607178
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="Mesh/Bottle/CSGCylinder3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03962612, 0)
+radius = 0.047851563
+height = 0.029754639
+
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="Mesh/Bottle/CSGCylinder3D" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.13877714, 0)
+operation = 2
+radius = 0.026855469
+height = 0.18817933
+
+[node name="CSGTorus3D" type="CSGTorus3D" parent="Mesh/Bottle" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.23417526, 0)
+operation = 2
+inner_radius = 0.06567285
+outer_radius = 0.21691507
+smooth_faces = false
+
+[node name="CollisionShape3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.009536743, 0)
+shape = SubResource("CylinderShape3D_suqr0")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.28257674, 0)
+shape = SubResource("CylinderShape3D_p785x")

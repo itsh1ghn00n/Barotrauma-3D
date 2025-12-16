@@ -1,27 +1,43 @@
-[gd_scene load_steps=46 format=3 uid="uid://b3ymnvv2q4yki"]
+[gd_scene load_steps=57 format=3 uid="uid://b3ymnvv2q4yki"]
 
 [ext_resource type="Texture2D" uid="uid://c16gkrjdf7hbg" path="res://textures/texture_06.png" id="1_wijl4"]
 [ext_resource type="PackedScene" uid="uid://2qsjh5aaptj8" path="res://scenes/character.tscn" id="2_e0an3"]
 [ext_resource type="Script" uid="uid://dka26dmanv8gs" path="res://scripts/Multiplayer/player_spawn.gd" id="2_wijl4"]
+[ext_resource type="Script" uid="uid://ddupyq52e21ni" path="res://itemdata/item_manager.gd" id="3_dv6ho"]
 [ext_resource type="PackedScene" uid="uid://fw2vf3yk8sym" path="res://models/metal_floor2.tscn" id="5_2klcf"]
 [ext_resource type="Script" uid="uid://dem0vtwq38ow" path="res://scripts/Buoyancy/WaterArea.gd" id="6_2lpho"]
 [ext_resource type="Script" uid="uid://bqglnkncrdkxf" path="res://scripts/Buoyancy/submarine.gd" id="6_p7tei"]
-[ext_resource type="Script" uid="uid://cfu1eukr38afj" path="res://scripts/Interactables/types/door.gd" id="7_nakos"]
 [ext_resource type="PackedScene" uid="uid://lqhocvedvumn" path="res://scenes/sub_door.tscn" id="8_jh32y"]
 [ext_resource type="PackedScene" uid="uid://d4lk7am3spwim" path="res://models/SubWallNoWin.tscn" id="8_wslke"]
 [ext_resource type="Script" uid="uid://blf2ocdlxk5j3" path="res://scripts/Buoyancy/compartment.gd" id="11_c70he"]
 [ext_resource type="PackedScene" uid="uid://df4rjy4oowurb" path="res://models/SubHull-2x7.gltf" id="11_n1psn"]
 [ext_resource type="PackedScene" uid="uid://c32xog2601wb0" path="res://models/UJunct.tscn" id="11_wslke"]
 [ext_resource type="PackedScene" uid="uid://rebsyvumbhqo" path="res://models/Couch.gltf" id="12_c00ee"]
-[ext_resource type="PackedScene" uid="uid://cjktkfrkd6knb" path="res://items/Scenes/medkit.tscn" id="13_gw3fx"]
+[ext_resource type="Script" uid="uid://b2pllf12q3vme" path="res://scripts/Interactables/interactable.gd" id="12_ltckv"]
+[ext_resource type="PackedScene" uid="uid://dvpk4cfyuhvgq" path="res://scenes/ObjectScenes/door_vert.tscn" id="13_efuua"]
+[ext_resource type="PackedScene" uid="uid://cjktkfrkd6knb" path="res://itemdata/Scenes/medkit.tscn" id="13_gw3fx"]
+[ext_resource type="PackedScene" uid="uid://cl4vq0on74sgu" path="res://scenes/ObjectScenes/door_horiz.tscn" id="14_fvmnk"]
 [ext_resource type="PackedScene" uid="uid://b5oba7am038t" path="res://scenes/pc.tscn" id="15_p7tei"]
 [ext_resource type="Script" uid="uid://c3oxgehluk75x" path="res://addons/verlet_rope_4/Physics/VerletRopeSimulated.cs" id="17_l52dn"]
+[ext_resource type="PackedScene" uid="uid://bm575803a7q36" path="res://itemdata/Scenes/scrap.tscn" id="17_xm28t"]
 [ext_resource type="Script" uid="uid://dja12uyulc7ee" path="res://addons/verlet_rope_4/Physics/VerletRopeRigid.cs" id="18_po8p6"]
 [ext_resource type="Script" uid="uid://cvxw3h20i7vjf" path="res://addons/verlet_rope_4/Physics/Joints/VerletJointSimulated.cs" id="18_ssa7r"]
 [ext_resource type="Script" uid="uid://cuw8dk3lkvm2n" path="res://addons/verlet_rope_4/Physics/Joints/VerletJointRigid.cs" id="19_n4m4e"]
 [ext_resource type="PackedScene" uid="uid://dlogex7b7vy3b" path="res://scenes/ObjectScenes/fuel_port.tscn" id="20_n4m4e"]
-[ext_resource type="Material" uid="uid://cay6xwdpars4y" path="res://scenes/GameScenes/MetalMat.tres" id="20_po8p6"]
-[ext_resource type="Shader" uid="uid://6aeobrboncr5" path="res://scenes/GameScenes/waterLevel.gdshader" id="22_n4bc0"]
+[ext_resource type="Material" uid="uid://cay6xwdpars4y" path="res://materials/MetalMat.tres" id="20_po8p6"]
+[ext_resource type="Script" uid="uid://buwkft6eup0pn" path="res://scenes/GameScenes/fuel_tank.gd" id="22_hfypl"]
+[ext_resource type="Material" uid="uid://c7nk72rpshiyg" path="res://materials/watermat.tres" id="26_ega1k"]
+[ext_resource type="Script" uid="uid://cyy8ilcqduvf5" path="res://scripts/FuelTank.gd" id="27_ega1k"]
+[ext_resource type="Texture2D" uid="uid://mobbade1y3ji" path="res://textures/HoseTexture.png" id="28_vbmvi"]
+[ext_resource type="PackedScene" uid="uid://ct4237w07sbwl" path="res://itemdata/Scenes/fuel_cell.tscn" id="29_8ljht"]
+[ext_resource type="PackedScene" uid="uid://10kfxiikm00a" path="res://scripts/Interactables/types/pickup_behavior.tscn" id="30_dv6ho"]
+[ext_resource type="PackedScene" uid="uid://dnanwaxbqp8g1" path="res://scenes/ObjectScenes/scrapper.tscn" id="32_fvmnk"]
+[ext_resource type="PackedScene" uid="uid://b0gnqgncw60e7" path="res://scenes/ObjectScenes/engine.tscn" id="33_p0ggi"]
+[ext_resource type="Script" uid="uid://ba1nutw2d2rc5" path="res://scenes/GameScenes/scrap_spawner.gd" id="33_t5leq"]
+[ext_resource type="Script" uid="uid://bjtkprburcbnd" path="res://itemdata/ItemData.gd" id="34_pt41o"]
+[ext_resource type="Resource" uid="uid://dmysd88nla3va" path="res://itemdata/resource/scrap.tres" id="35_dv6ho"]
+[ext_resource type="PackedScene" uid="uid://i40amwsrjwmt" path="res://models/imported/gully.tscn" id="36_dv6ho"]
+[ext_resource type="PackedScene" uid="uid://dne31etgoanm6" path="res://scenes/GameScenes/water_area.tscn" id="37_efuua"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_e0an3"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -48,108 +64,6 @@ size = Vector3(1.453186, 1.512146, 4.057129)
 transparency = 1
 albedo_color = Color(0, 0.49287373, 0.82164097, 0.47843137)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_nakos"]
-size = Vector3(0.32507324, 2.3791199, 1.7501831)
-
-[sub_resource type="Animation" id="Animation_jh32y"]
-length = 0.001
-tracks/0/type = "position_3d"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CSGBox3D")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 0.2940941, 1.1530349, 0)
-
-[sub_resource type="Animation" id="Animation_be0no"]
-resource_name = "close_door"
-length = 0.5
-tracks/0/type = "position_3d"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CSGBox3D")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 0.2940941, 3.5760205, 0, 0.5, 1, 0.29400063, 1.166329, 0)
-
-[sub_resource type="Animation" id="Animation_nakos"]
-resource_name = "open_door"
-length = 0.5
-tracks/0/type = "position_3d"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CSGBox3D")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 0.2940941, 1.1530349, 0, 0.5, 1, 0.2940941, 3.5760205, 0)
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_blm8a"]
-_data = {
-&"RESET": SubResource("Animation_jh32y"),
-&"close_door": SubResource("Animation_be0no"),
-&"open_door": SubResource("Animation_nakos")
-}
-
-[sub_resource type="Animation" id="Animation_mlgqr"]
-length = 0.001
-tracks/0/type = "position_3d"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CSGBox3D")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 0.294, 1.164, -0.263)
-tracks/1/type = "position_3d"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CSGBox3D4")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = PackedFloat32Array(0, 1, 0.2940941, 1.164, 0.27464008)
-
-[sub_resource type="Animation" id="Animation_wslke"]
-resource_name = "close_door"
-length = 0.25
-tracks/0/type = "position_3d"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CSGBox3D")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 0.29400063, 1.164, -0.8473768, 0.25, 1, 0.294, 1.164, -0.263, 0.26666668, 1, 0.294, 1.164, -0.263)
-tracks/1/type = "position_3d"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CSGBox3D4")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = PackedFloat32Array(0, 1, 0.2940941, 1.164, 0.8045521, 0.25, 1, 0.2940941, 1.164, 0.27464008, 0.26666668, 1, 0.2940941, 1.164, 0.27464008)
-
-[sub_resource type="Animation" id="Animation_blm8a"]
-resource_name = "open_door"
-length = 0.5
-tracks/0/type = "position_3d"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CSGBox3D")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 0.294, 1.164, -0.263, 0.5, 1, 0.29400063, 1.164, -0.8473768)
-tracks/1/type = "position_3d"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CSGBox3D4")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = PackedFloat32Array(0, 1, 0.2940941, 1.164, 0.27464008, 0.5, 1, 0.2940941, 1.164, 0.8045521)
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_gw3fx"]
-_data = {
-&"RESET": SubResource("Animation_mlgqr"),
-&"close_door": SubResource("Animation_wslke"),
-&"open_door": SubResource("Animation_blm8a")
-}
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p5pve"]
 albedo_texture = ExtResource("1_wijl4")
 uv1_scale = Vector3(50, 50, 50)
@@ -157,8 +71,8 @@ uv1_scale = Vector3(50, 50, 50)
 [sub_resource type="PlaneMesh" id="PlaneMesh_urblq"]
 size = Vector2(100, 100)
 
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_iw27f"]
-data = PackedVector3Array(50, 0, 50, -50, 0, 50, 50, 0, -50, -50, 0, 50, -50, 0, -50, 50, 0, -50)
+[sub_resource type="BoxShape3D" id="BoxShape3D_pt41o"]
+size = Vector3(101, 9.7, 100)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_knebx"]
 seed = 110
@@ -168,19 +82,40 @@ domain_warp_enabled = true
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_knebx"]
 height = 1.9000001
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_pt41o"]
+properties/0/path = NodePath("RigidBody3D:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("RigidBody3D:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n4m4e"]
 transparency = 1
 albedo_color = Color(1, 1, 1, 0.354)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xgwn8"]
-render_priority = 0
-shader = ExtResource("22_n4bc0")
-shader_parameter/water_level = 0.0
-shader_parameter/water_height_range = Vector2(1.9, 0.39)
-shader_parameter/current_angle = 0.0
-shader_parameter/liquid_color = Color(1, 0.38410568, 0.09320182, 1)
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_6l8at"]
+height = 4.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_xm28t"]
+radius = 0.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ltckv"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 0.47108638, 0.2901952, 1)
+albedo_texture = ExtResource("28_vbmvi")
+normal_texture = ExtResource("28_vbmvi")
+rim = 0.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_gldc4"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ega1k"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:linear_velocity")
+properties/1/spawn = true
+properties/1/replication_mode = 1
 
 [node name="Map" type="Node3D"]
 
@@ -197,17 +132,22 @@ script = ExtResource("2_wijl4")
 player_scene = ExtResource("2_e0an3")
 spawn_points = [NodePath("../spawn 1"), NodePath("../spawn 2"), NodePath("../spawn 3"), NodePath("../spawn 4")]
 
+[node name="ItemManager" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://6ux3q47tkxy8")
+spawn_path = NodePath("../Items")
+script = ExtResource("3_dv6ho")
+
 [node name="spawn 1" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4000046, 3.6, 1)
 
 [node name="spawn 2" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4000046, 3.6, -1)
 
 [node name="spawn 3" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.59999543, 3.6, -1)
 
 [node name="spawn 4" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.59999543, 3.6, 1)
 
 [node name="Players" type="Node3D" parent="."]
 
@@ -253,7 +193,7 @@ use_collision = true
 size = Vector3(5.3058777, 5.2869873, 0.68266296)
 
 [node name="WaterArea" type="Area3D" parent="SceneObj/WaterArea2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.995098, 2.765306, 24.862753)
+transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 1, -1.995098, 2.765306, 24.862753)
 gravity = 0.0
 script = ExtResource("6_2lpho")
 
@@ -277,14 +217,14 @@ use_collision = true
 size = Vector3(1.7195358, 4.4190598, 2.5561638)
 
 [node name="Test Sub" type="Node3D" parent="SceneObj"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 6)
 script = ExtResource("6_p7tei")
 
 [node name="SubDoor" parent="SceneObj/Test Sub" instance=ExtResource("8_jh32y")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4838524, 1.2784178, 0.8298607)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.683852, 1.2784178, 1.5298605)
 
 [node name="SubDoor2" parent="SceneObj/Test Sub" instance=ExtResource("8_jh32y")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5161476, 1.3217742, -2.1353607)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2000008, 1.4, -1.4000001)
 
 [node name="Compartments" type="Node3D" parent="SceneObj/Test Sub"]
 
@@ -316,90 +256,34 @@ script = ExtResource("11_c70he")
 [node name="default9" parent="SceneObj/Test Sub" instance=ExtResource("11_n1psn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.699356, 1.0788624, 1.6098099)
 
-[node name="OmniLight3D" type="OmniLight3D" parent="SceneObj/Test Sub"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 2, 0)
-visible = false
-light_color = Color(0.7794149, 0.7785838, 3.85046e-07, 1)
-light_size = 6.255
-shadow_enabled = true
-shadow_bias = 3.87
-distance_fade_begin = 397.9
-
 [node name="default10" parent="SceneObj/Test Sub" instance=ExtResource("12_c00ee")]
 transform = Transform3D(-0.69500977, 0, -0.7190003, 0, 1, 0, 0.7190003, 0, -0.69500977, 7.1924896, 0.5, -1.6274605)
 
-[node name="Door" type="StaticBody3D" parent="SceneObj"]
+[node name="Door" parent="SceneObj" instance=ExtResource("13_efuua")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.703461, 0, 15.13942)
-collision_layer = 4
-script = ExtResource("7_nakos")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SceneObj/Door"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.30367088, 1.1806166, -0.0008544922)
-shape = SubResource("BoxShape3D_nakos")
-debug_color = Color(0.7986677, 0.04528828, 0.9999998, 0.41960785)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SceneObj/Door"]
-libraries = {
-&"": SubResource("AnimationLibrary_blm8a")
-}
-
-[node name="CSGBox3D" type="CSGBox3D" parent="SceneObj/Door"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2940941, 1.1530349, 0)
-use_collision = true
-size = Vector3(0.2388916, 2.4178467, 0.91296387)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="SceneObj/Door"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28399658, 1.1636257, -0.61559296)
-use_collision = true
-size = Vector3(0.2388916, 2.4178467, 0.32888794)
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="SceneObj/Door"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28399658, 1.1636257, 0.59464455)
-use_collision = true
-size = Vector3(0.2388916, 2.4178467, 0.32888794)
-
-[node name="Door2" type="StaticBody3D" parent="SceneObj"]
+[node name="Door2" parent="SceneObj" instance=ExtResource("14_fvmnk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.703461, 0, 11.987953)
-collision_layer = 4
-script = ExtResource("7_nakos")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SceneObj/Door2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.30367088, 1.1806166, 0.030303955)
-shape = SubResource("BoxShape3D_nakos")
-debug_color = Color(0.7986677, 0.04528828, 0.9999998, 0.41960785)
-
-[node name="CSGBox3D" type="CSGBox3D" parent="SceneObj/Door2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.294, 1.164, -0.263)
-use_collision = true
-size = Vector3(0.239, 2.418, 0.55)
-
-[node name="CSGBox3D4" type="CSGBox3D" parent="SceneObj/Door2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2940941, 1.164, 0.27464008)
-use_collision = true
-size = Vector3(0.239, 2.418, 0.55)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="SceneObj/Door2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.284, 1.164, -0.7)
-use_collision = true
-size = Vector3(0.2388916, 2.4178467, 0.32888794)
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="SceneObj/Door2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.284, 1.164, 0.7)
-use_collision = true
-size = Vector3(0.2388916, 2.4178467, 0.32888794)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SceneObj/Door2"]
-libraries = {
-&"": SubResource("AnimationLibrary_gw3fx")
-}
 
 [node name="Terrain" type="Node3D" parent="SceneObj"]
+
+[node name="Mesh" type="StaticBody3D" parent="SceneObj/Terrain"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SceneObj/Terrain/Mesh"]
+material_override = SubResource("StandardMaterial3D_p5pve")
+mesh = SubResource("PlaneMesh_urblq")
+skeleton = NodePath("../../..")
+metadata/surface_type = "default"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SceneObj/Terrain/Mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.85, 0.5)
+shape = SubResource("BoxShape3D_pt41o")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="SceneObj/Terrain"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.91742, 4.70728)
 layers = 31
 use_collision = true
-collision_layer = 31
+collision_layer = 27
 collision_mask = 31
 size = Vector3(8.83398, 6.83484, 0.959473)
 
@@ -407,7 +291,7 @@ size = Vector3(8.83398, 6.83484, 0.959473)
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -3.83341, 2.91742, 1.79285e-08)
 layers = 31
 use_collision = true
-collision_layer = 31
+collision_layer = 27
 collision_mask = 31
 size = Vector3(9.86621, 6.83484, 1.19434)
 
@@ -415,7 +299,7 @@ size = Vector3(9.86621, 6.83484, 1.19434)
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 4.50962, 2.91742, 1.07891e-08)
 layers = 31
 use_collision = true
-collision_layer = 31
+collision_layer = 27
 collision_mask = 31
 size = Vector3(9.86621, 6.83484, 0.867676)
 
@@ -429,7 +313,7 @@ size = Vector3(2.37598, 4.39844, 2.18994)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.91742, -4.54834)
 layers = 31
 use_collision = true
-collision_layer = 15
+collision_layer = 27
 collision_mask = 15
 size = Vector3(8.83398, 6.83484, 1.27734)
 
@@ -437,7 +321,7 @@ size = Vector3(8.83398, 6.83484, 1.27734)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 2.91742, -5)
 layers = 31
 use_collision = true
-collision_layer = 31
+collision_layer = 27
 collision_mask = 31
 size = Vector3(3.83984, 6.83484, 3.62793)
 
@@ -445,7 +329,7 @@ size = Vector3(3.83984, 6.83484, 3.62793)
 transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 16, 1.5, -5)
 layers = 31
 use_collision = true
-collision_layer = 31
+collision_layer = 27
 collision_mask = 31
 size = Vector3(2, 4, 2)
 
@@ -453,7 +337,7 @@ size = Vector3(2, 4, 2)
 transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 8, 1.5, 4)
 layers = 31
 use_collision = true
-collision_layer = 31
+collision_layer = 27
 collision_mask = 31
 size = Vector3(2, 4, 2)
 
@@ -461,7 +345,7 @@ size = Vector3(2, 4, 2)
 transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 15, 1.5, 1)
 layers = 31
 use_collision = true
-collision_layer = 31
+collision_layer = 27
 collision_mask = 31
 size = Vector3(2, 4, 2)
 
@@ -469,25 +353,26 @@ size = Vector3(2, 4, 2)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.14724, 0)
 layers = 31
 use_collision = true
-collision_layer = 31
+collision_layer = 27
 collision_mask = 31
 size = Vector3(8.83398, 0.369141, 10.0352)
-
-[node name="floor" type="StaticBody3D" parent="SceneObj/Terrain"]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="SceneObj/Terrain/floor"]
-material_override = SubResource("StandardMaterial3D_p5pve")
-mesh = SubResource("PlaneMesh_urblq")
-skeleton = NodePath("../../../..")
-metadata/surface_type = "default"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SceneObj/Terrain/floor"]
-shape = SubResource("ConcavePolygonShape3D_iw27f")
 
 [node name="Items" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -2)
 
 [node name="Medkit" parent="Items" instance=ExtResource("13_gw3fx")]
+
+[node name="ScrapItem" parent="Items" instance=ExtResource("17_xm28t")]
+transform = Transform3D(0.22414389, -0.83651626, 0.49999997, -0.12940954, 0.48296288, 0.8660254, -0.9659258, -0.25881907, -1.13133405e-08, 2, -2.3, 13)
+
+[node name="ScrapItem2" parent="Items" instance=ExtResource("17_xm28t")]
+transform = Transform3D(2.8083516e-08, 4.1320035e-08, 1, -0.25881907, 0.9659258, -5.9604645e-08, -0.9659258, -0.25881904, -1.7172477e-08, 2.2, -1.3, 13)
+
+[node name="ScrapItem3" parent="Items" instance=ExtResource("17_xm28t")]
+transform = Transform3D(0.90767336, 0.24321036, 0.34202018, -0.25881907, 0.9659258, -5.9604645e-08, -0.33036608, -0.088521294, 0.9396926, 2.2, -1.6999999, 13.3)
+
+[node name="Fuel Cell" parent="Items" instance=ExtResource("29_8ljht")]
+transform = Transform3D(1, 0, 0, 0, 1.3113416e-07, -1, 0, 1, 1.3113416e-07, 2.6, -2.6, 9.5)
 
 [node name="pc(screen)" parent="." instance=ExtResource("15_p7tei")]
 transform = Transform3D(-6.556708e-08, 0, -1.5, 0, 1.5, 0, 1.5, 0, -6.556708e-08, 11, 0.8, 0)
@@ -567,11 +452,18 @@ shape = SubResource("CylinderShape3D_knebx")
 [node name="Connection" type="Node3D" parent="CageDrop/RigidBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
-[node name="FuelPort" parent="." instance=ExtResource("20_n4m4e")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.1, 0.9, 9)
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="CageDrop"]
+replication_config = SubResource("SceneReplicationConfig_pt41o")
 
-[node name="Fuel Tank" type="Node3D" parent="."]
+[node name="Fuel Tank" type="StaticBody3D" parent="." node_paths=PackedStringArray("AttachPoint", "AttachZone", "FuelPort", "Fueltank")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, 9)
+script = ExtResource("22_hfypl")
+AttachPoint = NodePath("FuelPort/Node3D2")
+AttachZone = NodePath("FuelPort/Area3D")
+FuelPort = NodePath("../FuelHandle")
+magnet_strength = 60.0
+stop_distance = 0.1
+Fueltank = NodePath("GFX/Fuel")
 
 [node name="GFX" type="Node3D" parent="Fuel Tank"]
 
@@ -595,40 +487,107 @@ height = 3.0
 
 [node name="Fuel" type="CSGCylinder3D" parent="Fuel Tank/GFX"]
 transform = Transform3D(1, 0, 0, 0, -1.0000001, -5.9604645e-08, 0, 5.9604645e-08, -1.0000001, 0, 1.2816405, 0)
-material_override = SubResource("ShaderMaterial_xgwn8")
 radius = 0.8
 height = 3.0
+material = ExtResource("26_ega1k")
+script = ExtResource("27_ega1k")
+max_fuel = 50.0
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Fuel Tank"]
+transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 2, 0, 1, 0)
+shape = SubResource("CylinderShape3D_6l8at")
+
+[node name="FuelPort" parent="Fuel Tank" instance=ExtResource("20_n4m4e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9000001, -0.100000024, 0)
+
+[node name="Area3D" type="Area3D" parent="Fuel Tank/FuelPort"]
+
+[node name="AttachShape" type="CollisionShape3D" parent="Fuel Tank/FuelPort/Area3D"]
+shape = SubResource("SphereShape3D_xm28t")
+
+[node name="Node3D2" type="Node3D" parent="Fuel Tank/FuelPort"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.79999995, 0, 0)
+
+[node name="FuelRopeBase" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 8, 6)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="StaticBody3D"]
+[node name="CSGBox3D" type="CSGBox3D" parent="FuelRopeBase"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="VerletRopeSimulated2" type="Node3D" parent="StaticBody3D"]
+[node name="VerletRopeSimulated2" type="Node3D" parent="FuelRopeBase"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 4)
 script = ExtResource("17_l52dn")
+SimulationParticles = 15
 Gravity = Vector3(0, -9.8, 0)
-RopeLength = 2.0
+RopeCollisionBehavior = 1
+RayCastHitFromInside = true
+RayCastHitBackFaces = true
+RopeLength = 10.0
 RopeWidth = 0.2
-MaterialOverride = ExtResource("20_po8p6")
+MaterialOverride = SubResource("StandardMaterial3D_ltckv")
 metadata/_custom_type_script = "uid://c3oxgehluk75x"
 
-[node name="JointSimulated" type="Node" parent="StaticBody3D/VerletRopeSimulated2" node_paths=PackedStringArray("VerletRope", "StartBody", "StartCustomLocation", "EndBody", "EndCustomLocation")]
+[node name="JointSimulated" type="Node" parent="FuelRopeBase/VerletRopeSimulated2" node_paths=PackedStringArray("VerletRope", "StartBody", "StartCustomLocation", "EndBody", "EndCustomLocation")]
 script = ExtResource("18_ssa7r")
 VerletRope = NodePath("..")
 StartBody = NodePath("../../../FuelHandle")
 StartCustomLocation = NodePath("../../../FuelHandle")
 EndBody = NodePath("../..")
 EndCustomLocation = NodePath("../..")
-JointMaxDistance = 6.0
+JointMaxDistance = 10.0
 metadata/verlet_rope_physical_create_simulated_joint = 38852839
 
 [node name="FuelHandle" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6836991, 13.545373)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6836991, 6.545373)
+collision_layer = 5
+script = ExtResource("12_ltckv")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FuelHandle"]
 shape = SubResource("SphereShape3D_gldc4")
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="FuelHandle"]
+layers = 5
 material_override = ExtResource("20_po8p6")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="FuelHandle"]
+replication_interval = 0.05
+replication_config = SubResource("SceneReplicationConfig_ega1k")
+
+[node name="Behaviors" type="Node" parent="FuelHandle"]
+
+[node name="PickupBehavior" parent="FuelHandle/Behaviors" instance=ExtResource("30_dv6ho")]
+
+[node name="Scrapper" parent="." instance=ExtResource("32_fvmnk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 9)
+
+[node name="Engine" parent="." instance=ExtResource("33_p0ggi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1, 0, 12.2)
+
+[node name="ScrapSpawner" type="Node3D" parent="." node_paths=PackedStringArray("ray")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 101, 0, 0)
+script = ExtResource("33_t5leq")
+sceneArray = Array[ExtResource("34_pt41o")]([ExtResource("35_dv6ho")])
+ray = NodePath("RayCast3D")
+
+[node name="RayCast3D" type="RayCast3D" parent="ScrapSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, 0)
+target_position = Vector3(0, -15, 0)
+
+[node name="Mesh" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 101, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Mesh"]
+material_override = SubResource("StandardMaterial3D_p5pve")
+mesh = SubResource("PlaneMesh_urblq")
+skeleton = NodePath("../../../..")
+metadata/surface_type = "default"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.85, 0.5)
+shape = SubResource("BoxShape3D_pt41o")
+
+[node name="Gully" parent="." instance=ExtResource("36_dv6ho")]
+transform = Transform3D(-6.556708e-07, 0, 15, 0, 15, 0, -15, 0, -6.556708e-07, 101, 0, 0)
+
+[node name="WaterArea" parent="." instance=ExtResource("37_efuua")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 101, 15.5, 0)

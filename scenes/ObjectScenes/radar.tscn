@@ -1,0 +1,56 @@
+[gd_scene load_steps=5 format=3 uid="uid://b8ea8q1bnrq3c"]
+
+[ext_resource type="Script" uid="uid://b6x1qd2o2rh8g" path="res://scripts/UI/radar.gd" id="1_glscj"]
+[ext_resource type="Shader" uid="uid://dph5o3bc021te" path="res://radar_mat.gdshader" id="2_51c4u"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_51c4u"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i6c7r"]
+resource_local_to_scene = true
+shader = ExtResource("2_51c4u")
+shader_parameter/sweep_angle = 6.2830002984425
+shader_parameter/line_thickness = 0.025
+shader_parameter/radius = 0.985
+shader_parameter/line_color = Color(0, 0.46254948, 0.07846785, 1)
+shader_parameter/ring_color = Color(0.09985284, 0.49995556, 0.09985284, 0.39200002)
+shader_parameter/edge_color = Color(7.746043e-08, 0.056663245, 0.051219605, 1)
+shader_parameter/shallow_color = Color(1.2032688e-06, 0.28224853, 0.26634434, 1)
+shader_parameter/background_color = Color(0, 0.105882354, 0.09803922, 1)
+shader_parameter/ring_spacing = 0.29
+shader_parameter/ring_thickness = 0.045
+
+[node name="SubViewport" type="SubViewport"]
+canvas_item_default_texture_filter = 0
+size = Vector2i(256, 256)
+size_2d_override_stretch = true
+script = ExtResource("1_glscj")
+sweep_speed = 1.5
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_51c4u")
+
+[node name="RadarSprite" type="Panel" parent="."]
+material = SubResource("ShaderMaterial_i6c7r")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Blip Container" type="Node2D" parent="."]
+position = Vector2(128, 128)

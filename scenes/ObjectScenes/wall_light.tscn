@@ -1,0 +1,68 @@
+[gd_scene load_steps=5 format=3 uid="uid://bawsblr1r6tne"]
+
+[ext_resource type="Script" uid="uid://dc5kagsathc84" path="res://scenes/ObjectScenes/LightObject.gd" id="1_bjaic"]
+[ext_resource type="Material" uid="uid://cmp3qo3h8aa5b" path="res://scenes/ObjectScenes/glass.tres" id="1_o1ktt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bjaic"]
+albedo_color = Color(1, 0, 0.106126174, 1)
+metallic_specular = 0.0
+roughness = 0.0
+emission = Color(1, 0.29668927, 0.2653564, 1)
+emission_energy_multiplier = 16.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_epgnw"]
+albedo_color = Color(1, 0, 0.106126174, 1)
+metallic_specular = 0.0
+roughness = 0.0
+emission_enabled = true
+emission = Color(1, 0.29668927, 0.2653564, 1)
+emission_energy_multiplier = 16.0
+
+[node name="WallLight" type="Node3D" node_paths=PackedStringArray("light")]
+transform = Transform3D(-3.059797e-08, -0.7, 0, 0.7, -3.059797e-08, 0, 0, 0, 0.7, 0, 0, 0)
+script = ExtResource("1_bjaic")
+light = NodePath("Mesh/Light")
+
+[node name="Mesh" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.19999981, 0)
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="Mesh"]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0.19999981, 0.15000004)
+material_override = ExtResource("1_o1ktt")
+operation = 2
+radius = 0.1
+height = 0.6
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Mesh"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.19999981, 0.050000012)
+size = Vector3(0.65, 0.2, 0.25)
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="Mesh/CSGBox3D"]
+transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 1.9106855e-15, -1, 1, -4.371139e-08, -4.371139e-08, 0, -0.10000001, 0)
+material_override = ExtResource("1_o1ktt")
+operation = 2
+radius = 0.1
+height = 0.6
+
+[node name="OffBulb" type="CSGCylinder3D" parent="Mesh"]
+transform = Transform3D(-4.3711402e-08, -1, 0, -4.3711385e-08, 0, -1, 1, -4.371139e-08, -4.371139e-08, -1.9106846e-16, 0.19999981, 0.09999996)
+material_override = SubResource("StandardMaterial3D_bjaic")
+radius = 0.045
+height = 0.6
+
+[node name="Light" type="Node3D" parent="Mesh"]
+transform = Transform3D(1, -3.5527137e-15, -1.9106853e-15, -7.1054274e-15, 1, -5.0753054e-15, -1.5529405e-22, 0, 1, 0, 0.19999981, 0)
+
+[node name="Bulb" type="CSGCylinder3D" parent="Mesh/Light"]
+transform = Transform3D(-4.3711392e-08, -1, -3.5527137e-15, -4.371138e-08, -7.1054274e-15, -1, 1, -4.371139e-08, -4.371139e-08, 0, 0, 0.099999964)
+material_override = SubResource("StandardMaterial3D_epgnw")
+radius = 0.05
+height = 0.6
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Mesh/Light"]
+transform = Transform3D(1.4285715, 7.1054274e-15, 2.7295505e-15, 7.1054274e-15, 1.4285715, 7.250436e-15, 2.2184864e-22, 0, 1.4285715, 3.8213793e-16, 2.3841858e-07, 0.2)
+light_color = Color(0.9059949, 0, 0.28925014, 1)
+light_energy = 0.5
+light_size = 0.1
+shadow_enabled = true
+omni_range = 2.6000001

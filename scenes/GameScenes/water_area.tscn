@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://dne31etgoanm6"]
+
+[ext_resource type="PackedScene" uid="uid://ca0wevg1lb4rx" path="res://utils/WaterMaker3D/WaterMaker3D.tscn" id="2_6p3ux"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_fvmnk"]
+resource_local_to_scene = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4pb3l"]
+resource_local_to_scene = true
+noise = SubResource("FastNoiseLite_fvmnk")
+seamless = true
+as_normal_map = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_htah3"]
+resource_local_to_scene = true
+noise = SubResource("FastNoiseLite_fvmnk")
+seamless = true
+as_normal_map = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p0ggi"]
+resource_local_to_scene = true
+transparency = 1
+cull_mode = 2
+depth_draw_mode = 1
+albedo_color = Color(0.07254311, 0.19938889, 0.3717134, 1)
+roughness = 0.0
+normal_enabled = true
+normal_texture = SubResource("NoiseTexture2D_4pb3l")
+refraction_enabled = true
+refraction_texture = SubResource("NoiseTexture2D_htah3")
+uv1_scale = Vector3(-0.01, -0.01, -0.01)
+uv1_triplanar = true
+uv1_world_triplanar = true
+
+[node name="Node3D" type="Node3D"]
+
+[node name="WaterMaker3D" parent="." groups=["WaterMakers"] instance=ExtResource("2_6p3ux")]
+size = Vector3(60, 37, 38)
+material = SubResource("StandardMaterial3D_p0ggi")
+water_texture_move_speed = Vector3(0, 0, 0)
+water_texture_uv_scale = -0.01
+water_color = Color(0.07254311, 0.19938889, 0.3717134, 1)
+fog_color = Color(2.1658838e-07, 0.19001633, 0.47236782, 1)
+deep_fog_color = Color(1.2032688e-08, 0.020748908, 0.09944335, 1)
+fog_fade_dist = 5.5

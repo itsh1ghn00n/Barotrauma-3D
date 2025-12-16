@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://c7nk72rpshiyg"]
+
+[ext_resource type="Shader" uid="uid://6aeobrboncr5" path="res://materials/waterLevel.gdshader" id="1_axdky"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_axdky")
+shader_parameter/water_level = 1.0
+shader_parameter/water_height_range = Vector2(1.815, 0)
+shader_parameter/current_angle = 90.000004275
+shader_parameter/liquid_color = Color(0.19974253, 0.3454502, 1, 1)
+shader_parameter/foam_color = Color(0.1223133, 0.35863125, 1, 1)
+shader_parameter/foam_line = 1.0

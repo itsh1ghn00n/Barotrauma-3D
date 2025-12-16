@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://10kfxiikm00a"]
+
+[ext_resource type="Script" uid="uid://cyanfwpdvo261" path="res://scripts/Interactables/types/PickupBehavior.gd" id="1_nyefl"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_57ry6"]
+
+[node name="PickupBehavior" type="Node"]
+script = ExtResource("1_nyefl")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_57ry6")

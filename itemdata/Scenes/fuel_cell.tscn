@@ -1,0 +1,91 @@
+[gd_scene load_steps=9 format=3 uid="uid://ct4237w07sbwl"]
+
+[ext_resource type="PackedScene" uid="uid://6ux3q47tkxy8" path="res://itemdata/Scenes/baseitem.tscn" id="1_o5bty"]
+[ext_resource type="Material" uid="uid://cay6xwdpars4y" path="res://materials/MetalMat.tres" id="2_c8u1q"]
+[ext_resource type="Resource" uid="uid://dt8h7lg60owtk" path="res://itemdata/resource/fuel_cell.tres" id="4_ulbbu"]
+[ext_resource type="Shader" uid="uid://6aeobrboncr5" path="res://materials/waterLevel.gdshader" id="7_vfy5v"]
+[ext_resource type="Script" uid="uid://cyy8ilcqduvf5" path="res://scripts/FuelTank.gd" id="8_vfy5v"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pd0gv"]
+transparency = 1
+blend_mode = 1
+albedo_color = Color(1, 1, 1, 0.381)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ulbbu"]
+render_priority = 0
+shader = ExtResource("7_vfy5v")
+shader_parameter/water_level = 1.0
+shader_parameter/water_height_range = Vector2(0.3, 1)
+shader_parameter/current_angle = 0.0
+shader_parameter/liquid_color = Color(0.9931031, 0.4108543, 0.31311232, 1)
+shader_parameter/foam_color = Color(0.8617206, 0.034158777, 0.93459237, 1)
+shader_parameter/foam_line = 0.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_jh015"]
+height = 0.7421387
+radius = 0.3
+
+[node name="FuelCell" instance=ExtResource("1_o5bty")]
+
+[node name="InventoryAddBehavior" parent="Behaviors" index="1"]
+item_data = ExtResource("4_ulbbu")
+
+[node name="Mesh" type="Node3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.027026057, 0)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Mesh" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.007479854, 0)
+radius = 0.3
+height = 0.53029174
+material = SubResource("StandardMaterial3D_pd0gv")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="Mesh/CSGCylinder3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 0.48648375, 0, 0, 0, 1, 0, 0.2658714, 0)
+radius = 0.3
+radial_segments = 8
+rings = 4
+material = ExtResource("2_c8u1q")
+
+[node name="CSGSphere3D3" type="CSGSphere3D" parent="Mesh/CSGCylinder3D/CSGSphere3D" index="0"]
+transform = Transform3D(0.99999994, 0, 0, 0, 1.3857995, 0, 0, 0, 0.99999994, 0, 0.21772116, 0)
+operation = 2
+radius = 0.14366959
+radial_segments = 8
+rings = 4
+
+[node name="CSGSphere3D2" type="CSGSphere3D" parent="Mesh/CSGCylinder3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, 0.48648375, 0, 0, 0, 1, 0, -0.26537696, 0)
+radius = 0.3
+radial_segments = 8
+rings = 4
+material = ExtResource("2_c8u1q")
+
+[node name="CSGSphere3D3" type="CSGSphere3D" parent="Mesh/CSGCylinder3D/CSGSphere3D2" index="0"]
+transform = Transform3D(0.99999994, 0, 0, 0, 1.3857995, 0, 0, 0, 0.99999994, 0, -0.218, 0)
+operation = 2
+radius = 0.14366959
+radial_segments = 8
+rings = 4
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="Mesh" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.27212572, 0)
+radius = 0.3
+height = 0.001
+material = ExtResource("2_c8u1q")
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="Mesh" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25957853, 0)
+radius = 0.3
+height = 0.001
+material = ExtResource("2_c8u1q")
+
+[node name="Fuel" type="CSGCylinder3D" parent="Mesh" index="3"]
+transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0.007479854, 0)
+radius = 0.25048828
+height = 0.53029174
+material = SubResource("ShaderMaterial_ulbbu")
+script = ExtResource("8_vfy5v")
+
+[node name="CollisionShape3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045581013, 0)
+shape = SubResource("CylinderShape3D_jh015")

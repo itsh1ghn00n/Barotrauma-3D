@@ -6,8 +6,8 @@ var last_target: Node = null
 
 func _physics_process(_delta: float) -> void:
 	if is_colliding():
-		var collider = get_collider()
-		var target: Node = collider
+		var target: Node = get_collider()
+		#print("Got interactable: ", target)
 		
 		# Walk up the parent chain until an Interactable is found
 		while target and not (target is Interactable):
@@ -18,19 +18,14 @@ func _physics_process(_delta: float) -> void:
 			current_target = null
 	else:
 		current_target = null
-		
-	# Highlight
-	if current_target != last_target:
-		# remove highlight
-		if last_target and last_target.has_node("BaseItem"):
-			last_target.get_node("BaseItem").set_highlighted(false)
-		
-		# add highlight
-		if current_target and current_target.has_node("BaseItem"):
-			current_target.get_node("BaseItem").set_highlighted(true)
-		
-		last_target = current_target
+	last_target = current_target
 
 func try_interact(player: Node) -> void:
-	if current_target:
-		InteractionManager.request_interact.rpc_id(1, player.get_path(), current_target.get_path())
+	if not current_target:
+		return
+	# If this client IS the server, we can interact directly
+	if multiplayer.is_server():
+		current_target.request_interact(player.get_path())
+	else:
+		# Otherwise, ask the server to handle the interaction
+		current_target.rpc_id(1, "request_interact", player.get_path())

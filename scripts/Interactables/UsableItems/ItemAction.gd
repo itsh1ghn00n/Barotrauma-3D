@@ -2,5 +2,5 @@
 extends Resource
 class_name ItemAction
 
-func execute(user: Node, target: Node, item: UsableItem) -> void:
+func use(user: Node, target: Node, item: UsableBehavior) -> void:
 	pass

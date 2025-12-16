@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://dt8h7lg60owtk"]
+
+[ext_resource type="Script" uid="uid://bjtkprburcbnd" path="res://itemdata/ItemData.gd" id="1_5dv36"]
+[ext_resource type="Texture2D" uid="uid://bbx2ske82oexo" path="res://itemdata/Icons/Fuel_Icon.png" id="1_x5b8x"]
+
+[resource]
+script = ExtResource("1_5dv36")
+name = "Fuel Cell"
+icon = ExtResource("1_x5b8x")
+scene_path = "res://itemdata/Scenes/fuel_cell.tscn"
+metadata/_custom_type_script = "uid://bjtkprburcbnd"

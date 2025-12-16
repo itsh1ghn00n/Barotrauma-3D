@@ -1,8 +1,9 @@
-[gd_scene load_steps=25 format=4 uid="uid://2qsjh5aaptj8"]
+[gd_scene load_steps=28 format=4 uid="uid://2qsjh5aaptj8"]
 
 [ext_resource type="PackedScene" uid="uid://cxq0cn21p5drn" path="res://models/character_template.glb" id="1_pjt0s"]
 [ext_resource type="Script" uid="uid://fh11uplq0d0e" path="res://scripts/Multiplayer/player.gd" id="1_wa5vi"]
 [ext_resource type="Script" uid="uid://cti1njryhg34d" path="res://scripts/Player/head.gd" id="2_wa5vi"]
+[ext_resource type="PackedScene" uid="uid://cpmlnaouypy5p" path="res://ui/hotbar_ui.tscn" id="3_cicko"]
 [ext_resource type="Script" uid="uid://nkan7yaigukf" path="res://scripts/Player/voice_chat.gd" id="4_0qfo5"]
 [ext_resource type="Script" uid="uid://dkb8ltjc6067n" path="res://addons/raytraced_audio/raytraced_audio_player_3d.gd" id="5_yxww1"]
 [ext_resource type="Script" uid="uid://bjpmu5sklv5h8" path="res://addons/raytraced_audio/raytraced_audio_listener.gd" id="6_wdpcj"]
@@ -25,6 +26,9 @@
 radius = 0.259273
 height = 0.975361
 
+[sub_resource type="LabelSettings" id="LabelSettings_u0pwc"]
+font_size = 10
+
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_wa5vi"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
@@ -35,6 +39,9 @@ properties/1/replication_mode = 2
 properties/2/path = NodePath(".:velocity")
 properties/2/spawn = true
 properties/2/replication_mode = 2
+properties/3/path = NodePath("Head:rotation")
+properties/3/spawn = true
+properties/3/replication_mode = 2
 
 [sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_yxww1"]
 mix_rate = 48000.0
@@ -44,46 +51,73 @@ data = PackedByteArray("cW9hZgAARDcBALuAFAAIGAAAAAAAAAAAAAAAAOAAQAAw47AGiSASiRHl
 format = 3
 mix_rate = 48000
 
-[node name="Character" type="CharacterBody3D"]
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_u0pwc"]
+properties/0/path = NodePath(".:held_item_id")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:current_index")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath("Inventory:slots")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath("Inventory:items")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+
+[node name="Character" type="CharacterBody3D" node_paths=PackedStringArray("debug_label") groups=["radar_target"]]
 script = ExtResource("1_wa5vi")
+debug_label = NodePath("PlayerUI/Label")
+debug = true
 
 [node name="character_template" parent="." instance=ExtResource("1_pjt0s")]
 transform = Transform3D(-0.332393, 0, -2.90588e-08, 0, 0.332393, 0, 2.90588e-08, 0, -0.332393, 0, 0, 0)
 
 [node name="Skeleton3D" parent="character_template/mp3d" index="0"]
-bones/0/rotation = Quaternion(-0.15547973, 0.01619997, -0.0013942225, 0.98770523)
-bones/1/rotation = Quaternion(0.014848454, -1.7464233e-10, 1.4553521e-10, 0.99988985)
 bones/2/position = Vector3(5.6910026e-22, 1.7693238, 1.4210855e-14)
-bones/2/rotation = Quaternion(-0.45292282, -0.54377663, -0.45397455, 0.54136413)
-bones/2/scale = Vector3(1, 0.9999999, 1)
-bones/3/rotation = Quaternion(0.22287795, 0.02152043, -0.04832597, 0.97340995)
-bones/4/rotation = Quaternion(0.02010891, -9.16644e-06, 0.00045617713, 0.99979776)
+bones/2/rotation = Quaternion(-0.452137, -0.5436654, -0.45213705, 0.54366547)
+bones/2/scale = Vector3(1, 1, 1)
+bones/3/rotation = Quaternion(-0.5251158, -0.018730283, -0.049266428, 0.8493971)
+bones/4/rotation = Quaternion(0.008690775, 4.839252e-08, 3.212677e-09, 0.9999622)
 bones/5/position = Vector3(-5.6910026e-22, 1.7693238, 1.4210855e-14)
-bones/5/rotation = Quaternion(-0.45292282, 0.54377663, 0.45397455, 0.54136413)
-bones/5/scale = Vector3(1, 0.9999999, 1)
-bones/6/rotation = Quaternion(0.22287795, -0.021520428, 0.04832597, 0.97340995)
-bones/7/rotation = Quaternion(0.02010891, 9.165927e-06, -0.0004561716, 0.99979776)
+bones/5/rotation = Quaternion(-0.452137, 0.5436654, 0.45213705, 0.54366547)
+bones/5/scale = Vector3(1, 1, 1)
+bones/6/rotation = Quaternion(-0.5251157, 0.018730273, 0.04926642, 0.8493972)
+bones/7/rotation = Quaternion(0.008690761, -4.887435e-08, -1.3541505e-09, 0.9999622)
 bones/8/position = Vector3(4.5741018e-08, 1.7693237, -1.0658141e-14)
 bones/8/rotation = Quaternion(0.69344354, 0.13833249, 0.6934438, -0.13833265)
 bones/8/scale = Vector3(1.0000001, 1, 1)
-bones/9/rotation = Quaternion(-0.09325708, -0.23495004, -0.55466896, 0.7927447)
-bones/10/rotation = Quaternion(-0.00027433597, 8.3301885e-08, -4.285596e-09, 1)
-bones/11/rotation = Quaternion(0.011941431, -0.00010872912, 0.018271377, 0.99976176)
+bones/9/rotation = Quaternion(-0.18914224, -3.3111345e-07, -2.378052e-08, 0.9819498)
+bones/10/rotation = Quaternion(-0.0002743313, 7.864604e-08, -1.4903501e-09, 1)
+bones/11/rotation = Quaternion(0.011941446, -0.000108731525, 0.018271366, 0.99976176)
+bones/12/rotation = Quaternion(0.021481311, -0.02738521, -0.6577118, 0.7524652)
 bones/13/position = Vector3(-4.5741018e-08, 1.7693237, -1.0658141e-14)
 bones/13/rotation = Quaternion(-0.69344354, 0.13833249, 0.6934438, 0.13833265)
 bones/13/scale = Vector3(1.0000001, 1, 1)
-bones/14/rotation = Quaternion(-0.09325708, 0.23495004, 0.55466896, 0.7927447)
-bones/15/rotation = Quaternion(-0.00027433457, -7.678122e-08, 9.40608e-09, 1)
-bones/16/rotation = Quaternion(0.011941426, 0.00010872894, -0.018271359, 0.99976176)
-bones/17/rotation = Quaternion(0.021481305, 0.027385218, 0.6577118, 0.7524652)
+bones/14/rotation = Quaternion(-0.18914224, 3.3111345e-07, 2.378052e-08, 0.9819498)
+bones/15/rotation = Quaternion(-0.0027676842, -0.0032903266, 0.0013758127, 0.9999898)
+bones/16/rotation = Quaternion(0.011941447, 0.00010873167, -0.018271368, 0.99976176)
 
 [node name="AnimationPlayer" parent="character_template" index="1"]
 autoplay = "idle"
 playback_default_blend_time = 0.2
 
+[node name="SphereTransform" type="Node3D" parent="."]
+transform = Transform3D(0.518, 0, 0, 0, 0.975, 0, 0, 0, 0.259, 0, 0.25436062, 0)
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.495346, 0)
 shape = SubResource("CapsuleShape3D_wfnr8")
+
+[node name="PlayerUI" type="Node3D" parent="."]
+
+[node name="Label" type="Label" parent="PlayerUI"]
+offset_left = 27.0
+offset_right = 161.0
+offset_bottom = 27.0
+label_settings = SubResource("LabelSettings_u0pwc")
+
+[node name="HotbarUI" parent="PlayerUI" instance=ExtResource("3_cicko")]
 
 [node name="Head" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.831001, 0)
@@ -95,6 +129,16 @@ fov = 77.8941
 
 [node name="HandSocket" type="Node3D" parent="Head/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05016631, -0.75355995)
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="Head/Camera3D"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.099999994, 0.02212882, -0.15000002)
+visibility_range_begin = 0.2
+radius = 0.05
+
+[node name="CSGSphere3D2" type="CSGSphere3D" parent="Head/Camera3D"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.10000001, 0.02212882, -0.14999999)
+visibility_range_begin = 0.2
+radius = 0.05
 
 [node name="Interactor" type="RayCast3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, -0.009346664, 0)
@@ -147,12 +191,28 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12470555, 0)
 collide_with_areas = true
 debug_shape_custom_color = Color(1, 1, 1, 1)
 
-[node name="Hotbar" type="Node3D" parent="." node_paths=PackedStringArray("hand_socket", "cam_node")]
+[node name="Hotbar" type="Node3D" parent="." node_paths=PackedStringArray("hand_socket", "cam_node", "hotbar_ui", "syncer")]
 script = ExtResource("20_u0pwc")
 hand_socket = NodePath("../Head/Camera3D/HandSocket")
 cam_node = NodePath("../Head/Camera3D")
+hotbar_ui = NodePath("../PlayerUI/HotbarUI")
+syncer = NodePath("Sync")
 
 [node name="Inventory" type="Node3D" parent="Hotbar"]
 script = ExtResource("20_cicko")
+
+[node name="Sync" type="MultiplayerSynchronizer" parent="Hotbar"]
+replication_interval = 0.05
+replication_config = SubResource("SceneReplicationConfig_u0pwc")
+
+[node name="Debug" type="Node3D" parent="."]
+
+[node name="Line" type="Node3D" parent="Debug"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="1" type="Node3D" parent="Debug/Line"]
+
+[node name="2" type="Node3D" parent="Debug/Line"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 
 [editable path="character_template"]

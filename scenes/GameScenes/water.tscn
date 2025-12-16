@@ -1,9 +1,9 @@
 [gd_scene load_steps=30 format=3 uid="uid://darmbns6e3i5y"]
 
-[ext_resource type="Script" uid="uid://dkv0us20elj6n" path="res://scripts/Interactables/interaction_manager.gd" id="1_p1n2c"]
 [ext_resource type="Script" uid="uid://dka26dmanv8gs" path="res://scripts/Multiplayer/player_spawn.gd" id="2_ewrsg"]
-[ext_resource type="Script" uid="uid://c3au8rynemisc" path="res://scripts/UI/command_manager.gd" id="2_mmdeg"]
 [ext_resource type="PackedScene" uid="uid://2qsjh5aaptj8" path="res://scenes/character.tscn" id="3_fiwy5"]
+[ext_resource type="Script" uid="uid://ddupyq52e21ni" path="res://itemdata/item_manager.gd" id="3_kvno4"]
+[ext_resource type="PackedScene" uid="uid://bm575803a7q36" path="res://itemdata/Scenes/scrap.tscn" id="4_0i0hf"]
 [ext_resource type="Script" uid="uid://dmte3hguiou54" path="res://scripts/Buoyancy/buoyancy.gd" id="4_ewrsg"]
 [ext_resource type="Script" uid="uid://dem0vtwq38ow" path="res://scripts/Buoyancy/WaterArea.gd" id="4_fiwy5"]
 [ext_resource type="PackedScene" uid="uid://ca0wevg1lb4rx" path="res://utils/WaterMaker3D/WaterMaker3D.tscn" id="4_xgdjl"]
@@ -12,25 +12,24 @@
 [ext_resource type="PackedScene" uid="uid://lqhocvedvumn" path="res://scenes/sub_door.tscn" id="9_4bf1b"]
 [ext_resource type="PackedScene" uid="uid://d4lk7am3spwim" path="res://models/SubWallNoWin.tscn" id="10_feeo5"]
 [ext_resource type="PackedScene" uid="uid://df4rjy4oowurb" path="res://models/SubHull-2x7.gltf" id="11_uvc0e"]
-[ext_resource type="PackedScene" uid="uid://b5oba7am038t" path="res://scenes/pc.tscn" id="11_ywl3n"]
 [ext_resource type="PackedScene" uid="uid://rebsyvumbhqo" path="res://models/Couch.gltf" id="12_dtvsg"]
 [ext_resource type="PackedScene" uid="uid://bqq385tvyedol" path="res://models/imported/Airlock.gltf" id="13_feeo5"]
 [ext_resource type="PackedScene" uid="uid://c32xog2601wb0" path="res://models/UJunct.tscn" id="13_mmdeg"]
 [ext_resource type="Script" uid="uid://dwqb2ahgiqiw" path="res://scripts/test_water.gd" id="16_dtvsg"]
-[ext_resource type="Material" uid="uid://c7nk72rpshiyg" path="res://scenes/GameScenes/watermat.tres" id="18_0i0hf"]
-[ext_resource type="PackedScene" uid="uid://ha5l15utdbhx" path="res://scripts/Interactables/types/cockpit.tscn" id="19_0i0hf"]
+[ext_resource type="PackedScene" uid="uid://ha5l15utdbhx" path="res://scenes/ObjectScenes/cockpit.tscn" id="16_kvno4"]
+[ext_resource type="Material" uid="uid://c7nk72rpshiyg" path="res://materials/watermat.tres" id="18_0i0hf"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xgdjl"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
 ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
 
-[sub_resource type="Sky" id="Sky_p5pve"]
+[sub_resource type="Sky" id="Sky_0i0hf"]
 sky_material = SubResource("ProceduralSkyMaterial_xgdjl")
 
 [sub_resource type="Environment" id="Environment_5exq1"]
 background_mode = 2
 background_color = Color(0.093007915, 0.330487, 0.99999994, 1)
-sky = SubResource("Sky_p5pve")
+sky = SubResource("Sky_0i0hf")
 tonemap_mode = 2
 glow_enabled = true
 volumetric_fog_enabled = true
@@ -73,6 +72,26 @@ size = Vector3(73, 97, 74)
 [sub_resource type="BoxShape3D" id="BoxShape3D_feeo5"]
 size = Vector3(12, 4, 7)
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_wu4n6"]
+properties/0/path = NodePath("RigidBody3D:position")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath("RigidBody3D:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath("RigidBody3D:linear_velocity")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath("RigidBody3D:angular_velocity")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath(".:current_turn")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+properties/5/path = NodePath(".:current_throttle")
+properties/5/spawn = true
+properties/5/replication_mode = 2
+
 [sub_resource type="CylinderMesh" id="CylinderMesh_uvc0e"]
 
 [node name="Map" type="Node3D"]
@@ -84,19 +103,16 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_5exq1")
 
-[node name="Managers" type="Node" parent="."]
-
-[node name="InteractionManager" type="Node3D" parent="Managers"]
-script = ExtResource("1_p1n2c")
-
-[node name="CommandManager" type="Node" parent="Managers"]
-script = ExtResource("2_mmdeg")
-
 [node name="PlayerSpawn" type="MultiplayerSpawner" parent="." node_paths=PackedStringArray("spawn_points")]
-spawn_path = NodePath("../Players")
+spawn_path = NodePath("../Test Sub/RigidBody3D/Players")
 script = ExtResource("2_ewrsg")
 player_scene = ExtResource("3_fiwy5")
 spawn_points = [NodePath("../spawn 1"), NodePath("../spawn 2"), NodePath("../spawn 3"), NodePath("../spawn 4")]
+
+[node name="ItemManager" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://6ux3q47tkxy8")
+spawn_path = NodePath("../Test Sub/RigidBody3D/Items")
+script = ExtResource("3_kvno4")
 
 [node name="spawn 1" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 6.1, 1)
@@ -110,8 +126,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.1, -1)
 [node name="spawn 4" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.1, 1)
 
-[node name="Players" type="Node3D" parent="."]
-
 [node name="WaterMaker3D" parent="." groups=["WaterMakers"] instance=ExtResource("4_xgdjl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, -97, -1)
 size = Vector3(139, 196, 138)
@@ -124,6 +138,14 @@ fog_fade_dist = 5.5
 
 [node name="Area3D" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -97, 0)
+gravity_space_override = 1
+gravity_point_center = Vector3(0, 0, 0)
+gravity_direction = Vector3(0, 0, 0)
+gravity = 0.01
+linear_damp_space_override = 1
+linear_damp = 5.0
+angular_damp_space_override = 1
+angular_damp = 5.0
 reverb_bus_name = &"mic"
 script = ExtResource("4_fiwy5")
 
@@ -145,7 +167,7 @@ script = ExtResource("8_4pb3l")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0)
 collision_layer = 8
 collision_mask = 8
-freeze = true
+mass = 1.5
 script = ExtResource("4_ewrsg")
 buoyancy_strength = 2.5
 
@@ -160,9 +182,6 @@ debug_color = Color(0.6039216, 0.003921569, 0.8156863, 1)
 transform = Transform3D(-1, 0, -8.742277e-08, 0, 1, 0, 8.742277e-08, 0, -1, 3.4330273, 0.31561852, 0.12109375)
 script = ExtResource("7_5exq1")
 max_volume = 40.0
-
-[node name="pc(screen)" parent="Test Sub/RigidBody3D/Compartments/UJunct" instance=ExtResource("11_ywl3n")]
-transform = Transform3D(1.5, 0, -2.6226832e-07, 0, 1.5, 0, 2.6226832e-07, 0, 1.5, 0.43302763, 0.8149276, -2.578906)
 
 [node name="SubWallNoWin" parent="Test Sub/RigidBody3D/Compartments" instance=ExtResource("10_feeo5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2950745, 1.3225269, 1.6230202)
@@ -181,39 +200,48 @@ transform = Transform3D(-1, 0, -8.742277e-08, 0, 1, 0, 8.742277e-08, 0, -1, 0.70
 max_volume = 20.0
 
 [node name="SubDoor" parent="Test Sub/RigidBody3D" instance=ExtResource("9_4bf1b")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1838531, 1.2784176, 0.8298607)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1838531, 1.2784176, 1.6298609)
 
 [node name="default9" parent="Test Sub/RigidBody3D" instance=ExtResource("11_uvc0e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.699356, 1.0788622, 1.6098099)
-
-[node name="OmniLight3D" type="OmniLight3D" parent="Test Sub/RigidBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.9, 1.5, -1.6000004)
-visible = false
-light_energy = 16.0
-light_size = 6.255
-shadow_enabled = true
-shadow_bias = 3.87
-distance_fade_begin = 397.9
 
 [node name="default10" parent="Test Sub/RigidBody3D" instance=ExtResource("12_dtvsg")]
 transform = Transform3D(-0.69500977, 0, -0.7190003, 0, 1, 0, 0.7190003, 0, -0.69500977, 4.1924896, 0.5, -1.6274605)
 
 [node name="Airlock" type="Node3D" parent="Test Sub/RigidBody3D" groups=["Compartments"]]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -4.5, 1.3305464, -1.4000006)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -4.5, 1.3, -1.4)
 script = ExtResource("7_5exq1")
 max_volume = 20.0
 
 [node name="default" parent="Test Sub/RigidBody3D/Airlock" instance=ExtResource("13_feeo5")]
 
 [node name="SubDoor2" parent="Test Sub/RigidBody3D/Airlock" instance=ExtResource("9_4bf1b")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1.6840005, 0, 0.8000002)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1.7840009, 0.1, 0)
 
 [node name="SubDoor4" parent="Test Sub/RigidBody3D/Airlock" instance=ExtResource("9_4bf1b")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -1.816, 0, 0.8000002)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -1.7, 0.05, -0.05)
 
-[node name="Cockpit" parent="Test Sub/RigidBody3D" node_paths=PackedStringArray("submarine") instance=ExtResource("19_0i0hf")]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 3.6999998, 0.33054614, 0.39999962)
-submarine = NodePath("../..")
+[node name="Cockpit" parent="Test Sub/RigidBody3D" instance=ExtResource("16_kvno4")]
+transform = Transform3D(-1, 0, -2.3343837e-08, 0, 1, 0, 2.3343837e-08, 0, -1, 3.4, 0.33054638, 0.19999981)
+
+[node name="Players" type="Node3D" parent="Test Sub/RigidBody3D"]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 3.0000005, -4.969454, -12)
+
+[node name="Items" type="Node" parent="Test Sub/RigidBody3D"]
+
+[node name="ScrapItem" parent="Test Sub/RigidBody3D/Items" instance=ExtResource("4_0i0hf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.1, 5.7999997, 2.7)
+mass = 0.5
+
+[node name="ScrapItem2" parent="Test Sub/RigidBody3D/Items" instance=ExtResource("4_0i0hf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.900001, 6.1, 0)
+
+[node name="ScrapItem3" parent="Test Sub/RigidBody3D/Items" instance=ExtResource("4_0i0hf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.900001, 6.1, 1)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Test Sub"]
+replication_interval = 0.01
+replication_config = SubResource("SceneReplicationConfig_wu4n6")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1.5000004, 2.598077, 0, -2.598077, 1.5000004, 0, 0, 0, 2.9999995, 23, 5, 0)
